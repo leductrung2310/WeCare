@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/screen/onboarding_screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,20 +19,20 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins",
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: const SplashScreen(),
     );
   }
 }
 
 class Home extends StatelessWidget {
-  const Home({ Key? key }) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("hello word"), 
-        backgroundColor: accentColor,)
-    );
+        appBar: AppBar(
+      title: const Text("hello word"),
+      backgroundColor: accentColor,
+    ));
   }
 }

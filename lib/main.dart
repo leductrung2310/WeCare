@@ -7,12 +7,15 @@ import 'package:wecare_flutter/screen/food/food_screen.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
+import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
+import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
+import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
+import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 
 void main() => runApp(const WeCare());
 
 class WeCare extends StatelessWidget {
   const WeCare({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,4 +48,18 @@ class WeCare extends StatelessWidget {
     return MaterialPageRoute(
         settings: settings, builder: (BuildContext context) => child);
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return ChangeNotifierProvider(
+  //     create: (context) => LoginViewModel(),
+  //     child: MaterialApp(
+  //       theme: ThemeData(
+  //         fontFamily: "Poppins",
+  //         primaryColor: Color(0xFF91c788),
+  //       ),
+  //       debugShowCheckedModeBanner: false,
+  //       home: RegisterUpdateInfoScreen(),
+  //     ),
+  //   );
+  // }
 }

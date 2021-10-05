@@ -14,31 +14,31 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     theme: ThemeData(
-  //       fontFamily: "Poppins",
-  //       primarySwatch: Colors.blue,
-  //     ),
-  //     home: const LoginScreen(),
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
-      child: MaterialApp(
-        theme: ThemeData(
-          fontFamily: "Poppins",
-          primaryColor: Color(0xFF91c788),
-        ),
-        debugShowCheckedModeBanner: false,
-        home: RegisterUpdateInfoScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: "Poppins",
+        primarySwatch: Colors.blue,
       ),
+      home: const LoginScreen(),
     );
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return ChangeNotifierProvider(
+  //     create: (context) => LoginViewModel(),
+  //     child: MaterialApp(
+  //       theme: ThemeData(
+  //         fontFamily: "Poppins",
+  //         primaryColor: Color(0xFF91c788),
+  //       ),
+  //       debugShowCheckedModeBanner: false,
+  //       home: RegisterUpdateInfoScreen(),
+  //     ),
+  //   );
+  // }
 }
 
 class Home extends StatelessWidget {

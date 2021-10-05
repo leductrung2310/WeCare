@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/fitness/fitness_screen.dart';
 import 'package:wecare_flutter/screen/food/food_screen.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
-import 'package:wecare_flutter/screen/main_screen.dart';
+import 'package:wecare_flutter/screen/onboarding_screen/splash_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
-import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
-import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
-import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
-import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 
 void main() => runApp(const WeCare());
 
@@ -25,7 +20,7 @@ class WeCare extends StatelessWidget {
     );
   }
 
-  String getInitalRoute() => Routes.main;
+  String getInitalRoute() => Routes.splash;
 
   Route getRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,9 +32,11 @@ class WeCare extends StatelessWidget {
         return buildRoute(const FoodScreen(), settings: settings);
       case Routes.profile:
         return buildRoute(const ProfileScreen(), settings: settings);
+      case Routes.splash:
+        return buildRoute(const SplashScreen(), settings: settings);
 
       default:
-        return buildRoute(const MainScreen(), settings: settings);
+        return buildRoute(const SplashScreen(), settings: settings);
     }
   }
 

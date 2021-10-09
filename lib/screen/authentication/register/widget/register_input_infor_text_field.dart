@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:wecare_flutter/constants.dart';
 
 class RegisterInputInfoTextField extends StatelessWidget {
@@ -21,24 +20,22 @@ class RegisterInputInfoTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
+      padding: EdgeInsets.symmetric(
+        vertical: sizeV * 1.22,
+        horizontal: sizeH * 5,
       ),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: hintText,
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide.none,
-          ),
+          enabledBorder: inputBorderStyle,
           filled: true,
           fillColor: grey1,
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(color: primaryColor, width: 3),
-          ),
+          focusedBorder: inputFocusedBorderStyle,
           prefixIcon: Icon(
             prefixIconData,
             color: primaryColor,

@@ -6,4 +6,7 @@ class Routes {
   static const profile = '/profile_screen';
   static const splash = '/splash_screen';
   static const onboarding = '/onboarding_screen';
+  static const login = '/login';
+  static const register = '/register';
+  static const registerUpdateInfo = '/registerUpdateInfo';
 }

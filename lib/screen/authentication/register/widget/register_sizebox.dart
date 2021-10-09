@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecare_flutter/constants.dart';
 
 class RegisterSizebox extends StatelessWidget {
   const RegisterSizebox({
@@ -10,16 +11,20 @@ class RegisterSizebox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: sizeH * 3.65,
         ),
         Center(
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 25,
+            style: TextStyle(
+              fontSize: sizeH * 6.1,
               fontWeight: FontWeight.w500,
             ),
           ),

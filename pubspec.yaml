@@ -71,8 +71,8 @@ flutter:
     - assets/images/onboarding/
     # - assets/icons/
     - assets/images/
-    - assets/images/authentication/gender_mr.png
-    - assets/images/authentication/gender_ms.png
+    - assets/images/authentication/
+    - assets/images/authentication/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 class RegisterInputPasswordTextField extends StatelessWidget {
   const RegisterInputPasswordTextField({
@@ -9,6 +11,10 @@ class RegisterInputPasswordTextField extends StatelessWidget {
     required this.suffixIconData,
     required this.obscureText,
     required this.onChanged,
+    required this.textController,
+    required this.validator,
+    required this.onFieldSubmitted,
+    required this.focusNode,
   }) : super(key: key);
 
   final String hintText;
@@ -16,31 +22,41 @@ class RegisterInputPasswordTextField extends StatelessWidget {
   final IconData suffixIconData;
   final bool obscureText;
   final Function(String value) onChanged;
+  final TextEditingController textController;
+  final String? Function(String? value) validator;
+  final Function(String? value) onFieldSubmitted;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
+    final registerViewModel = Provider.of<RegisterViewModel>(context);
+
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
+      padding: EdgeInsets.symmetric(
+        vertical: sizeV * 1.22,
+        horizontal: sizeH * 5,
       ),
       child: TextFormField(
-        autofocus: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onFieldSubmitted: (value) => onFieldSubmitted(value),
+        focusNode: focusNode,
+        validator: (value) => validator(value),
+        controller: textController,
         onChanged: (value) => onChanged(value),
         obscureText: obscureText,
         decoration: InputDecoration(
           hintStyle: const TextStyle(color: accentColor),
           hintText: hintText,
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide.none,
-          ),
+          enabledBorder: inputBorderStyle,
           filled: true,
           fillColor: grey1,
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(color: primaryColor, width: 3),
-          ),
+          focusedBorder: inputFocusedBorderStyle,
+          focusedErrorBorder: inputFocusedBorderStyle,
+          errorBorder: inputErrorBorderStyle,
           prefixIcon: Icon(
             prefixIconData,
             color: primaryColor,
@@ -48,7 +64,11 @@ class RegisterInputPasswordTextField extends StatelessWidget {
           suffixIcon: GestureDetector(
             onTap: () {
               if (hintText == "Password") {
-              } else {}
+                registerViewModel.isVisible = !registerViewModel.isVisible;
+              } else {
+                registerViewModel.isConfirmVisible =
+                    !registerViewModel.isConfirmVisible;
+              }
             },
             child: Icon(
               suffixIconData,

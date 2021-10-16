@@ -9,4 +9,5 @@ class Routes {
   static const login = '/login';
   static const register = '/register';
   static const registerUpdateInfo = '/registerUpdateInfo';
+  static const settingScreen = '/settingScreen';
 }

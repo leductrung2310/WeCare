@@ -11,6 +11,7 @@ import 'package:wecare_flutter/screen/food/food_screen.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/splash_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
+import 'package:wecare_flutter/screen/profile/setting_screen.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 void main() => runApp(const WeCare());
@@ -42,7 +43,7 @@ class WeCare extends StatelessWidget {
     );
   }
 
-  String getInitalRoute() => Routes.registerUpdateInfo;
+  String getInitalRoute() => Routes.main;
 
   Route getRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -62,6 +63,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const RegisterScreen(), settings: settings);
       case Routes.registerUpdateInfo:
         return buildRoute(const RegisterUpdateInfoScreen(), settings: settings);
+      case Routes.settingScreen:
+        return buildRoute(const SettingScreen(), settings: settings);
 
       default:
         return buildRoute(const SplashScreen(), settings: settings);

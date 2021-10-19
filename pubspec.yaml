@@ -48,6 +48,8 @@ flutter_native_splash:
   android_gravity: center
   full_screen: true
   
+  svg_icon: ^0.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,6 +82,9 @@ flutter:
     - assets/images/onboarding/
     - assets/images/authentication/
     - assets/images/bmi/
+    - assets/images/exercises/banner/
+    - assets/images/exercises/intro/
+    - assets/images/exercises/gif_exercises/
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/gender_mr.png

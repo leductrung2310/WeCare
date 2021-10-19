@@ -5,7 +5,11 @@ const accentColor = Color.fromRGBO(0, 0, 0, .7);
 const whiteColor = Colors.white;
 const grey1 = Color(0xFFf3f3f3);
 const greenLight = Color(0xFF91c777);
+const bmiColor = Color(0xFFF6AE64);
+const waterColor = Color(0xFF4499E7);
+Color lightWaterColor = const Color(0xFF4499E7).withOpacity(0.2);
 Color metalGreyColor = Colors.grey.withOpacity(0.5);
+Color lightBlack = Colors.black.withOpacity(0.65);
 
 class SizeConfig {
   static MediaQueryData? _mediaQueryData;

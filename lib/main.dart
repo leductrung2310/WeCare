@@ -32,7 +32,6 @@ import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/home/water/water_screen.dart';
 
 import 'package:wecare_flutter/screen/onboarding_screen/onboarding_screen.dart';
-import 'package:wecare_flutter/screen/onboarding_screen/splash_screen.dart';
 
 import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
@@ -45,7 +44,7 @@ void main() async {
   //* Use this to make the status bar visible
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      //* Set background color for the status bar 
+      //* Set background color for the status bar
       // statusBarColor: Colors.transparent,
       //* Set the color brightness for icons of status bar
       statusBarIconBrightness: Brightness.light,
@@ -122,7 +121,7 @@ class WeCare extends StatelessWidget {
       case Routes.introworkout:
         ExerciseArguments args = settings.arguments as ExerciseArguments;
         return buildRoute(IntroWorkouts(arguments: args), settings: settings);
-        
+
       default:
         return buildRoute(const MainScreen(), settings: settings);
     }

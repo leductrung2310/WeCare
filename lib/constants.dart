@@ -87,7 +87,8 @@ final profileText = TextStyle(
   fontFamily: 'Poppins',
   fontSize: SizeConfig.blockSizeH! * 4.5,
   fontWeight: FontWeight.w500,
-  
+);
+
 // TextStyle white
 final oWhiteTitle = TextStyle(
   fontFamily: 'Poppins',

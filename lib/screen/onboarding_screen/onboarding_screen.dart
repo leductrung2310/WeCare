@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/main.dart';
 import "package:wecare_flutter/model/onboard_data.dart";
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
+import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_button.dart';
+import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_textbutton.dart';
 
-import 'custom_button.dart';
-import 'nav_button.dart';
-import 'nav_textbutton.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -38,6 +41,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       widgets.add(dotIndicator(index));
     }
     return widgets;
+  }
+
+  Future setSeenOnboard() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //? Set seenOnboard value to true when running onboard page for first time
+    seenOnboard = await prefs.setBool('seenOnboard', true);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setSeenOnboard();
   }
 
   @override
@@ -94,8 +109,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             Expanded(
               flex: 1,
               child: currentPage == onboardingContents.length - 1
-                  ? CustomBtn(
-                      name: 'Let\'s go',
+                  ? CustomTextBtn(
+                      name: 'Get started',
                       onPressed: () {
                         //Navigator.pushNamed(context, '/signup_screen');
                         Navigator.push(
@@ -105,6 +120,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                         );
                       },
+                      color: primaryColor,
+                      textColor: whiteColor,
                     )
                   : Column(
                       children: [

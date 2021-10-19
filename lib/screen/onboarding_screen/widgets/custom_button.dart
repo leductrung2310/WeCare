@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../constants.dart';
+import 'package:wecare_flutter/constants.dart';
 
-class CustomBtn extends StatelessWidget {
-  const CustomBtn({
+class CustomTextBtn extends StatelessWidget {
+  const CustomTextBtn({
     Key? key,
     required this.name,
     required this.onPressed,
+    required this.color,
+    required this.textColor,
   }) : super(key: key);
   final String name;
   final VoidCallback onPressed;
+  final Color color;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class CustomBtn extends StatelessWidget {
             child: Text(
               name,
               style: TextStyle(
-                color: Colors.white,
+                color: textColor,
                 fontFamily: 'Poppins',
                 fontSize: sizeH * 4.5,
                 fontWeight: FontWeight.w500,
@@ -41,7 +45,7 @@ class CustomBtn extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+              backgroundColor: MaterialStateProperty.all<Color>(color),
             ),
           ),
         ),

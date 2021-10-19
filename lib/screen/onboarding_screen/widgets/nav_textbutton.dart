@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wecare_flutter/constants.dart';
 
-import '../../constants.dart';
 
 class OnboardingNavTextBtn extends StatelessWidget {
   const OnboardingNavTextBtn(

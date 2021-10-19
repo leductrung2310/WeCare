@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   var nameController = TextEditingController();
@@ -37,25 +37,25 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   int _gender = 0;
-  get Gender => _gender;
+  get gender => _gender;
 
-  set Gender(value) {
+  set gender(value) {
     _gender = value;
     notifyListeners();
   }
 
   String? passwordValidator(text) {
     if (text.toString().length < 6 || text == "") {
-      return 'Password không hợp lệ';
+      return 'Invalid Password';
     }
     return null;
   }
 
   String? passwordRepeatValidator(text) {
-    if (text == "") return 'Password không hợp lệ';
+    if (text == "") return 'Invalid Password';
     if (passwordController.text.trim() !=
         confirmPasswordController.text.trim()) {
-      return 'Password không trùng khớp';
+      return 'Password does not Match';
     }
     return null;
   }
@@ -63,12 +63,12 @@ class RegisterViewModel extends ChangeNotifier {
   String? emailValidator(text) {
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(text) ||
-        text == "") return 'Email không hợp lệ';
+        text == "") return 'Invalid Email';
     return null;
   }
 
   String? nameValidator(text) {
-    if (text == "") return 'Tên không hợp lệ';
+    if (text == "") return 'Invalid Email';
     return null;
   }
 

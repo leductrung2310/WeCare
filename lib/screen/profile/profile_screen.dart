@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 
@@ -47,14 +48,14 @@ class ProfileScreen extends StatelessWidget {
                               child: Icon(
                                 Icons.camera_alt,
                                 size: sizeV * 2.8,
-                                color: Color(0xFF404040),
+                                color: const Color(0xFF404040),
                               ),
                             ),
                           ),
                         ),
                         radius: sizeV * 100 / 5,
-                        backgroundImage:
-                            AssetImage('assets/images/profile/avatar.png'),
+                        backgroundImage: const AssetImage(
+                            'assets/images/profile/avatar.png'),
                       ),
                     )),
               ]),
@@ -85,42 +86,49 @@ class ProfileScreen extends StatelessWidget {
               ProfileCard(
                 text: "My profile",
                 prefixIconData: Icons.account_circle_rounded,
-                color: Color(0xFFE4F3EA),
-                iconColor: Color(0xFF66B983),
+                color: const Color(0xFFE4F3EA),
+                iconColor: const Color(0xFF66B983),
+                onTap: () {},
               ),
               ProfileCard(
                 text: "Setting",
                 prefixIconData: Icons.settings,
-                color: Color(0xFFDDF5F4),
-                iconColor: Color(0xFF03B0A9),
+                color: const Color(0xFFDDF5F4),
+                iconColor: const Color(0xFF03B0A9),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.settingScreen);
+                },
               ),
               ProfileCard(
                 text: "Change Password",
                 prefixIconData: Icons.lock,
-                color: Color(0xFFFFF6E4),
-                iconColor: Color(0xFFFEBF43),
+                color: const Color(0xFFFFF6E4),
+                iconColor: const Color(0xFFFEBF43),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.changePasswordScreen);
+                },
               ),
               ProfileCard(
                 text: "Help Center",
                 prefixIconData: Icons.help,
-                color: Color(0xFFDBD2F6),
-                iconColor: Color(0xFF9B81E5),
+                color: const Color(0xFFDBD2F6),
+                iconColor: const Color(0xFF9B81E5),
+                onTap: () {},
               ),
               ProfileCardLogout(
                 text: "Log out",
                 prefixIconData: Icons.arrow_forward_ios,
-                color: Color(0xFFFFECE8),
-                iconColor: Color(0xFFFE7E60),
+                color: const Color(0xFFFFECE8),
+                iconColor: const Color(0xFFFE7E60),
+                onTap: () {},
               ),
               SizedBox(
                 height: sizeH * 3.5,
               ),
-              Container(
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/logos/logo.png',
-                    scale: sizeH / 2.5,
-                  ),
+              Center(
+                child: Image.asset(
+                  'assets/images/logos/logo.png',
+                  scale: sizeH / 2.5,
                 ),
               )
             ],

@@ -140,9 +140,7 @@ class RegisterScreen extends StatelessWidget {
                         RegisterButton(
                           text: "Sign up",
                           onTap: () {
-                            if (registerViewModel.onNextClick()) {
-                              print("1");
-                            }
+                            if (registerViewModel.onNextClick()) {}
                           },
                         ),
                         SizedBox(

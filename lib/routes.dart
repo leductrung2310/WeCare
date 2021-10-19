@@ -10,4 +10,5 @@ class Routes {
   static const register = '/register';
   static const registerUpdateInfo = '/registerUpdateInfo';
   static const settingScreen = '/settingScreen';
+  static const changePasswordScreen = '/changePasswordScreen';
 }

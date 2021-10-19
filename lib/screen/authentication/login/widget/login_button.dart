@@ -20,9 +20,7 @@ class LoginButton extends StatelessWidget {
 
     final loginViewModel = Provider.of<LoginViewModel>(context);
     return InkWell(
-      onTap: () {
-        onTap;
-      },
+      onTap: () => onTap(),
       child: Container(
         width: sizeH * 65,
         height: sizeV * 7.3,

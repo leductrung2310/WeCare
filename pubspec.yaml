@@ -38,7 +38,8 @@ dependencies:
   provider: ^6.0.1
   font_awesome_flutter: ^9.1.0
   pattern_formatter: ^2.0.0
-  
+  material_floating_search_bar: ^0.3.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

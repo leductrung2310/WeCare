@@ -76,3 +76,11 @@ final authTextStyle1 = TextStyle(
   fontSize: SizeConfig.blockSizeH! * 4.3,
   fontWeight: FontWeight.bold,
 );
+
+//profile
+
+final profileText = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontWeight: FontWeight.w500,
+);

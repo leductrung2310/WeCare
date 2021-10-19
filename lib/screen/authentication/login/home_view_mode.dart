@@ -34,7 +34,7 @@ class LoginViewModel extends ChangeNotifier {
   String? emailValidator(text) {
     if (!RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(text)) return 'Email không hợp lệ';
+        .hasMatch(text)) return 'Invalid Email';
     return null;
   }
 }

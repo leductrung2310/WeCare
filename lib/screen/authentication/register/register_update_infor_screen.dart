@@ -14,7 +14,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
-    double sizeV = SizeConfig.blockSizeV!;
+    //double sizeV = SizeConfig.blockSizeV!;
 
     return SafeArea(
       child: Scaffold(
@@ -78,7 +78,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                       // ),
                       CustomRadio(
                         color:
-                            Provider.of<RegisterViewModel>(context).Gender == 1
+                            Provider.of<RegisterViewModel>(context).gender == 1
                                 ? primaryColor
                                 : Colors.white,
                         widget: Image.asset(
@@ -90,7 +90,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                       ),
                       CustomRadio(
                         color:
-                            Provider.of<RegisterViewModel>(context).Gender == 2
+                            Provider.of<RegisterViewModel>(context).gender == 2
                                 ? primaryColor
                                 : Colors.white,
                         widget: Image.asset(
@@ -144,14 +144,14 @@ class CustomRadio extends StatelessWidget {
       child: IconButton(
         splashRadius: 45,
         onPressed: () {
-          if (check && registerViewModel.Gender == 1 ||
-              !check && registerViewModel.Gender == 2) {
-            registerViewModel.Gender = 0;
+          if (check && registerViewModel.gender == 1 ||
+              !check && registerViewModel.gender == 2) {
+            registerViewModel.gender = 0;
           } else {
             if (check) {
-              registerViewModel.Gender = 1;
+              registerViewModel.gender = 1;
             } else {
-              registerViewModel.Gender = 2;
+              registerViewModel.gender = 2;
             }
           }
         },

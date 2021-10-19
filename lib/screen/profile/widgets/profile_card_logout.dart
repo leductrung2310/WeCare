@@ -8,11 +8,13 @@ class ProfileCardLogout extends StatelessWidget {
     required this.text,
     required this.color,
     required this.iconColor,
+    required this.onTap,
   }) : super(key: key);
   final String text;
   final IconData prefixIconData;
   final Color color;
   final Color iconColor;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,7 @@ class ProfileCardLogout extends StatelessWidget {
           color: Colors.white,
         ),
         child: InkWell(
-          onTap: () {
-            print("object");
-          },
+          onTap: () => onTap(),
           child: Row(
             children: [
               Padding(
@@ -58,16 +58,10 @@ class ProfileCardLogout extends StatelessWidget {
               SizedBox(
                 width: sizeH * 4,
               ),
-              Container(
-                child: Center(
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: sizeH * 4.5,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+              Center(
+                child: Text(
+                  text,
+                  style: profileText,
                 ),
               ),
             ],

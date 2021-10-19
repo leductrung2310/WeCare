@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_button.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_input_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
-import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -112,12 +112,13 @@ class LoginScreen extends StatelessWidget {
                         LoginButton(
                           text: "Login ",
                           onTap: () {
-                            print("$sizeH + $sizeV");
                             Provider.of<LoginViewModel>(context, listen: false)
                                 .circular = !Provider.of<LoginViewModel>(
                                     context,
                                     listen: false)
                                 .circular;
+
+                            Navigator.pushNamed(context, Routes.main);
                           },
                         ),
                         SizedBox(
@@ -161,9 +162,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (builder) =>
-                                        const RegisterScreen()));
+                                Navigator.pushNamed(context, Routes.register);
                               },
                               child: Text(
                                 "SignUp",

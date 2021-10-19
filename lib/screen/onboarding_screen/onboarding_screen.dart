@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
 import "package:wecare_flutter/model/onboard_data.dart";
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
-import 'package:wecare_flutter/screen/main_screen.dart';
-import 'package:wecare_flutter/screen/profile/setting_screen.dart';
 
 import 'custom_button.dart';
 import 'nav_button.dart';
@@ -103,7 +101,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SettingScreen(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       },

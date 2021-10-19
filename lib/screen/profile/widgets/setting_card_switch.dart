@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
 
-class SettingCard extends StatelessWidget {
-  const SettingCard({
+class SettingSwitchCard extends StatelessWidget {
+  const SettingSwitchCard({
     Key? key,
     required this.prefixIconData,
     required this.preText,
     required this.sufText,
     required this.color,
     required this.iconColor,
+    required this.onChanged,
+    required this.value,
   }) : super(key: key);
   final String preText;
   final String sufText;
   final IconData prefixIconData;
   final Color color;
   final Color iconColor;
+  final Function(bool value) onChanged;
+  final bool value;
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +86,12 @@ class SettingCard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(sizeH * 2.75),
-                    color: const Color(0xFFD3D3D3),
                   ),
                   width: sizeV * 7.5 - 20,
                   height: sizeV * 7.5 - 18,
                   child: Center(
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: sizeH * 5.5,
-                      color: Colors.black,
-                    ),
+                    child: Switch(
+                        value: value, onChanged: (value) => onChanged(value)),
                   ),
                 ),
               ),

@@ -6,4 +6,5 @@ class Routes {
   static const profile = '/profile_screen';
   static const splash = '/splash_screen';
   static const onboarding = '/onboarding_screen';
+  static const introworkout = '/introduce_screen';
 }

@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.0.1
   font_awesome_flutter: ^9.1.0
   pattern_formatter: ^2.0.0
+  svg_icon: ^0.0.1
   
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,9 @@ flutter:
     - assets/icons/
     - assets/images/logos/
     - assets/images/onboarding/
+    - assets/images/exercises/banner/
+    - assets/images/exercises/intro/
+    - assets/images/exercises/gif_exercises/
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/gender_mr.png

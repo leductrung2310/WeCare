@@ -26,14 +26,51 @@ class SizeConfig {
 //Todo: Initialize text style for onboarding screen
 final oTitle = TextStyle(
   fontFamily: 'Poppins',
-  fontSize: SizeConfig.blockSizeH! *7,
+  fontSize: SizeConfig.blockSizeH! * 7,
   color: Colors.black.withOpacity(0.85),
   fontWeight: FontWeight.w600,
 );
 
 final oSubtitle = TextStyle(
   fontFamily: 'Poppins',
-  fontSize: SizeConfig.blockSizeH! *4,
+  fontSize: SizeConfig.blockSizeH! * 4,
   color: Colors.black.withOpacity(0.45),
   fontWeight: FontWeight.w400,
+);
+
+// TextStyle white
+final oWhiteTitle = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 7,
+  color: whiteColor,
+  fontWeight: FontWeight.w600,
+);
+
+final oWhiteText = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4,
+  color: whiteColor,
+  fontWeight: FontWeight.w500,
+);
+
+final oBlackTitle = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 5.5,
+  color: accentColor,
+  fontWeight: FontWeight.w600,
+  decoration: TextDecoration.none,
+);
+
+final oPrimaryText = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4,
+  color: primaryColor,
+  fontWeight: FontWeight.w400,
+);
+
+final oBlackSub = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 3,
+  color: accentColor,
+  fontWeight: FontWeight.w600,
 );

@@ -3,53 +3,60 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_button.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_input_text_field.dart';
+import 'package:wecare_flutter/screen/authentication/login/widget/login_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
-import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
+    final passwordFocus = FocusNode();
     final loginViewModel = Provider.of<LoginViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.3,
-                decoration: const BoxDecoration(
+                height: SizeConfig.screenHeight! * 0.28,
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(120),
+                    bottomLeft: Radius.circular(sizeV * 14.62),
                   ),
                   color: primaryColor,
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/logo1.png',
-                    scale: 1.3,
+                    'assets/images/logos/logo1.png',
+                    scale: sizeH / 3.165,
                   ),
                 ),
               ),
               Container(
                 color: primaryColor,
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(120),
+                      topRight: Radius.circular(sizeV * 14.62),
                     ),
-                    color: Color(0xFFffffff),
+                    color: const Color(0xFFffffff),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(sizeH * 5),
                     child: Column(
                       children: <Widget>[
-                        const SizedBox(
-                          height: 40,
+                        SizedBox(
+                          height: sizeV * 4.5,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,8 +71,15 @@ class LoginScreen extends StatelessWidget {
                               onChanged: (value) {
                                 loginViewModel.isValidEmail(value);
                               },
+                              validator: (value) {
+                                return loginViewModel.emailValidator(value);
+                              },
+                              inputType: TextInputType.emailAddress,
+                              onFieldSubmitted: (value) {
+                                passwordFocus.requestFocus();
+                              },
                             ),
-                            LoginInputTextField(
+                            LoginInputPasswordTextField(
                               hintText: "Password",
                               prefixIconData: Icons.lock,
                               suffixIconData: loginViewModel.isVisible
@@ -74,13 +88,17 @@ class LoginScreen extends StatelessWidget {
                               obscureText:
                                   loginViewModel.isVisible ? false : true,
                               onChanged: (value) {},
+                              validator: (value) {},
+                              inputType: TextInputType.visiblePassword,
+                              onFieldSubmitted: (value) {},
+                              focusNode: passwordFocus,
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(
-                                right: 20,
-                                top: 5,
+                                right: sizeH * 5,
+                                top: sizeH * 1.215,
                               ),
-                              child: Text(
+                              child: const Text(
                                 "Forgot password?",
                                 style: TextStyle(
                                   color: accentColor,
@@ -89,8 +107,8 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: sizeV * 2.5,
                         ),
                         LoginButton(
                           text: "Login ",
@@ -100,15 +118,17 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     listen: false)
                                 .circular;
+
+                            Navigator.pushNamed(context, Routes.main);
                           },
                         ),
-                        const SizedBox(
-                          height: 30,
+                        SizedBox(
+                          height: sizeV * 3.3,
                         ),
-                        const Text(
+                        Text(
                           "Or",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: sizeH * 5,
                             color: accentColor,
                           ),
                         ),
@@ -117,46 +137,37 @@ class LoginScreen extends StatelessWidget {
                               .center, //Center Row contents horizontally,
                           crossAxisAlignment: CrossAxisAlignment
                               .center, //Center Row contents vertically,
-                          children: const <Widget>[
+                          children: <Widget>[
                             LoginWithButton(
                               icon: FontAwesomeIcons.facebook,
-                              size: 75,
+                              size: sizeV * 9,
                             ),
                             SizedBox(
-                              width: 60,
+                              width: sizeH * 14.6,
                             ),
                             LoginWithButton(
                               icon: FontAwesomeIcons.google,
-                              size: 75,
+                              size: sizeV * 9,
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: sizeV * 4.7,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "If you don't have an Account? ",
-                              style: TextStyle(
-                                color: accentColor,
-                                fontSize: 18,
-                              ),
+                              style: authTextStyle,
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (builder) =>
-                                        const RegisterScreen()));
+                                Navigator.pushNamed(context, Routes.register);
                               },
-                              child: const Text(
+                              child: Text(
                                 "SignUp",
-                                style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: authTextStyle1,
                               ),
                             ),
                           ],

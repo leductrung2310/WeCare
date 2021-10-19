@@ -14,16 +14,18 @@ class LoginButton extends StatelessWidget {
   final Function onTap;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
     final loginViewModel = Provider.of<LoginViewModel>(context);
     return InkWell(
-      onTap: () {
-        onTap();
-      },
+      onTap: () => onTap(),
       child: Container(
-        width: MediaQuery.of(context).size.width - 175,
-        height: 60,
+        width: sizeH * 65,
+        height: sizeV * 7.3,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(sizeV * 2.5),
           gradient: const LinearGradient(colors: [
             primaryColor,
             greenLight,
@@ -35,9 +37,9 @@ class LoginButton extends StatelessWidget {
               ? const CircularProgressIndicator(color: whiteColor)
               : Text(
                   text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: whiteColor,
-                    fontSize: 20,
+                    fontSize: sizeV * 2.5,
                   ),
                 ),
         ),

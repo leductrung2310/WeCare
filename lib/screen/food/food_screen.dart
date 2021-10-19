@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/screen/food/widgets/food_search.dart';
 
 class FoodScreen extends StatefulWidget {
   const FoodScreen({Key? key}) : super(key: key);
@@ -10,11 +12,47 @@ class FoodScreen extends StatefulWidget {
 class _FoodScreenState extends State<FoodScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-          'Food',
-          style: TextStyle(fontSize: 72),
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: primaryColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: sizeV * 2.5,
+              ),
+              Stack(
+                children: [
+                  Positioned(
+                    top: 90,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(sizeV * 4.5),
+                          topRight: Radius.circular(sizeV * 4.5),
+                        ),
+                        color: grey1,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                        height: sizeV * 100,
+                        width: sizeH * 95,
+                        color: Colors.transparent,
+                        child: SearchBarCustom()),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

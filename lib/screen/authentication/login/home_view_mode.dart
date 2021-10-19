@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  bool _isVisible = true;
+  bool _isVisible = false;
   get isVisible => _isVisible;
 
   set isVisible(value) {
@@ -29,5 +29,12 @@ class LoginViewModel extends ChangeNotifier {
   set circular(value) {
     _circular = value;
     notifyListeners();
+  }
+
+  String? emailValidator(text) {
+    if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(text)) return 'Invalid Email';
+    return null;
   }
 }

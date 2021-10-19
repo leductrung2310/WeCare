@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.0.1
   font_awesome_flutter: ^9.1.0
   pattern_formatter: ^2.0.0
+  material_floating_search_bar: ^0.3.5
   shared_preferences: ^2.0.8
   flutter_native_splash: ^1.2.4
   intl: ^0.17.0
@@ -87,8 +88,9 @@ flutter:
     - assets/images/exercises/gif_exercises/
     # - assets/icons/
     - assets/images/
-    - assets/images/authentication/gender_mr.png
-    - assets/images/authentication/gender_ms.png
+    - assets/images/authentication/
+    - assets/images/authentication/
+    - assets/images/profile/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

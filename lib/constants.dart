@@ -42,6 +42,52 @@ final oSubtitle = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+//Login - Register
+
+final inputBorderStyle = OutlineInputBorder(
+  borderRadius:
+      BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 3.65)),
+  borderSide: BorderSide.none,
+);
+
+final inputFocusedBorderStyle = OutlineInputBorder(
+  borderRadius:
+      BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 3.65)),
+  borderSide:
+      BorderSide(color: primaryColor, width: SizeConfig.blockSizeH! - 1),
+);
+
+final inputFocusedErrorBorderStyle = OutlineInputBorder(
+  borderRadius:
+      BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 3.65)),
+  borderSide:
+      BorderSide(color: Colors.red[400]!, width: SizeConfig.blockSizeH! - 1),
+);
+
+final inputErrorBorderStyle = OutlineInputBorder(
+  borderRadius:
+      BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 3.65)),
+  borderSide: BorderSide.none,
+);
+
+final authTextStyle = TextStyle(
+  color: accentColor,
+  fontSize: SizeConfig.blockSizeH! * 4.3,
+);
+
+final authTextStyle1 = TextStyle(
+  color: primaryColor,
+  fontSize: SizeConfig.blockSizeH! * 4.3,
+  fontWeight: FontWeight.bold,
+);
+
+//profile
+
+final profileText = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontWeight: FontWeight.w500,
+  
 // TextStyle white
 final oWhiteTitle = TextStyle(
   fontFamily: 'Poppins',

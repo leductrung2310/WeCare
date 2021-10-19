@@ -1,26 +1,42 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:wecare_flutter/model/exercise_arguments.dart';
 
+import 'package:wecare_flutter/view_model/change_password_view_model.dart';
+import 'package:wecare_flutter/view_model/register_view_model.dart';
+import 'package:wecare_flutter/view_model/setting_view_model.dart';
+import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+
+import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
+import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
+import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
+import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/authentication/login/forget_password_screen.dart';
 import 'package:wecare_flutter/screen/authentication/login/verify_email_screen.dart';
+
 import 'package:wecare_flutter/screen/fitness/fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/week_goal.dart';
 import 'package:wecare_flutter/screen/fitness/widget/workout_choices.dart';
+
 import 'package:wecare_flutter/screen/food/food_screen.dart';
+
 import 'package:wecare_flutter/screen/home/bmi/bmi_screen.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/home/water/water_screen.dart';
-import 'package:wecare_flutter/screen/main_screen.dart';
+
 import 'package:wecare_flutter/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/splash_screen.dart';
+
+import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/screen/profile/setting_screen.dart';
 
 bool? seenOnboard;
 
@@ -45,10 +61,26 @@ void main() async {
 
 class WeCare extends StatelessWidget {
   const WeCare({Key? key}) : super(key: key);
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     initialRoute: getInitalRoute(),
+  //     onGenerateRoute: (route) => getRoute(route),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<LoginViewModel>(
+            create: (context) => LoginViewModel()),
+        ChangeNotifierProvider<RegisterViewModel>(
+            create: (context) => RegisterViewModel()),
+        ChangeNotifierProvider<SettingViewModel>(
+            create: (context) => SettingViewModel()),
+        ChangeNotifierProvider<ChangePasswordViewModel>(
+            create: (context) => ChangePasswordViewModel()),
         ChangeNotifierProvider<WorkoutTabViewModel>(
             create: (context) => WorkoutTabViewModel()),
       ],
@@ -77,8 +109,16 @@ class WeCare extends StatelessWidget {
         return buildRoute(const FoodScreen(), settings: settings);
       case Routes.profile:
         return buildRoute(const ProfileScreen(), settings: settings);
-      case Routes.splash:
-        return buildRoute(const SplashScreen(), settings: settings);
+      case Routes.login:
+        return buildRoute(const LoginScreen(), settings: settings);
+      case Routes.register:
+        return buildRoute(const RegisterScreen(), settings: settings);
+      case Routes.registerUpdateInfo:
+        return buildRoute(const RegisterUpdateInfoScreen(), settings: settings);
+      case Routes.settingScreen:
+        return buildRoute(const SettingScreen(), settings: settings);
+      case Routes.changePasswordScreen:
+        return buildRoute(const ChangePasswordScreen(), settings: settings);
       case Routes.introworkout:
         ExerciseArguments args = settings.arguments as ExerciseArguments;
         return buildRoute(IntroWorkouts(arguments: args), settings: settings);
@@ -93,6 +133,7 @@ class WeCare extends StatelessWidget {
     return MaterialPageRoute(
         settings: settings, builder: (BuildContext context) => child);
   }
+
   // @override
   // Widget build(BuildContext context) {
   //   return ChangeNotifierProvider(
@@ -103,7 +144,7 @@ class WeCare extends StatelessWidget {
   //         primaryColor: Color(0xFF91c788),
   //       ),
   //       debugShowCheckedModeBanner: false,
-  //       home: RegisterUpdateInfoScreen(),
+  //       home: LoginScreen(),
   //     ),
   //   );
   // }

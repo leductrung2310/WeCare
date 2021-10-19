@@ -1,50 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
-import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_button.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_text_field.dart';
+import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
+    final nameFocus = FocusNode();
+    final emailFocus = FocusNode();
+    final passwordFocus = FocusNode();
+    final confirmPasswordFocus = FocusNode();
+    final registerViewModel = Provider.of<RegisterViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.3,
-                decoration: const BoxDecoration(
+                height: MediaQuery.of(context).size.height * 0.28,
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(120),
+                    bottomRight: Radius.circular(sizeV * 14.62),
                   ),
                   color: primaryColor,
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/logo1.png',
-                    scale: 1.3,
+                    'assets/images/logos/logo1.png',
+                    scale: sizeH / 3.165,
                   ),
                 ),
               ),
               Container(
                 color: primaryColor,
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(120),
+                      topLeft: Radius.circular(sizeV * 14.62),
                     ),
-                    color: Color(0xFFffffff),
+                    color: const Color(0xFFffffff),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(sizeH * 5),
                     child: Column(
                       children: <Widget>[
-                        const SizedBox(
-                          height: 40,
+                        SizedBox(
+                          height: sizeV * 4.5,
                         ),
                         RegisterInputTextField(
                           hintText: "Name",
@@ -52,66 +63,103 @@ class RegisterScreen extends StatelessWidget {
                           suffixIconData: Icons.clear,
                           obscureText: false,
                           onChanged: (value) {},
+                          textController: registerViewModel.nameController,
+                          validator: (value) {
+                            return Provider.of<RegisterViewModel>(context,
+                                    listen: false)
+                                .nameValidator(value);
+                          },
+                          onFieldSubmitted: (value) {
+                            emailFocus.requestFocus();
+                          },
+                          focusNode: nameFocus,
                         ),
                         RegisterInputTextField(
                           hintText: "Email",
                           prefixIconData: Icons.email,
-                          suffixIconData: Icons.clear,
+                          suffixIconData: registerViewModel.isValid
+                              ? Icons.check
+                              : Icons.clear,
                           obscureText: false,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            registerViewModel.isValidEmail(value);
+                          },
+                          textController: registerViewModel.emailController,
+                          validator: (value) {
+                            return Provider.of<RegisterViewModel>(context,
+                                    listen: false)
+                                .emailValidator(value);
+                          },
+                          onFieldSubmitted: (value) {
+                            passwordFocus.requestFocus();
+                          },
+                          focusNode: emailFocus,
                         ),
                         RegisterInputPasswordTextField(
                           hintText: "Password",
                           prefixIconData: Icons.lock,
-                          suffixIconData: Icons.visibility_off,
-                          obscureText: true,
+                          suffixIconData: registerViewModel.isVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          obscureText:
+                              registerViewModel.isVisible ? false : true,
                           onChanged: (value) {},
+                          textController: registerViewModel.passwordController,
+                          validator: (value) {
+                            return Provider.of<RegisterViewModel>(context,
+                                    listen: false)
+                                .passwordValidator(value);
+                          },
+                          onFieldSubmitted: (value) {
+                            confirmPasswordFocus.requestFocus();
+                          },
+                          focusNode: passwordFocus,
                         ),
                         RegisterInputPasswordTextField(
-                          hintText: "Password",
+                          hintText: "Confirm Password",
                           prefixIconData: Icons.lock,
-                          suffixIconData: Icons.visibility_off,
-                          obscureText: true,
+                          suffixIconData: registerViewModel.isConfirmVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          obscureText:
+                              registerViewModel.isConfirmVisible ? false : true,
                           onChanged: (value) {},
+                          textController:
+                              registerViewModel.confirmPasswordController,
+                          validator: (value) {
+                            return Provider.of<RegisterViewModel>(context,
+                                    listen: false)
+                                .passwordRepeatValidator(value);
+                          },
+                          onFieldSubmitted: (value) {},
+                          focusNode: confirmPasswordFocus,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .center, //Center Row contents horizontally,
-                          crossAxisAlignment: CrossAxisAlignment
-                              .center, //Center Row contents vertically,
-                          children: const <Widget>[],
+                        SizedBox(
+                          height: sizeH * 5,
                         ),
                         RegisterButton(
                           text: "Sign up",
-                          onTap: (value) {},
+                          onTap: () {
+                            if (registerViewModel.onNextClick()) {}
+                          },
                         ),
-                        const SizedBox(
-                          height: 15,
+                        SizedBox(
+                          height: sizeH * 3.63,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Already have an account? ",
-                              style: TextStyle(
-                                color: accentColor,
-                                fontSize: 18,
-                              ),
+                              style: authTextStyle,
                             ),
                             InkWell(
                               onTap: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text(
+                              child: Text(
                                 "Login",
-                                style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: authTextStyle1,
                               ),
                             ),
                           ],

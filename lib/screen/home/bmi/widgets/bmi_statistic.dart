@@ -1,0 +1,167 @@
+import 'package:flutter/material.dart';
+import 'package:wecare_flutter/constants.dart';
+
+class BMIStatistic extends StatelessWidget {
+  const BMIStatistic({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(sizeH * 4, sizeH * 2, sizeH * 4, sizeH * 4),
+      margin: EdgeInsets.fromLTRB(sizeH * 6, 0, sizeH * 6, 0),
+      decoration: BoxDecoration(
+        border: Border.all(color: bmiColor, width: 1),
+        borderRadius: BorderRadius.circular(10),
+        color: whiteColor,
+        boxShadow: [
+          BoxShadow(
+              color: metalGreyColor,
+              spreadRadius: 2,
+              offset: const Offset(0, 3),
+              blurRadius: 8)
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '22.49',
+                style: TextStyle(
+                    color: primaryColor,
+                    fontSize: sizeV * 4,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins'),
+              ),
+              Text(
+                'BMI',
+                style: TextStyle(
+                    color: lightBlack,
+                    fontSize: sizeV * 2,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins'),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BMIRatioBar(
+                state: 'Underweight',
+                color: const Color(0xFF82B6E7),
+                sizeV: sizeV,
+              ),
+              BMIRatioBar(
+                state: 'Normal',
+                color: primaryColor,
+                sizeV: sizeV,
+              ),
+              BMIRatioBar(
+                state: 'Overweight',
+                color: const Color(0xFFE06D53),
+                sizeV: sizeV,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '16.0',
+                style: TextStyle(
+                    color: lightBlack,
+                    fontSize: sizeV * 2,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins'),
+              ),
+              SizedBox(width: sizeH * 14),
+              Text(
+                '18.5',
+                style: TextStyle(
+                    color: lightBlack,
+                    fontSize: sizeV * 2,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins'),
+              ),
+              SizedBox(width: sizeH * 16),
+              Text(
+                '25.0',
+                style: TextStyle(
+                    color: lightBlack,
+                    fontSize: sizeV * 2,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins'),
+              ),
+              SizedBox(width: sizeH * 15),
+              Text(
+                '40.0',
+                style: TextStyle(
+                    color: lightBlack,
+                    fontSize: sizeV * 2,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins'),
+              ),
+            ],
+          ),
+          SizedBox(height: sizeV),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Last update on: ',
+                style: TextStyle(
+                    color: metalGreyColor,
+                    fontSize: sizeV * 2.5,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BMIRatioBar extends StatelessWidget {
+  final String state;
+  final Color color;
+  final double sizeV;
+
+  const BMIRatioBar({
+    Key? key,
+    required this.state,
+    required this.color,
+    required this.sizeV,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          state,
+          style: TextStyle(
+              color: color,
+              fontSize: sizeV * 1.8,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Poppins'),
+        ),
+        Container(
+          height: sizeV,
+          width: sizeV * 12.8,
+          color: color,
+        ),
+      ],
+    );
+  }
+}

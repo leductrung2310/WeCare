@@ -38,6 +38,15 @@ dependencies:
   provider: ^6.0.1
   font_awesome_flutter: ^9.1.0
   pattern_formatter: ^2.0.0
+  shared_preferences: ^2.0.8
+  flutter_native_splash: ^1.2.4
+  intl: ^0.17.0
+
+flutter_native_splash: 
+  background_image: "assets/images/logos/splash.png"
+  android: true 
+  android_gravity: center
+  full_screen: true
   
 dev_dependencies:
   flutter_test:
@@ -69,6 +78,8 @@ flutter:
     - assets/icons/
     - assets/images/logos/
     - assets/images/onboarding/
+    - assets/images/authentication/
+    - assets/images/bmi/
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/gender_mr.png

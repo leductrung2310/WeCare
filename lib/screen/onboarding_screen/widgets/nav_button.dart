@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wecare_flutter/constants.dart';
 
-import '../../constants.dart';
 
 class OnboardingNavBtn extends StatelessWidget {
   const OnboardingNavBtn({Key? key, required this.onPressed}) : super(key: key);

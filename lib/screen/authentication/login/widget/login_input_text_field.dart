@@ -47,7 +47,7 @@ class LoginInputTextField extends StatelessWidget {
           ),
           prefixIcon: Icon(
             prefixIconData,
-            color: primaryColor,
+            color: primaryColor
           ),
           suffixIcon: GestureDetector(
             onTap: () {

@@ -11,4 +11,6 @@ class Routes {
   static const settingScreen = '/settingScreen';
   static const changePasswordScreen = '/changePasswordScreen';
   static const introworkout = '/introduce_screen';
+  static const bmiScreen = '/bmi_screen';
+  static const waterScreen = '/water_screen';
 }

@@ -121,6 +121,10 @@ class WeCare extends StatelessWidget {
       case Routes.introworkout:
         ExerciseArguments args = settings.arguments as ExerciseArguments;
         return buildRoute(IntroWorkouts(arguments: args), settings: settings);
+      case Routes.bmiScreen:
+        return buildRoute(const BMIRatioScreen(), settings: settings);
+      case Routes.waterScreen:
+        return buildRoute(const WaterScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

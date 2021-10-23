@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/profile/widgets/setting_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/setting_card_switch.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
@@ -9,6 +10,10 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
+
     final settingViewModel =
         Provider.of<SettingViewModel>(context, listen: false);
 
@@ -17,6 +22,27 @@ class SettingScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: sizeV,
+                    left: sizeH * 4,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                    color: Colors.black,
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
+              ),
+              // Padding(
+              //   padding: EdgeInsets.only(
+              //     left: sizeH * 4,
+              //     top: sizeV * 5,
+              //   ),
+              //   child:
+              // ),
               const SettingCard(
                 preText: "Language",
                 sufText: "English",

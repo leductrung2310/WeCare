@@ -21,7 +21,7 @@ List<Exercise> listArmBeginner = [
   ),
   Exercise(
     name: "Push ups",
-    gif: "assets/images/exercises/gif_exercises/daimond_pushups.gif",
+    gif: "assets/images/exercises/gif_exercises/push_ups.gif",
     reps: "x30",
   ),
   Exercise(
@@ -36,7 +36,7 @@ List<Exercise> listArmBeginner = [
   ),
   Exercise(
     name: "Push ups",
-    gif: "assets/images/exercises/gif_exercises/daimond_pushups.gif",
+    gif: "assets/images/exercises/gif_exercises/push_ups.gif",
     reps: "x30",
   ),
 ];

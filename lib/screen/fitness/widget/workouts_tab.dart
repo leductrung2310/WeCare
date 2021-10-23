@@ -48,8 +48,8 @@ class WorkoutsTab extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
               child: SvgIcon(
                 svgIcon,
-                height: 32,
-                width: 32,
+                height: 40,
+                width: 40,
                 color: Provider.of<WorkoutTabViewModel>(context).selectedPage ==
                         pageNumber
                     ? whiteColor

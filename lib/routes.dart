@@ -7,6 +7,7 @@ class Routes {
   static const onboarding = '/onboarding_screen';
   static const login = '/login';
   static const register = '/register';
+  static const forgetpassword = '/forget_password_screen';
   static const registerUpdateInfo = '/registerUpdateInfo';
   static const settingScreen = '/settingScreen';
   static const changePasswordScreen = '/changePasswordScreen';

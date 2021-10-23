@@ -90,7 +90,7 @@ class Workouting extends StatelessWidget {
           ),
           Positioned(
             left: sizeH * 4,
-            top: sizeV * 5,
+            top: sizeV * 6,
             child: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new),
               color: Colors.black,

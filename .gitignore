@@ -13,7 +13,7 @@
 # IntelliJ related
 *.iml
 *.ipr
-*.iws
+.iws
 .idea/
 
 # Visual Studio Code related

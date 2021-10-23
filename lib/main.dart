@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/exercise_arguments.dart;
+
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
+import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
+import 'package:wecare_flutter/screen/fitness/workout_screen.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
@@ -22,9 +25,9 @@ import 'package:wecare_flutter/screen/authentication/login/verify_email_screen.d
 
 import 'package:wecare_flutter/screen/fitness/fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
-import 'package:wecare_flutter/screen/fitness/widget/abs.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/week_goal.dart';
-import 'package:wecare_flutter/screen/fitness/widget/workout_choices.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/workout_choices.dart';
 
 import 'package:wecare_flutter/screen/food/food_screen.dart';
 
@@ -120,10 +123,18 @@ class WeCare extends StatelessWidget {
       case Routes.changePasswordScreen:
         return buildRoute(const ChangePasswordScreen(), settings: settings);
       case Routes.foodDetailScreen:
-        return buildRoute(const FoodDetailScreene(), settings: settings);
+        return buildRoute(const FoodDetailScreene(), settings: settings;
+      case Routes.workouting:
+        return buildRoute(const Workouting(), settings: settings);
+      case Routes.finishworout:
+        return buildRoute(const FinishWorkout(), settings: settings);
       case Routes.introworkout:
         ExerciseArguments args = settings.arguments as ExerciseArguments;
         return buildRoute(IntroWorkouts(arguments: args), settings: settings);
+      case Routes.bmiScreen:
+        return buildRoute(const BMIRatioScreen(), settings: settings);
+      case Routes.waterScreen:
+        return buildRoute(const WaterScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

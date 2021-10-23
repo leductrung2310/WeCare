@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
-import 'package:wecare_flutter/screen/fitness/widget/arms.dart';
+import 'package:wecare_flutter/screen/fitness/widget/female/workout_choices_female.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
 import 'package:wecare_flutter/screen/fitness/widget/week_goal.dart';
-import 'package:wecare_flutter/screen/fitness/widget/workout_choices.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/workout_choices.dart';
 
 class FitnessScreen extends StatefulWidget {
   const FitnessScreen({Key? key}) : super(key: key);

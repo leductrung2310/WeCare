@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
 import 'package:wecare_flutter/constants.dart';
-import 'package:wecare_flutter/screen/fitness/widget/arms.dart';
+import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
 import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
-import 'workouts_tab.dart';
+import '../workouts_tab.dart';
+import '../workouts_tab.dart';
 
 class WorkoutChoice extends StatelessWidget {
   const WorkoutChoice({Key? key}) : super(key: key);
@@ -138,44 +140,12 @@ class WorkoutChoice extends StatelessWidget {
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,
-              children: [
-                const ArmsWorkout(),
-                Container(
-                  color: Colors.blue[100],
-                  child: const Center(
-                    child: Text(
-                      '2',
-                      style: TextStyle(fontSize: 52),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.blue[100],
-                  child: const Center(
-                    child: Text(
-                      '3',
-                      style: TextStyle(fontSize: 52),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.blue[100],
-                  child: const Center(
-                    child: Text(
-                      '4',
-                      style: TextStyle(fontSize: 52),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.blue[100],
-                  child: const Center(
-                    child: Text(
-                      '5',
-                      style: TextStyle(fontSize: 52),
-                    ),
-                  ),
-                ),
+              children: const [
+                ArmsWorkout(),
+                FemaleAbs(),
+                ArmsWorkout(),
+                ArmsWorkout(),
+                ArmsWorkout(),
               ],
             ),
           )

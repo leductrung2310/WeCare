@@ -54,7 +54,7 @@ class PersonalInformation extends StatelessWidget {
               ],
             ),
             Image.asset(
-              'assets/images/bmi/boy_standing.png',
+              'assets/images/home/bmi/boy_standing.png',
               height: sizeH * 70,
               width: sizeV * 25,
             ),

@@ -28,7 +28,9 @@ class _BMIRatioScreenState extends State<BMIRatioScreen> {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: const Icon(Icons.arrow_back_ios_new),
                   ),
                   Text(

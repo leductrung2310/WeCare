@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecare_flutter/model/exercise_arguments.dart;
+import 'package:wecare_flutter/model/exercise_arguments.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
@@ -98,10 +98,13 @@ class WeCare extends StatelessWidget {
   String getInitalRoute() {
     //? if seenOnboard equals to true than return to sign up page
     return seenOnboard == true ? Routes.main : Routes.onboarding;
+    // return Routes.onboarding;
   }
 
   Route getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.onboarding:
+        return buildRoute(const OnBoardingPage(), settings: settings);
       case Routes.main:
         return buildRoute(const MainScreen(), settings: settings);
       case Routes.home:
@@ -116,6 +119,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const LoginScreen(), settings: settings);
       case Routes.register:
         return buildRoute(const RegisterScreen(), settings: settings);
+      case Routes.forgetpassword:
+        return buildRoute(const ForgetPasswordScreen(), settings: settings);
       case Routes.registerUpdateInfo:
         return buildRoute(const RegisterUpdateInfoScreen(), settings: settings);
       case Routes.settingScreen:
@@ -123,7 +128,7 @@ class WeCare extends StatelessWidget {
       case Routes.changePasswordScreen:
         return buildRoute(const ChangePasswordScreen(), settings: settings);
       case Routes.foodDetailScreen:
-        return buildRoute(const FoodDetailScreene(), settings: settings;
+        return buildRoute(const FoodDetailScreene(), settings: settings);
       case Routes.workouting:
         return buildRoute(const Workouting(), settings: settings);
       case Routes.finishworout:

@@ -113,7 +113,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "text",
+                          "Save",
                           style: TextStyle(
                             color: whiteColor,
                             fontSize: sizeV * 2.5,

@@ -93,15 +93,19 @@ class LoginScreen extends StatelessWidget {
                               onFieldSubmitted: (value) {},
                               focusNode: passwordFocus,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                right: sizeH * 5,
-                                top: sizeH * 1.215,
-                              ),
-                              child: const Text(
-                                "Forgot password?",
-                                style: TextStyle(
-                                  color: accentColor,
+                            GestureDetector(
+                              onTap: () => Navigator.pushNamed(
+                                  context, Routes.forgetpassword),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right: sizeH * 5,
+                                  top: sizeH * 1.215,
+                                ),
+                                child: const Text(
+                                  "Forgot password?",
+                                  style: TextStyle(
+                                    color: accentColor,
+                                  ),
                                 ),
                               ),
                             ),

@@ -156,7 +156,7 @@ class _WaterScreenState extends State<WaterScreen>
             Positioned(
               top: sizeV * 21,
               child: Image.asset(
-                'assets/images/drink.png',
+                'assets/images/home/water/drink.png',
                 height: sizeV * 48,
               ),
             ),
@@ -180,7 +180,9 @@ class _WaterScreenState extends State<WaterScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(Icons.arrow_back_ios_new),
                     ),
                     Text(

@@ -81,10 +81,14 @@ flutter:
     - assets/images/logos/
     - assets/images/onboarding/
     - assets/images/authentication/
-    - assets/images/bmi/
+    - assets/images/home/bmi/
     - assets/images/exercises/banner/
     - assets/images/exercises/intro/
     - assets/images/exercises/gif_exercises/
+    - assets/images/home/water/
+    - assets/images/home/walk/
+    - assets/images/home/sleep/
+    - assets/images/home/calories/
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/

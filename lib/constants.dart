@@ -7,7 +7,13 @@ const grey1 = Color(0xFFf3f3f3);
 const greenLight = Color(0xFF91c777);
 const bmiColor = Color(0xFFF6AE64);
 const waterColor = Color(0xFF4499E7);
+const stepColor = Color(0xFF55AF45);
+const distanceColor = Color(0xFFEC4D37);
+const speedColor = Color(0xFFFFD200);
+const sleepColor = Color(0xFF987BE4);
+const caloriesColor = Color(0xFF944F14);
 Color lightWaterColor = const Color(0xFF4499E7).withOpacity(0.2);
+Color lightBlack1 =  Colors.black.withOpacity(0.35);
 Color metalGreyColor = Colors.grey.withOpacity(0.5);
 Color lightBlack = Colors.black.withOpacity(0.65);
 

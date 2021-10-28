@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
@@ -89,7 +90,7 @@ class WeCare extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: getInitalRoute(),
+        initialRoute: Routes.finishworout,
         onGenerateRoute: (route) => getRoute(route),
       ),
     );
@@ -140,6 +141,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const BMIRatioScreen(), settings: settings);
       case Routes.waterScreen:
         return buildRoute(const WaterScreen(), settings: settings);
+      case Routes.takerest:
+        return buildRoute(const RestScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

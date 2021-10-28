@@ -7,14 +7,12 @@ import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
 class WorkoutsTab extends StatelessWidget {
   final String title;
   final String svgIcon;
-  final int selectedPage;
   final int pageNumber;
   final Function onPressed;
   const WorkoutsTab({
     Key? key,
     required this.title,
     required this.svgIcon,
-    required this.selectedPage,
     required this.pageNumber,
     required this.onPressed,
   }) : super(key: key);

@@ -17,4 +17,5 @@ class Routes {
   static const waterScreen = '/water_screen';
   static const workouting = '/workout_screen';
   static const finishworout = '/finish_workout_screen';
+  static const takerest = '/take_rest_screen';
 }

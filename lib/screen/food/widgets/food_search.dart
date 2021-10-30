@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/food_view_model.dart';
 
 class SearchBarCustom extends StatelessWidget {
   const SearchBarCustom({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class SearchBarCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+
+    final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
 
     return FloatingSearchBar(
       hint: 'Search...',
@@ -27,7 +31,8 @@ class SearchBarCustom extends StatelessWidget {
       height: 55,
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
+        foodViewModel.stringSearch = query;
+        print(foodViewModel.stringSearch);
       },
       // Specify a custom transition to be used for
       // animating between opened and closed stated.
@@ -52,9 +57,9 @@ class SearchBarCustom extends StatelessWidget {
             elevation: 4.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: Colors.accents.map((color) {
-                return Container(height: 112, color: color);
-              }).toList(),
+              // children: Colors.accents.map((color) {
+              //   return Container(height: 50, color: color);
+              // }).toList(),
             ),
           ),
         );

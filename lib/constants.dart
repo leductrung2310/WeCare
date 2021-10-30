@@ -5,6 +5,7 @@ const accentColor = Color.fromRGBO(0, 0, 0, .7);
 const whiteColor = Colors.white;
 const grey1 = Color(0xFFf3f3f3);
 const greenLight = Color(0xFF91c777);
+const greenLightProfile = Color(0xFFC2F2B2);
 const bmiColor = Color(0xFFF6AE64);
 const waterColor = Color(0xFF4499E7);
 const stepColor = Color(0xFF55AF45);
@@ -13,7 +14,7 @@ const speedColor = Color(0xFFFFD200);
 const sleepColor = Color(0xFF987BE4);
 const caloriesColor = Color(0xFF944F14);
 Color lightWaterColor = const Color(0xFF4499E7).withOpacity(0.2);
-Color lightBlack1 =  Colors.black.withOpacity(0.35);
+Color lightBlack1 = Colors.black.withOpacity(0.35);
 Color metalGreyColor = Colors.grey.withOpacity(0.5);
 Color lightBlack = Colors.black.withOpacity(0.65);
 
@@ -83,18 +84,53 @@ final authTextStyle = TextStyle(
 
 final authTextStyle1 = TextStyle(
   color: primaryColor,
-  fontSize: SizeConfig.blockSizeH! * 4.3,
+  fontSize: SizeConfig.blockSizeH! * 4,
   fontWeight: FontWeight.bold,
 );
 
 //profile
 
 final profileText = TextStyle(
+  color: Colors.black,
   fontFamily: 'Poppins',
-  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontSize: SizeConfig.blockSizeH! * 4.25,
   fontWeight: FontWeight.w500,
 );
 
+final profileInfoText = TextStyle(
+  color: Colors.black,
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 5.5,
+  fontWeight: FontWeight.w600,
+);
+
+final profileInfoHintText = TextStyle(
+  color: accentColor,
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4,
+);
+
+final inputBorderStyleProfile = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 2)),
+  borderSide: BorderSide.none,
+);
+
+final inputFocusedBorderStyleProfile = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 2)),
+  borderSide:
+      BorderSide(color: primaryColor, width: SizeConfig.blockSizeH! - 1),
+);
+
+final inputFocusedErrorBorderStyleProfile = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 2)),
+  borderSide:
+      BorderSide(color: Colors.red[400]!, width: SizeConfig.blockSizeH! - 1),
+);
+
+final inputErrorBorderStyleProfile = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(SizeConfig.blockSizeH! * 2)),
+  borderSide: BorderSide.none,
+);
 // TextStyle white
 final oWhiteTitle = TextStyle(
   fontFamily: 'Poppins',

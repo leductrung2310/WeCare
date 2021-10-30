@@ -122,9 +122,10 @@ class LoginScreen extends StatelessWidget {
                                     context,
                                     listen: false)
                                 .circular;
-
                             Navigator.pushNamed(context, Routes.main);
                           },
+                          textColor: Colors.white,
+                          color: primaryColor,
                         ),
                         SizedBox(
                           height: sizeV * 3.3,

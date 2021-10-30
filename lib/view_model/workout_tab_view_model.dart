@@ -19,4 +19,15 @@ class WorkoutTabViewModel extends ChangeNotifier {
   }
 
   get pageController => _pageController;
+
+  get page => _pageController.page?.toInt();
+
+  int _xxxx = 0;
+
+  set xxxx(newValue) {
+    _xxxx = newValue;
+    notifyListeners();
+  }
+
+  get xxxx => _xxxx;
 }

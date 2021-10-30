@@ -14,7 +14,7 @@ class ProfileCardLogout extends StatelessWidget {
   final IconData prefixIconData;
   final Color color;
   final Color iconColor;
-  final Function onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,33 +25,36 @@ class ProfileCardLogout extends StatelessWidget {
     return Padding(
       padding:
           EdgeInsets.symmetric(vertical: sizeH * 2.8, horizontal: sizeH * 5),
-      child: Container(
+      child: SizedBox(
         width: sizeV * 56.22,
         height: sizeV * 6.4,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(sizeH * 3)),
-          color: Colors.white,
-        ),
-        child: InkWell(
-          onTap: () => onTap(),
+        child: ElevatedButton(
+          onPressed: onTap,
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(sizeH * 3),
+                ),
+              ),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  EdgeInsets.symmetric(horizontal: sizeH * 2)),
+              backgroundColor: MaterialStateProperty.all<Color>(whiteColor),
+              elevation: MaterialStateProperty.all<double>(0.25),
+              overlayColor: MaterialStateProperty.all<Color>(primaryColor)),
           child: Row(
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: sizeH * 1.3, bottom: sizeH * 1.3, left: sizeV),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(sizeH * 2.5),
-                    color: color,
-                  ),
-                  width: sizeV * 7.5 - 20,
-                  height: sizeV * 7.5 - 18,
-                  child: Center(
-                    child: Icon(
-                      prefixIconData,
-                      size: sizeH * 6,
-                      color: iconColor,
-                    ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(sizeH * 2.5),
+                  color: color,
+                ),
+                width: sizeV * 7.5 - 20,
+                height: sizeV * 7.5 - 18,
+                child: Center(
+                  child: Icon(
+                    prefixIconData,
+                    size: sizeH * 6,
+                    color: iconColor,
                   ),
                 ),
               ),

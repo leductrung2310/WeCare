@@ -8,8 +8,11 @@ import 'package:wecare_flutter/model/exercise_arguments.dart';
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
 import 'package:wecare_flutter/screen/fitness/workout_screen.dart';
+import 'package:wecare_flutter/screen/profile/change_password_success_screen.dart';
+import 'package:wecare_flutter/screen/profile/profile_information_screen.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
+import 'package:wecare_flutter/view_model/food_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
 import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
@@ -86,6 +89,8 @@ class WeCare extends StatelessWidget {
             create: (context) => ChangePasswordViewModel()),
         ChangeNotifierProvider<WorkoutTabViewModel>(
             create: (context) => WorkoutTabViewModel()),
+        ChangeNotifierProvider<FoodViewModel>(
+            create: (context) => FoodViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -97,7 +102,7 @@ class WeCare extends StatelessWidget {
 
   String getInitalRoute() {
     //? if seenOnboard equals to true than return to sign up page
-    return seenOnboard == true ? Routes.main : Routes.onboarding;
+    return seenOnboard == true ? Routes.login : Routes.onboarding;
     // return Routes.onboarding;
   }
 
@@ -140,6 +145,11 @@ class WeCare extends StatelessWidget {
         return buildRoute(const BMIRatioScreen(), settings: settings);
       case Routes.waterScreen:
         return buildRoute(const WaterScreen(), settings: settings);
+      case Routes.changePasswordSuccessScreen:
+        return buildRoute(const ChangePasswordSuccessScreen(),
+            settings: settings);
+      case Routes.profileInformationScreen:
+        return buildRoute(const ProfileInformationScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

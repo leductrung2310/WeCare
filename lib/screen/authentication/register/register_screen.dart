@@ -142,6 +142,8 @@ class RegisterScreen extends StatelessWidget {
                           onTap: () {
                             if (registerViewModel.onNextClick()) {}
                           },
+                          textColor: Colors.white,
+                          color: primaryColor,
                         ),
                         SizedBox(
                           height: sizeH * 3.63,

@@ -88,7 +88,9 @@ class ProfileScreen extends StatelessWidget {
                 prefixIconData: Icons.account_circle_rounded,
                 color: const Color(0xFFE4F3EA),
                 iconColor: const Color(0xFF66B983),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.profileInformationScreen);
+                },
               ),
               ProfileCard(
                 text: "Setting",
@@ -122,7 +124,9 @@ class ProfileScreen extends StatelessWidget {
                 prefixIconData: Icons.arrow_forward_ios,
                 color: const Color(0xFFFFECE8),
                 iconColor: const Color(0xFFFE7E60),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.registerUpdateInfo);
+                },
               ),
               SizedBox(
                 height: sizeH * 3.5,

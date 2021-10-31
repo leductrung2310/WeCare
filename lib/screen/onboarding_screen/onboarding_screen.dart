@@ -5,7 +5,6 @@ import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/main.dart';
 import "package:wecare_flutter/model/onboard_data.dart";
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
-import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_button.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_textbutton.dart';

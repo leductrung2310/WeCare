@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_painter.dart';
 
@@ -133,9 +135,22 @@ class _WaterScreenState extends State<WaterScreen>
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    IconButton iconButton = IconButton(
+      onPressed: () {
+        Navigator.pushNamed(context, Routes.waterScreenStatistic);
+      },
+      icon: const Icon(Icons.timeline),
+    );
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
+        appBar: customAppBar(
+          context,
+          waterColor,
+          'Water',
+          iconButton,
+        ),
         body: Stack(
           children: [
             Positioned.fill(
@@ -170,35 +185,6 @@ class _WaterScreenState extends State<WaterScreen>
               child: SizedBox(
                 height: sizeV * 100,
                 width: sizeH * 100,
-              ),
-            ),
-            Positioned.fill(
-              top: sizeV * 2,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                    ),
-                    Text(
-                      'Water',
-                      style: TextStyle(
-                          color: waterColor,
-                          fontSize: sizeH * 6,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins'),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.timeline),
-                    ),
-                  ],
-                ),
               ),
             ),
             Positioned.fill(

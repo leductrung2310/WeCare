@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/screen/home/widgets/home_item.dart';
+import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class LeftSection extends StatelessWidget {
   const LeftSection({Key? key}) : super(key: key);

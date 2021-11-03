@@ -2,21 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
 
 class CustomBTN extends StatelessWidget {
-  const CustomBTN({
+  CustomBTN({
     Key? key,
     required this.name,
     required this.onPressed,
-    required this.color,
-    required this.textColor,
-    required this.height,
-    required this.width,
+    this.color,
+    this.textColor,
+    this.height,
+    this.width,
+    this.fontSize,
+    this.fontWeight,
+    this.radius,
+    this.widthBorder,
+    this.colorBorder,
   }) : super(key: key);
   final String name;
   final VoidCallback onPressed;
-  final Color color;
-  final Color textColor;
-  final double height;
-  final double width;
+  Color? color;
+  Color? textColor;
+  double? height;
+  double? width;
+  double? fontSize;
+  FontWeight? fontWeight;
+  double? radius;
+  double? widthBorder;
+  Color? colorBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +37,8 @@ class CustomBTN extends StatelessWidget {
       width: width,
       child: Container(
         decoration: BoxDecoration(
+          border: Border.all(
+              width: widthBorder ?? 1, color: colorBorder ?? whiteColor),
           borderRadius: BorderRadius.circular(20),
         ),
         child: ElevatedButton(
@@ -34,19 +46,20 @@ class CustomBTN extends StatelessWidget {
           child: Text(
             name,
             style: TextStyle(
-              color: textColor,
+              color: textColor ?? accentColor,
               fontFamily: 'Poppins',
-              fontSize: sizeH * 4.5,
-              fontWeight: FontWeight.w500,
+              fontSize: fontSize ?? sizeH * 4.5,
+              fontWeight: fontWeight ?? FontWeight.w500,
             ),
           ),
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(radius ?? 10),
               ),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(color),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(color ?? whiteColor),
           ),
         ),
       ),

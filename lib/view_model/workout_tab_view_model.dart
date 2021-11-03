@@ -5,7 +5,8 @@ class WorkoutTabViewModel extends ChangeNotifier {
   int _selectedPage = 0;
   final PageController _pageController = PageController();
   int _getPage = 0;
-  final ConfettiController _confettiController = ConfettiController();
+  final ConfettiController _confettiController =
+      ConfettiController(duration: const Duration(seconds: 5));
 
   set selectedPage(newValue) {
     _selectedPage = newValue;
@@ -30,7 +31,5 @@ class WorkoutTabViewModel extends ChangeNotifier {
 
   get getPage => _getPage;
 
-  set confettiController {
-    _co
-  }
+  ConfettiController get confettiController => _confettiController;
 }

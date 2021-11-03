@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
 
 import '../../constants.dart';
 
@@ -60,7 +63,9 @@ class Workouting extends StatelessWidget {
                     children: [
                       IconButton(
                         iconSize: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.takerest);
+                        },
                         icon: const Icon(
                           Icons.skip_previous,
                           color: primaryColor,
@@ -76,7 +81,13 @@ class Workouting extends StatelessWidget {
                       ),
                       IconButton(
                         iconSize: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.finishworout);
+                          Provider.of<WorkoutTabViewModel>(context,
+                                  listen: false)
+                              .confettiController
+                              .play();
+                        },
                         icon: const Icon(
                           Icons.skip_next,
                           color: primaryColor,

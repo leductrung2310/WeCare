@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/screen/fitness/widget/confetti_widget.dart';
 
 import '../../routes.dart';
 
@@ -25,10 +26,12 @@ class FinishWorkout extends StatelessWidget {
             "You did it ",
             style: oTitle,
           ),
-          Image.asset(
-            "assets/images/exercises/finish_workout.png",
-            height: sizeV * 40,
-            fit: BoxFit.contain,
+          AllConfettiWidget(
+            child: Image.asset(
+              "assets/images/exercises/finish_workout.png",
+              height: sizeV * 40,
+              fit: BoxFit.contain,
+            ),
           ),
           SizedBox(
             height: sizeV * 5,
@@ -55,7 +58,7 @@ class FinishWorkout extends StatelessWidget {
                     ),
                     Text(
                       "10",
-                      style: oTitle,
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Workouts",
@@ -70,7 +73,7 @@ class FinishWorkout extends StatelessWidget {
                     ),
                     Text(
                       "23",
-                      style: oTitle,
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Minutes",
@@ -85,7 +88,7 @@ class FinishWorkout extends StatelessWidget {
                     ),
                     Text(
                       "231.0",
-                      style: oTitle,
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Kcal",

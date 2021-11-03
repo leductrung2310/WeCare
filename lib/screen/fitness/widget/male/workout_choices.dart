@@ -114,16 +114,16 @@ class WorkoutChoice extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
-              // onPageChanged: (int page) {
-              //   if (Provider.of<WorkoutTabViewModel>(context, listen: false)
-              //           .selectedPage ==
-              //       page) {
-              //     Provider.of<WorkoutTabViewModel>(context, listen: false)
-              //             .selectedPage =
-              //         Provider.of<WorkoutTabViewModel>(context, listen: false)
-              //             .pageController;
-              //   }
-              // },
+              onPageChanged: (int page) {
+                if (Provider.of<WorkoutTabViewModel>(context, listen: false)
+                        .selectedPage ==
+                    page) {
+                  Provider.of<WorkoutTabViewModel>(context, listen: false)
+                          .selectedPage =
+                      Provider.of<WorkoutTabViewModel>(context, listen: false)
+                          .pageController;
+                }
+              },
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,

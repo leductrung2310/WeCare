@@ -30,7 +30,7 @@ class WaterStatisticScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: sizeV * 3),
+              SizedBox(height: sizeV * 2.5),
               Align(
                 alignment: Alignment.topCenter,
                 child: ChangeNotifierProvider(

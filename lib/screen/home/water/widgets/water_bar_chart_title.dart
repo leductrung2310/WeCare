@@ -10,7 +10,7 @@ class WaterBarTitles {
           color: lightBlack1,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
-          fontSize: SizeConfig.blockSizeV! * 2,
+          fontSize: SizeConfig.blockSizeV! * 1.8,
         ),
         getTitles: (double id) => WaterBarData.waterBarData
             .firstWhere((element) => element.id == id.toInt())

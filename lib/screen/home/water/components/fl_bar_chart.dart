@@ -39,7 +39,7 @@ class FlBarChart extends StatelessWidget {
             } else {
               return FlLine(
                 color: const Color(0xff2a2747),
-                strokeWidth: 0.8,
+                strokeWidth: 0.5,
               );
             }
           },

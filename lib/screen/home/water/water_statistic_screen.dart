@@ -1,7 +1,12 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
+import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
+
+import 'widgets/water_bar_chart_title.dart';
 
 class WaterStatisticScreen extends StatelessWidget {
   const WaterStatisticScreen({Key? key}) : super(key: key);
@@ -25,15 +30,24 @@ class WaterStatisticScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: sizeV*3),
+              SizedBox(height: sizeV * 3),
               Align(
                 alignment: Alignment.topCenter,
-                child: AnimatedChart(
-                  color: waterColor,
-                  barWidth: sizeH*4,
-                  width: sizeH * 90,
-                  height: sizeV * 40,
-                  maxY: 2.2,
+                child: ChangeNotifierProvider(
+                  create: (context) => CalendarViewModel(),
+                  child: AnimatedChart(
+                    color: waterColor,
+                    barWidth: sizeH * 5,
+                    width: sizeH * 90,
+                    height: sizeV * 45,
+                    maxY: 2.2,
+                    flTitlesData: FlTitlesData(
+                      bottomTitles: WaterBarTitles.getBottomTitles(),
+                      leftTitles: WaterBarTitles.getSideTitles(),
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
                 ),
               ),
             ],

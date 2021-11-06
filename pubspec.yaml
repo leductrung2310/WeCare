@@ -46,7 +46,6 @@ dependencies:
   flutter_svg: ^0.22.0
   date_field: ^2.1.2
   intl_phone_number_input: ^0.7.0+2
-  http: ^0.13.4
 
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"

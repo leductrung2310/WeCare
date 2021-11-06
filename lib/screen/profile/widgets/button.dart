@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
-import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class ProfileButton extends StatelessWidget {
+  const ProfileButton({
     Key? key,
     required this.text,
     required this.onTap,
@@ -21,8 +19,6 @@ class LoginButton extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
-
-    final loginViewModel = Provider.of<LoginViewModel>(context);
     return SizedBox(
       width: sizeH * 65,
       height: sizeV * 7.3,
@@ -37,16 +33,14 @@ class LoginButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(color),
         ),
         child: Center(
-          child: loginViewModel.circular
-              ? const CircularProgressIndicator(color: whiteColor)
-              : Text(
-                  text,
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: sizeV * 2.5,
-                    fontFamily: "Poppins",
-                  ),
-                ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: whiteColor,
+              fontSize: sizeV * 2.5,
+              fontFamily: "Poppins",
+            ),
+          ),
         ),
       ),
     );

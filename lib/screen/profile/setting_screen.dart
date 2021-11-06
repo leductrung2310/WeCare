@@ -36,13 +36,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //     left: sizeH * 4,
-              //     top: sizeV * 5,
-              //   ),
-              //   child:
-              // ),
               const SettingCard(
                 preText: "Language",
                 sufText: "English",

@@ -43,8 +43,11 @@ dependencies:
   flutter_native_splash: ^1.2.4
   intl: ^0.17.0
   svg_icon: ^0.0.1
-  flutter_svg: ^0.22.0
+  flutter_svg: ^0.22.0  
+  date_field: ^2.1.2
+  intl_phone_number_input: ^0.7.0+2
   confetti: ^0.6.0
+  
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 

@@ -112,7 +112,9 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                 Center(
                   child: RegisterButton(
                     text: "Let's go",
-                    onTap: (value) {},
+                    onTap: () {},
+                    textColor: Colors.white,
+                    color: primaryColor,
                   ),
                 ),
               ],

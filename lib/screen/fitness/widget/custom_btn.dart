@@ -30,6 +30,7 @@ class CustomBTN extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     return SizedBox(

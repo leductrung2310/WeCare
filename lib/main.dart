@@ -94,7 +94,7 @@ class WeCare extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.sleepScreen,
+        initialRoute: Routes.main,
         onGenerateRoute: (route) => getRoute(route),
       ),
     );

@@ -88,6 +88,15 @@ final authTextStyle1 = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+//food
+
+final foodSearchText = TextStyle(
+  color: accentColor,
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontWeight: FontWeight.w500,
+);
+
 //profile
 
 final profileText = TextStyle(

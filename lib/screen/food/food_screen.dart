@@ -15,9 +15,12 @@ class _FoodScreenState extends State<FoodScreen> {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
-
+    String title = 'apple';
+    String uri = 'https://spoonacular.com/cdn/ingredients_100x100/apple.jpg';
+    print(uri);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: primaryColor,
         body: SingleChildScrollView(
           child: Column(
@@ -38,6 +41,9 @@ class _FoodScreenState extends State<FoodScreen> {
                           topRight: Radius.circular(sizeV * 4.5),
                         ),
                         color: grey1,
+                      ),
+                      child: Column(
+                        children: [],
                       ),
                     ),
                   ),

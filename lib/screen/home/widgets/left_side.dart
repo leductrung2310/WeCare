@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wecare_flutter/screen/home/widgets/home_item.dart';
 
 import '../../../constants.dart';
+import '../../../routes.dart';
 
 class LeftSection extends StatelessWidget {
   const LeftSection({Key? key}) : super(key: key);
@@ -28,7 +29,9 @@ class LeftSection extends StatelessWidget {
             right: 5,
             bottom: 5,
             unit: 'H',
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(context, Routes.sleepScreen);
+            },
         ),
         SizedBox(height: sizeH * 5),
         HomeItem(

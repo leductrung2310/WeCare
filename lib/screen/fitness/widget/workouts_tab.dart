@@ -7,14 +7,12 @@ import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
 class WorkoutsTab extends StatelessWidget {
   final String title;
   final String svgIcon;
-  final int selectedPage;
   final int pageNumber;
   final Function onPressed;
   const WorkoutsTab({
     Key? key,
     required this.title,
     required this.svgIcon,
-    required this.selectedPage,
     required this.pageNumber,
     required this.onPressed,
   }) : super(key: key);
@@ -48,8 +46,8 @@ class WorkoutsTab extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
               child: SvgIcon(
                 svgIcon,
-                height: 40,
-                width: 40,
+                height: sizeH * 9,
+                width: sizeH * 9,
                 color: Provider.of<WorkoutTabViewModel>(context).selectedPage ==
                         pageNumber
                     ? whiteColor

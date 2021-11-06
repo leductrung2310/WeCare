@@ -4,14 +4,17 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
 import 'package:wecare_flutter/screen/fitness/workout_screen.dart';
+import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
+import 'package:wecare_flutter/view_model/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
 
 import 'package:wecare_flutter/screen/main_screen.dart';
@@ -86,10 +89,12 @@ class WeCare extends StatelessWidget {
             create: (context) => ChangePasswordViewModel()),
         ChangeNotifierProvider<WorkoutTabViewModel>(
             create: (context) => WorkoutTabViewModel()),
+        ChangeNotifierProvider<SleepViewModel>(
+            create: (context) => SleepViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: getInitalRoute(),
+        initialRoute: Routes.main,
         onGenerateRoute: (route) => getRoute(route),
       ),
     );
@@ -140,6 +145,10 @@ class WeCare extends StatelessWidget {
         return buildRoute(const BMIRatioScreen(), settings: settings);
       case Routes.waterScreen:
         return buildRoute(const WaterScreen(), settings: settings);
+      case Routes.sleepScreen:
+        return buildRoute(const SleepScreen(), settings: settings);
+      case Routes.takerest:
+        return buildRoute(const RestScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

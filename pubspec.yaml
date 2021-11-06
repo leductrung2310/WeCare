@@ -44,7 +44,7 @@ dependencies:
   intl: ^0.17.0
   svg_icon: ^0.0.1
   flutter_svg: ^0.22.0
-
+  confetti: ^0.6.0
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 

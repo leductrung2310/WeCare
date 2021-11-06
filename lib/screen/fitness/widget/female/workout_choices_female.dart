@@ -35,9 +35,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "ABS",
                         svgIcon: "assets/icons/abs_female.svg",
                         pageNumber: 0,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -54,9 +51,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Thigh",
                         svgIcon: "assets/icons/thigh_female.svg",
                         pageNumber: 1,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -73,9 +67,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Butt",
                         svgIcon: "assets/icons/butt_female.svg",
                         pageNumber: 2,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -92,9 +83,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Arm",
                         svgIcon: "assets/icons/arm_female.svg",
                         pageNumber: 3,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)

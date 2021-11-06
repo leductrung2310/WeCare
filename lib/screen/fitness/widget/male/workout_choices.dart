@@ -36,10 +36,6 @@ class WorkoutChoice extends StatelessWidget {
                             title: "Arms",
                             svgIcon: "assets/icons/arms.svg",
                             pageNumber: 0,
-                            selectedPage: Provider.of<WorkoutTabViewModel>(
-                                    context,
-                                    listen: false)
-                                .selectedPage,
                             onPressed: () {
                               Provider.of<WorkoutTabViewModel>(context,
                                       listen: false)
@@ -55,10 +51,6 @@ class WorkoutChoice extends StatelessWidget {
                             title: "ABS",
                             svgIcon: "assets/icons/abs.svg",
                             pageNumber: 1,
-                            selectedPage: Provider.of<WorkoutTabViewModel>(
-                                    context,
-                                    listen: false)
-                                .selectedPage,
                             onPressed: () {
                               Provider.of<WorkoutTabViewModel>(context,
                                       listen: false)
@@ -74,10 +66,6 @@ class WorkoutChoice extends StatelessWidget {
                             title: "Shoulder",
                             svgIcon: "assets/icons/shoulder.svg",
                             pageNumber: 2,
-                            selectedPage: Provider.of<WorkoutTabViewModel>(
-                                    context,
-                                    listen: false)
-                                .selectedPage,
                             onPressed: () {
                               Provider.of<WorkoutTabViewModel>(context,
                                       listen: false)
@@ -93,10 +81,6 @@ class WorkoutChoice extends StatelessWidget {
                             title: "Chest",
                             svgIcon: "assets/icons/chest.svg",
                             pageNumber: 3,
-                            selectedPage: Provider.of<WorkoutTabViewModel>(
-                                    context,
-                                    listen: false)
-                                .selectedPage,
                             onPressed: () {
                               Provider.of<WorkoutTabViewModel>(context,
                                       listen: false)
@@ -112,10 +96,6 @@ class WorkoutChoice extends StatelessWidget {
                             title: "Legs",
                             svgIcon: "assets/icons/legs.svg",
                             pageNumber: 4,
-                            selectedPage: Provider.of<WorkoutTabViewModel>(
-                                    context,
-                                    listen: false)
-                                .selectedPage,
                             onPressed: () {
                               Provider.of<WorkoutTabViewModel>(context,
                                       listen: false)
@@ -134,9 +114,16 @@ class WorkoutChoice extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
-              onPageChanged: (int page) =>
+              onPageChanged: (int page) {
+                if (Provider.of<WorkoutTabViewModel>(context, listen: false)
+                        .selectedPage ==
+                    page) {
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
-                      .selectedPage = page,
+                          .selectedPage =
+                      Provider.of<WorkoutTabViewModel>(context, listen: false)
+                          .pageController;
+                }
+              },
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log.dart';
+import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log_no_result.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
 
 class SearchBarCustom extends StatelessWidget {
@@ -14,7 +17,8 @@ class SearchBarCustom extends StatelessWidget {
     final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
 
     return FloatingSearchBar(
-      hint: 'Search...',
+      automaticallyImplyBackButton: false,
+      hint: 'Search food nutrition',
       hintStyle: TextStyle(
         fontSize: 16,
         fontFamily: "poppins",
@@ -32,10 +36,14 @@ class SearchBarCustom extends StatelessWidget {
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         foodViewModel.stringSearch = query;
-        print(foodViewModel.stringSearch);
       },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
+      onSubmitted: (query) {
+        if (!foodViewModel.listFoodSearchHistory.contains(query)) {
+          foodViewModel.listFoodSearchHistory.add(query);
+        }
+
+        get(foodViewModel, query, context);
+      },
       transition: CircularFloatingSearchBarTransition(),
       actions: [
         FloatingSearchBarAction(
@@ -53,18 +61,86 @@ class SearchBarCustom extends StatelessWidget {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(
-            color: Colors.white,
+            color: whiteColor,
             elevation: 4.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              // children: Colors.accents.map((color) {
-              //   return Container(height: 50, color: color);
-              // }).toList(),
+              children: Provider.of<FoodViewModel>(context)
+                  .searchFood(foodViewModel.stringSearch)
+                  .map((e) {
+                return InkWell(
+                  focusColor: Colors.amber,
+                  highlightColor: greenLightProfile,
+                  onTap: () {
+                    get(foodViewModel, e, context);
+                  },
+                  hoverColor: greenLightProfile,
+                  overlayColor:
+                      MaterialStateProperty.all<Color>(greenLightProfile),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: SizeConfig.blockSizeH! * 2,
+                      ),
+                      Icon(
+                        Icons.access_time,
+                        size: SizeConfig.blockSizeH! * 6,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.only(left: SizeConfig.blockSizeH! * 5),
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            e,
+                            style: foodSearchText,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );
       },
       backdropColor: Colors.transparent,
     );
+  }
+
+  void get(
+      FoodViewModel foodViewModel, String string, BuildContext context) async {
+    final list = await foodViewModel.getFoodNutrition(string);
+
+    if (list.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return FoodNutritionDiaLog(
+            title: list[0].name,
+            calories: list[0].calories,
+            servingSizeG: list[0].servingSizeG,
+            fatTotalG: list[0].fatTotalG,
+            fatSaturatedG: list[0].fatSaturatedG,
+            proteinG: list[0].proteinG,
+            sodiumMg: list[0].sodiumMg,
+            potassiumMg: list[0].potassiumMg,
+            cholesterolMg: list[0].cholesterolMg,
+            carbohydratesTotalG: list[0].carbohydratesTotalG,
+            fiberG: list[0].fiberG,
+            sugarG: list[0].sugarG,
+          );
+        },
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return FoodNoResult();
+          });
+    }
   }
 }

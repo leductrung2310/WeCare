@@ -48,6 +48,7 @@ dependencies:
   intl_phone_number_input: ^0.7.0+2
   confetti: ^0.6.0
   
+
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 
@@ -92,6 +93,7 @@ flutter:
     - assets/images/home/walk/
     - assets/images/home/sleep/
     - assets/images/home/calories/
+    - assets/images/food/SomethingWrong.png
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/

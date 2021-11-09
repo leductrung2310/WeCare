@@ -44,7 +44,6 @@ dependencies:
   confetti: ^0.6.0
   firebase_auth: ^3.2.0
   firebase_core: ^1.10.0
-  flutter_svg: ^0.22.0
   fl_chart: ^0.40.2
 
 flutter_native_splash: 

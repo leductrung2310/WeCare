@@ -9,9 +9,13 @@ AppBar customAppBar(
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const Icon(Icons.arrow_back_ios_new),
+      icon: Icon(
+        Icons.arrow_back_ios_new,
+        color: color,
+        size: SizeConfig.blockSizeV! * 3.5,
+      ),
     ),
-    toolbarHeight: 60,
+    toolbarHeight: SizeConfig.blockSizeV! * 7.5,
     title: Text(
       name,
       style: TextStyle(

@@ -2,11 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/screen/home/water/widgets/detailed_statistic.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
 
-import 'widgets/water_bar_chart_title.dart';
+import 'components/water_bar_chart_title.dart';
 
 class WaterStatisticScreen extends StatelessWidget {
   const WaterStatisticScreen({Key? key}) : super(key: key);
@@ -50,6 +51,9 @@ class WaterStatisticScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: sizeV * 4),
+              const DetailedStatistic(),
+              
             ],
           ),
         ),

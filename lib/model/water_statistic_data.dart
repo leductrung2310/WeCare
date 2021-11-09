@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
 
 class WaterStatisticData {
@@ -63,3 +63,22 @@ class WaterBarData {
     ),
   ];
 }
+
+class WaterDetailedStatisticData {
+  final int index;
+  final String unit;
+  final String title;
+
+  WaterDetailedStatisticData({
+    required this.index,
+    required this.unit,
+    required this.title,
+  });
+}
+
+List<WaterDetailedStatisticData> waterDetailedListData = [
+  WaterDetailedStatisticData(index: 1300, unit: 'ml/day', title: 'Average'),
+  WaterDetailedStatisticData(index: 67, unit: '%', title: 'Completed'),
+  WaterDetailedStatisticData(index: 10, unit: 'times/day', title: 'Times'),
+];
+

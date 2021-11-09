@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svg_icon/svg_icon.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class HomeItem extends StatelessWidget {
   const HomeItem({
@@ -39,7 +39,9 @@ class HomeItem extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     return InkWell(
+      onTap: onPressed,
       splashColor: grey1,
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         width: sizeH * 42.5,
         height: sizeV * coefficient,
@@ -113,7 +115,6 @@ class HomeItem extends StatelessWidget {
           ],
         ),
       ),
-      onTap: onPressed,
     );
   }
 }

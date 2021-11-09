@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/screen/home/widgets/left_side.dart';
-import 'package:wecare_flutter/screen/home/widgets/right_side.dart';
-import 'package:wecare_flutter/screen/home/widgets/walk_section.dart';
+import 'package:wecare_flutter/screen/home/widgets/home/left_side.dart';
+import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
+import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 
 import '../../constants.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svg_icon/svg_icon.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class StepCountPart extends StatelessWidget {
   const StepCountPart({Key?   key}) : super(key: key);
@@ -14,6 +14,7 @@ class StepCountPart extends StatelessWidget {
 
     return InkWell(
       splashColor: grey1,
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         height: sizeV * 15.5,
         width: sizeH * 90,

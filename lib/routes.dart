@@ -23,4 +23,5 @@ class Routes {
   static const changePasswordSuccessScreen = '/change_password_success_screen';
   static const profileInformationScreen = '/profile_information_screen';
   static const takerest = '/take_rest_screen';
+  static const waterScreenStatistic = '/water_statistic_screen';
 }

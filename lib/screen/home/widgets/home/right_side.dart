@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/screen/home/widgets/home_item.dart';
-import 'package:wecare_flutter/screen/home/widgets/water_progress.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/circle_progress.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class RightSection extends StatelessWidget {
   const RightSection({Key? key}) : super(key: key);
@@ -24,13 +25,13 @@ class RightSection extends StatelessWidget {
           index: 1.29,
           coefficient: 22.5,
           child: const CustomProgressIndicator(),
-          left: sizeV*5.5,
-          top: sizeV*6,
-          right: sizeV*5.5,
-          bottom: sizeV*6,
+          left: sizeV * 5.5,
+          top: sizeV * 6,
+          right: sizeV * 5.5,
+          bottom: sizeV * 6,
           unit: 'L',
-          onPressed: (){
-            Navigator.pushNamed(context, '/water_screen');
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.waterScreen);
           },
         ),
         SizedBox(height: sizeH * 5),
@@ -46,8 +47,8 @@ class RightSection extends StatelessWidget {
           right: 5,
           bottom: 5,
           unit: '',
-          onPressed: (){
-            Navigator.pushNamed(context, '/bmi_screen');
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.bmiScreen);
           },
         ),
       ],

@@ -9,6 +9,7 @@ import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
 import 'package:wecare_flutter/screen/fitness/workout_screen.dart';
+import 'package:wecare_flutter/screen/home/water/water_statistic_screen.dart';
 
 import 'package:wecare_flutter/screen/profile/change_password_success_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_information_screen.dart';
@@ -160,6 +161,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const SleepScreen(), settings: settings);
       case Routes.takerest:
         return buildRoute(const RestScreen(), settings: settings);
+      case Routes.waterScreenStatistic:
+        return buildRoute(const WaterStatisticScreen(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

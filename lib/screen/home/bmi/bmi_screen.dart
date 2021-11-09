@@ -3,6 +3,7 @@ import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_history.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_statistic.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_information.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 
 class BMIRatioScreen extends StatefulWidget {
   const BMIRatioScreen({Key? key}) : super(key: key);
@@ -21,28 +22,15 @@ class _BMIRatioScreenState extends State<BMIRatioScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
+        appBar: customAppBar(
+          context,
+          bmiColor,
+          'BMI Ratio',
+          const Text(''),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: sizeV * 2),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new),
-                  ),
-                  Text(
-                    'BMI ratio',
-                    style: TextStyle(
-                        color: bmiColor,
-                        fontSize: sizeH * 6,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins'),
-                  ),
-                ],
-              ),
               SizedBox(height: sizeV * 2),
               const PersonalInformation(),
               SizedBox(height: sizeV * 4),
@@ -58,10 +46,11 @@ class _BMIRatioScreenState extends State<BMIRatioScreen> {
               Text(
                 'History',
                 style: TextStyle(
-                    color: lightBlack,
-                    fontSize: sizeV * 4,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins'),
+                  color: lightBlack,
+                  fontSize: sizeV * 4,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                ),
               ),
               const BMIHistorySection(),
             ],

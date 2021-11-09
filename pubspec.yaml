@@ -94,6 +94,7 @@ flutter:
     - assets/images/home/walk/
     - assets/images/home/sleep/
     - assets/images/home/calories/
+    - assets/images/food/SomethingWrong.png
     # - assets/icons/
     - assets/images/
     - assets/images/authentication/

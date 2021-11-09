@@ -167,3 +167,11 @@ final oBlackSub = TextStyle(
   color: accentColor,
   fontWeight: FontWeight.w600,
 );
+
+//food
+final foodSearchText = TextStyle(
+  color: accentColor,
+  fontFamily: 'Poppins',
+  fontSize: SizeConfig.blockSizeH! * 4.5,
+  fontWeight: FontWeight.w500,
+);

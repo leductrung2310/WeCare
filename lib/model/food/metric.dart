@@ -1,5 +1,5 @@
 class Metric {
-  late int amount;
+  late double amount;
   late String unitShort;
   late String unitLong;
 

@@ -116,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFDBD2F6),
                 iconColor: const Color(0xFF9B81E5),
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.foodDetailScreen);
+                  //Navigator.pushNamed(context, Routes.foodDetailScreen);
                 },
               ),
               ProfileCardLogout(

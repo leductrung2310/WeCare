@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/food/recipes.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
@@ -140,7 +141,9 @@ class WeCare extends StatelessWidget {
       case Routes.changePasswordScreen:
         return buildRoute(const ChangePasswordScreen(), settings: settings);
       case Routes.foodDetailScreen:
-        return buildRoute(const FoodDetailScreene(), settings: settings);
+        Recipes recipes = settings.arguments as Recipes;
+        return buildRoute(FoodDetailScreene(arguments: recipes),
+            settings: settings);
       case Routes.workouting:
         return buildRoute(const Workouting(), settings: settings);
       case Routes.finishworout:

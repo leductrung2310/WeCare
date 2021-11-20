@@ -1,5 +1,3 @@
-import 'package:wecare_flutter/model/food/measures.dart';
-
 class ExtendedIngredients {
   late int id;
   late String aisle;
@@ -10,11 +8,8 @@ class ExtendedIngredients {
   late String original;
   late String originalString;
   late String originalName;
-  late int amount;
+  late double amount;
   late String unit;
-  late List<String> meta;
-  late List<String> metaInformation;
-  late Measures measures;
 
   ExtendedIngredients(
       {required this.id,
@@ -27,10 +22,7 @@ class ExtendedIngredients {
       required this.originalString,
       required this.originalName,
       required this.amount,
-      required this.unit,
-      required this.meta,
-      required this.metaInformation,
-      required this.measures});
+      required this.unit});
 
   ExtendedIngredients.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -44,29 +36,5 @@ class ExtendedIngredients {
     originalName = json['originalName'];
     amount = json['amount'];
     unit = json['unit'];
-    meta = json['meta'].cast<String>();
-    metaInformation = json['metaInformation'].cast<String>();
-    measures = (json['measures'] != null
-        ? Measures.fromJson(json['measures'])
-        : null)!;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['aisle'] = aisle;
-    data['image'] = image;
-    data['consistency'] = consistency;
-    data['name'] = name;
-    data['nameClean'] = nameClean;
-    data['original'] = original;
-    data['originalString'] = originalString;
-    data['originalName'] = originalName;
-    data['amount'] = amount;
-    data['unit'] = unit;
-    data['meta'] = meta;
-    data['metaInformation'] = metaInformation;
-    data['measures'] = measures.toJson();
-    return data;
   }
 }

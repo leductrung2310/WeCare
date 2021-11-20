@@ -1,0 +1,192 @@
+{
+    "calories": "535k",
+    "carbs": "69g",
+    "fat": "26g",
+    "protein": "7g",
+    "bad": [
+        {
+            "title": "Calories",
+            "amount": "535k",
+            "indented": false,
+            "percentOfDailyNeeds": 26.77
+        },
+        {
+            "title": "Fat",
+            "amount": "26g",
+            "indented": false,
+            "percentOfDailyNeeds": 40.26
+        },
+        {
+            "title": "Saturated Fat",
+            "amount": "15g",
+            "indented": true,
+            "percentOfDailyNeeds": 97.53
+        },
+        {
+            "title": "Carbohydrates",
+            "amount": "69g",
+            "indented": false,
+            "percentOfDailyNeeds": 23.24
+        },
+        {
+            "title": "Sugar",
+            "amount": "38g",
+            "indented": true,
+            "percentOfDailyNeeds": 43.01
+        },
+        {
+            "title": "Cholesterol",
+            "amount": "144mg",
+            "indented": false,
+            "percentOfDailyNeeds": 48.12
+        },
+        {
+            "title": "Sodium",
+            "amount": "388mg",
+            "indented": false,
+            "percentOfDailyNeeds": 16.88
+        }
+    ],
+    "good": [
+        {
+            "title": "Protein",
+            "amount": "7g",
+            "indented": false,
+            "percentOfDailyNeeds": 15.55
+        },
+        {
+            "title": "Selenium",
+            "amount": "19µg",
+            "indented": false,
+            "percentOfDailyNeeds": 28.45
+        },
+        {
+            "title": "Vitamin B2",
+            "amount": "0.36mg",
+            "indented": false,
+            "percentOfDailyNeeds": 20.98
+        },
+        {
+            "title": "Folate",
+            "amount": "82µg",
+            "indented": false,
+            "percentOfDailyNeeds": 20.68
+        },
+        {
+            "title": "Manganese",
+            "amount": "0.4mg",
+            "indented": false,
+            "percentOfDailyNeeds": 19.89
+        },
+        {
+            "title": "Vitamin B1",
+            "amount": "0.29mg",
+            "indented": false,
+            "percentOfDailyNeeds": 19.04
+        },
+        {
+            "title": "Vitamin A",
+            "amount": "870IU",
+            "indented": false,
+            "percentOfDailyNeeds": 17.41
+        },
+        {
+            "title": "Phosphorus",
+            "amount": "158mg",
+            "indented": false,
+            "percentOfDailyNeeds": 15.86
+        },
+        {
+            "title": "Vitamin B6",
+            "amount": "0.27mg",
+            "indented": false,
+            "percentOfDailyNeeds": 13.74
+        },
+        {
+            "title": "Iron",
+            "amount": "2mg",
+            "indented": false,
+            "percentOfDailyNeeds": 12.45
+        },
+        {
+            "title": "Vitamin B3",
+            "amount": "2mg",
+            "indented": false,
+            "percentOfDailyNeeds": 11.67
+        },
+        {
+            "title": "Potassium",
+            "amount": "375mg",
+            "indented": false,
+            "percentOfDailyNeeds": 10.74
+        },
+        {
+            "title": "Fiber",
+            "amount": "2g",
+            "indented": false,
+            "percentOfDailyNeeds": 9.81
+        },
+        {
+            "title": "Vitamin B5",
+            "amount": "0.78mg",
+            "indented": false,
+            "percentOfDailyNeeds": 7.84
+        },
+        {
+            "title": "Calcium",
+            "amount": "77mg",
+            "indented": false,
+            "percentOfDailyNeeds": 7.74
+        },
+        {
+            "title": "Magnesium",
+            "amount": "29mg",
+            "indented": false,
+            "percentOfDailyNeeds": 7.47
+        },
+        {
+            "title": "Vitamin E",
+            "amount": "1mg",
+            "indented": false,
+            "percentOfDailyNeeds": 6.77
+        },
+        {
+            "title": "Vitamin C",
+            "amount": "5mg",
+            "indented": false,
+            "percentOfDailyNeeds": 6.57
+        },
+        {
+            "title": "Copper",
+            "amount": "0.12mg",
+            "indented": false,
+            "percentOfDailyNeeds": 5.9
+        },
+        {
+            "title": "Vitamin D",
+            "amount": "0.87µg",
+            "indented": false,
+            "percentOfDailyNeeds": 5.82
+        },
+        {
+            "title": "Zinc",
+            "amount": "0.73mg",
+            "indented": false,
+            "percentOfDailyNeeds": 4.9
+        },
+        {
+            "title": "Vitamin B12",
+            "amount": "0.29µg",
+            "indented": false,
+            "percentOfDailyNeeds": 4.78
+        },
+        {
+            "title": "Vitamin K",
+            "amount": "2µg",
+            "indented": false,
+            "percentOfDailyNeeds": 2.76
+        }
+    ],
+    "expires": 1637423644336,
+    "isStale": false
+}

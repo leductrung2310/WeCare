@@ -66,11 +66,11 @@ class FoodDetailScreene extends StatelessWidget {
                   children: [
                     for (var item in arguments.extendedIngredients!)
                       Ingredient(
-                        image: item.image,
-                        name: item.name,
-                        unit: removeDecimalZeroFormat(item.amount) +
+                        image: item.image!,
+                        name: item.name!,
+                        unit: removeDecimalZeroFormat(item.amount!) +
                             " " +
-                            item.unit,
+                            item.unit!,
                       ),
                   ],
                 ),

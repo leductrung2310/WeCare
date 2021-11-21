@@ -27,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     Provider.of<FoodViewModel>(context, listen: false).setListRecipes();
     Provider.of<FoodViewModel>(context, listen: false).setListRecipesPopular();
+
     super.initState();
   }
 

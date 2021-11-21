@@ -26,7 +26,7 @@ class ProfileInformationScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
           elevation: 0,
           toolbarHeight: sizeV * 7,

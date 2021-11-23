@@ -47,28 +47,30 @@ class HistorySleepTime extends StatelessWidget {
                 : AlignmentDirectional.topCenter,
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn,
-            child: sleepViewModel.bedTimeBtnSelected
-                ? const SizedBox.shrink()
-                : ChangeNotifierProvider(
-                  create: (context) => WeeklyCalendarVM(),
-                  child: Column(
-                    children: [
-                      const WeeklyCalendar(color: sleepColor),
-                      SizedBox(
-                        height: sizeV * 29,
-                        child: Padding(
-                            padding: EdgeInsets.only(top: sizeV * 1.5),
-                            child: FlBarChart(
-                              sizeH: sizeH,
-                              flTitlesData: flTitlesData,
-                              barGroups: SleepBarData.sleepBarChartList,
-                              barTouch: true,
+            child: SingleChildScrollView(
+              child: sleepViewModel.bedTimeBtnSelected
+                  ? const SizedBox.shrink()
+                  : ChangeNotifierProvider(
+                      create: (context) => WeeklyCalendarVM(),
+                      child: Column(
+                        children: [
+                          const WeeklyCalendar(color: sleepColor),
+                          SizedBox(
+                            height: sizeV * 29,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: sizeV * 1.5),
+                              child: FlBarChart(
+                                sizeH: sizeH,
+                                flTitlesData: flTitlesData,
+                                barGroups: SleepBarData.sleepBarChartList,
+                                barTouch: true,
+                              ),
                             ),
                           ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+            ),
           ),
           Row(
             children: [
@@ -144,7 +146,9 @@ class HistorySleepTime extends StatelessWidget {
                     height: sizeV * 4,
                     width: sizeH * 25,
                     color: sleepColor,
-                    name:  sleepViewModel.bedTimeBtnSelected ? 'Expand' : 'Collapse',
+                    name: sleepViewModel.bedTimeBtnSelected
+                        ? 'Expand'
+                        : 'Collapse',
                     textColor: whiteColor,
                     fontSize: sizeH * 3.5,
                     onPressed: () {

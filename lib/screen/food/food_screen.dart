@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
-import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend_popular.dart';

@@ -30,7 +30,7 @@ class WeeklyCalendar extends StatelessWidget {
         onTap: onPressed,
         borderRadius: BorderRadius.circular(40),
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(3),
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -56,7 +56,7 @@ class WeeklyCalendar extends StatelessWidget {
             () => weeklyCalendarVM.changeCalendar(true),
             color,
           ),
-          SizedBox(width: sizeH * 4),
+          SizedBox(width: sizeH * 2),
           Text(
             weeklyCalendarVM.getCalendar(),
             style: TextStyle(
@@ -66,7 +66,7 @@ class WeeklyCalendar extends StatelessWidget {
               color: lightBlack,
             ),
           ),
-          SizedBox(width: sizeH * 4),
+          SizedBox(width: sizeH * 2),
           calenderBtn(
             Icons.keyboard_arrow_right,
             () => curentTime == _now

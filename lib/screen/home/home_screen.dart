@@ -26,17 +26,17 @@ class HomeScreen extends StatelessWidget {
 
     String photoUrl =
         "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
-    if (currentUser!.photoURL != null) {
-      photoUrl = currentUser.photoURL!;
-    } else if (auth.loggedInUser.avatarUrl != null) {
+    if (auth.loggedInUser.avatarUrl != null) {
       photoUrl = auth.loggedInUser.avatarUrl!;
+    } else if (currentUser!.photoURL != null) {
+      photoUrl = currentUser.photoURL!;
     }
 
     String name = "Unknow User";
-    if (currentUser.displayName != null) {
-      name = currentUser.displayName!;
-    } else if (auth.loggedInUser.name != null) {
+    if (auth.loggedInUser.name != null) {
       name = auth.loggedInUser.name!;
+    } else if (currentUser!.displayName != null) {
+      name = currentUser.displayName!;
     }
 
     return SafeArea(

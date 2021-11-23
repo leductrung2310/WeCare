@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
-
-import '../../../constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class FoodRecommend extends StatelessWidget {
   final Color cardColor;

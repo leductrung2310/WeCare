@@ -47,7 +47,10 @@ dependencies:
   fl_chart: ^0.40.2
   flutter_html: ^2.1.5
   image_picker: ^0.8.4+4
-
+  flutter_local_notifications: ^9.1.4
+  timezone: ^0.8.0
+  flutter_native_timezone: ^2.0.0
+  
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 

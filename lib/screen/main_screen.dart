@@ -5,6 +5,7 @@ import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
 
@@ -27,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     Provider.of<FoodViewModel>(context, listen: false).setListRecipes();
     Provider.of<FoodViewModel>(context, listen: false).setListRecipesPopular();
-
+    Provider.of<NotificationService>(context, listen: false).initialize();
     super.initState();
   }
 

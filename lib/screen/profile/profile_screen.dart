@@ -6,7 +6,10 @@ import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -107,6 +110,19 @@ class ProfileScreen extends StatelessWidget {
                   'assets/images/logos/logo.png',
                   scale: sizeH / 2.5,
                 ),
+              ),
+              IconButton(
+                onPressed: () {
+                  DateTime time = DateTime.now().add(Duration(minutes: 1));
+                  Provider.of<NotificationService>(context, listen: false)
+                      .sheduledNotification(
+                    1,
+                    "Remind",
+                    "Duc Trung đi ngủ",
+                    time,
+                  );
+                },
+                icon: const Icon(Icons.access_alarm),
               ),
             ],
           ),

@@ -18,6 +18,7 @@ import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
@@ -102,6 +103,8 @@ class WeCare extends StatelessWidget {
             create: (context) => SleepViewModel()),
         ChangeNotifierProvider<ProfileViewModel>(
             create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider<NotificationService>(
+            create: (context) => NotificationService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

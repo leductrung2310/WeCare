@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
 import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';

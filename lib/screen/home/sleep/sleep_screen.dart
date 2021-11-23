@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
+import 'package:wecare_flutter/screen/home/sleep/module/best_time_to_wakeup.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/view_model/sleep_view_model.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 import 'module/best_time_to_sleep.dart';
 import 'module/history_sleep_time.dart';
 import 'module/select_wake_up_time.dart';
@@ -31,15 +32,18 @@ class SleepScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: sizeV),
               const HistorySleepTime(),
               const SelectWakeUpTime(),
               const BestTimeToSleep(),
-              Container(
-                height: 2,
+              Divider(
+                height: 0,
+                thickness: 2.5,
                 color: metalGreyColor,
-                width: sizeH * 90,
+                indent: sizeH * 5,
+                endIndent: sizeH * 5,
               ),
               Align(
                 alignment: Alignment.topLeft,
@@ -52,13 +56,22 @@ class SleepScreen extends StatelessWidget {
                 ),
               ),
               CustomBTN(
-                height: sizeV * 10,
+                height: sizeV * 6.5,
                 width: sizeH * 70,
                 color: sleepColor,
                 name: "Calculate wake-up time",
                 textColor: whiteColor,
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<SleepViewModel>(context, listen: false)
+                      .calcullateBestWakeupTime();
+                  Provider.of<SleepViewModel>(context, listen: false)
+                      .showBestWakeupTime = true;
+                  Provider.of<SleepViewModel>(context, listen: false)
+                      .showBestSleepTime = false;
+                },
               ),
+              const BestTimeToWakeup(),
+              SizedBox(height: sizeV * 3),
             ],
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class BannerWorkouts extends StatelessWidget {
   final String srcImage;

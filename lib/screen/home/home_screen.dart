@@ -3,7 +3,7 @@ import 'package:wecare_flutter/screen/home/widgets/home/left_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

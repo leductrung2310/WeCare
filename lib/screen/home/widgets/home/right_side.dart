@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/circle_progress.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class RightSection extends StatelessWidget {
   const RightSection({Key? key}) : super(key: key);
@@ -41,11 +42,11 @@ class RightSection extends StatelessWidget {
           assetIcon: 'assets/images/home/bmi/bmi_weight.svg',
           index: 20.5,
           coefficient: 22.5,
-          child: const Text(''),
-          left: 5,
-          top: 5,
-          right: 5,
-          bottom: 5,
+          child: SvgPicture.asset('assets/images/home/bmi/bmi_vector.svg'),
+          left: sizeH * 4,
+          top: sizeV * 6,
+          right: sizeH * 4,
+          bottom: sizeV * 6,
           unit: '',
           onPressed: () {
             Navigator.pushNamed(context, Routes.bmiScreen);

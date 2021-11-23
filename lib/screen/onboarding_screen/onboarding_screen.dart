@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/main.dart';
 import "package:wecare_flutter/model/onboard_data.dart";
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:provider/provider.dart';
+
+import 'package:wecare_flutter/view_model/bmi_view_model.dart';
 
 class BMIStatistic extends StatelessWidget {
   const BMIStatistic({Key? key}) : super(key: key);
@@ -9,6 +13,11 @@ class BMIStatistic extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final BMIHistoryViewModel bmiHistoryViewModel =
+        Provider.of<BMIHistoryViewModel>(context);
+    String formattedDate = DateFormat('dd-MM-yyyy')
+        .format(bmiHistoryViewModel.bmiRatio.updatedDate);
 
     return Container(
       padding: EdgeInsets.fromLTRB(sizeH * 4, sizeH * 2, sizeH * 4, sizeH * 4),
@@ -33,7 +42,7 @@ class BMIStatistic extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '22.49',
+                '${bmiHistoryViewModel.bmiRatio.ratio}',
                 style: TextStyle(
                     color: primaryColor,
                     fontSize: sizeV * 4,
@@ -119,7 +128,16 @@ class BMIStatistic extends StatelessWidget {
                 style: TextStyle(
                     color: metalGreyColor,
                     fontSize: sizeV * 2.5,
-                    fontWeight: FontWeight.normal,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                    ),
+              ),
+              Text(
+                formattedDate,
+                style: TextStyle(
+                    color: lightBlack1,
+                    fontSize: sizeV * 2.5,
+                    fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins'),
               ),
             ],

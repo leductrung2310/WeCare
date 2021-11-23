@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class RegisterInputInfoTextField extends StatelessWidget {
   const RegisterInputInfoTextField({

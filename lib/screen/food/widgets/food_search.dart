@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log_no_result.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';

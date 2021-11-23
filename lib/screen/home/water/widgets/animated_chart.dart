@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/screen/home/water/components/calendar_picker.dart';
+import 'package:wecare_flutter/screen/home/water/components/weekly_calendar.dart';
 import 'package:wecare_flutter/screen/home/water/components/fl_bar_chart.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class AnimatedChart extends StatelessWidget {
   const AnimatedChart({
@@ -13,6 +13,7 @@ class AnimatedChart extends StatelessWidget {
     required this.width,
     required this.height,
     required this.maxY,
+    required this.barChartGroupData,
     required this.flTitlesData,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class AnimatedChart extends StatelessWidget {
   final double width;
   final double height;
   final double maxY;
+  final List<BarChartGroupData> barChartGroupData;
   final FlTitlesData flTitlesData;
 
   @override
@@ -50,7 +52,7 @@ class AnimatedChart extends StatelessWidget {
           vertical: sizeV * 2,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             WeeklyCalendar(color: color),
             SizedBox(
@@ -58,10 +60,10 @@ class AnimatedChart extends StatelessWidget {
             ),
             Expanded(
               child: FlBarChart(
-                maxY: maxY,
                 sizeH: sizeH,
                 flTitlesData: flTitlesData,
-                barWidth: barWidth,
+                barGroups: barChartGroupData,
+                barTouch: true,
               ),
             ),
           ],

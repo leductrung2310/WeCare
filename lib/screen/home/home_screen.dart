@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/left_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 

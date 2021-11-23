@@ -4,7 +4,7 @@ import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/screen/home/sleep/widget/drop_down_btn.dart';
 import 'package:wecare_flutter/view_model/sleep_view_model.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class SelectWakeUpTime extends StatelessWidget {
   const SelectWakeUpTime({Key? key}) : super(key: key);
@@ -33,15 +33,16 @@ class SelectWakeUpTime extends StatelessWidget {
     ];
 
     List<String> listMinute = [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
+      '00',
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
       '10',
       '11',
       '12',
@@ -158,9 +159,10 @@ class SelectWakeUpTime extends StatelessWidget {
           onPressed: () {
             Provider.of<SleepViewModel>(context, listen: false)
                 .calculateSleepTime();
-            Provider.of<SleepViewModel>(context,
-                listen: false)
-                .calculateFrame = false;
+            Provider.of<SleepViewModel>(context, listen: false)
+                .showBestSleepTime = true;
+            Provider.of<SleepViewModel>(context, listen: false)
+                .showBestWakeupTime = false;
           },
         ),
       ],

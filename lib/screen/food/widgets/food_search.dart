@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log_no_result.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
@@ -11,8 +11,9 @@ class SearchBarCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    SizeConfig().init(context);
+    double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
 
     final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
 
@@ -29,10 +30,9 @@ class SearchBarCustom extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
-      axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
-      width: isPortrait ? 600 : 500,
-      height: 55,
+      width: sizeH * 100,
+      height: sizeV * 7,
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         foodViewModel.stringSearch = query;
@@ -41,7 +41,6 @@ class SearchBarCustom extends StatelessWidget {
         if (!foodViewModel.listFoodSearchHistory.contains(query)) {
           foodViewModel.listFoodSearchHistory.add(query);
         }
-
         get(foodViewModel, query, context);
       },
       transition: CircularFloatingSearchBarTransition(),
@@ -68,15 +67,15 @@ class SearchBarCustom extends StatelessWidget {
               children: Provider.of<FoodViewModel>(context)
                   .searchFood(foodViewModel.stringSearch)
                   .map((e) {
-                return InkWell(
-                  focusColor: Colors.amber,
-                  highlightColor: greenLightProfile,
-                  onTap: () {
-                    get(foodViewModel, e, context);
-                  },
-                  hoverColor: greenLightProfile,
-                  overlayColor:
-                      MaterialStateProperty.all<Color>(greenLightProfile),
+                return GestureDetector(
+                  // focusColor: Colors.amber,
+                  // highlightColor: greenLightProfile,
+                  // onTap: () {
+                  //   get(foodViewModel, e, context);
+                  // },
+                  // hoverColor: greenLightProfile,
+                  // overlayColor:
+                  //     MaterialStateProperty.all<Color>(greenLightProfile),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

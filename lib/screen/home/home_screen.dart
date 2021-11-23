@@ -7,7 +7,7 @@ import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({

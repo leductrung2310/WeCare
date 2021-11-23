@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class LegsWorkout extends StatelessWidget {
   const LegsWorkout({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 AppBar customAppBar(
     BuildContext context, Color color, String name, Widget child) {

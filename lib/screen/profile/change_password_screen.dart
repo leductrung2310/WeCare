@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_button.dart';
 import 'package:wecare_flutter/screen/profile/widgets/button.dart';

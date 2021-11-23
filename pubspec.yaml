@@ -47,6 +47,12 @@ dependencies:
   fl_chart: ^0.40.2
   google_sign_in: ^5.2.1
   fluttertoast: ^8.0.8
+  flutter_html: ^2.1.5
+  image_picker: ^0.8.4+4
+  flutter_local_notifications: ^9.1.4
+  timezone: ^0.8.0
+  flutter_native_timezone: ^2.0.0
+  pedometer: ^3.0.0
   cloud_firestore: ^3.1.0
 
 flutter_native_splash: 

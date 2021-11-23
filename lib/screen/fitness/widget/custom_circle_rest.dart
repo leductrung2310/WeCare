@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 
 class RestCircle extends StatelessWidget {
   const RestCircle({Key? key}) : super(key: key);

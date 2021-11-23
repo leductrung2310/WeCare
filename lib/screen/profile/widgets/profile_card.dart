@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
@@ -31,17 +31,17 @@ class ProfileCard extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onTap,
           style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(sizeH * 3),
-                ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(sizeH * 3),
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.symmetric(horizontal: sizeH * 2)),
-              backgroundColor: MaterialStateProperty.all<Color>(whiteColor),
-              elevation: MaterialStateProperty.all<double>(0.25),
-              overlayColor:
-                  MaterialStateProperty.all<Color>(greenLightProfile)),
+            ),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                EdgeInsets.symmetric(horizontal: sizeH * 2)),
+            backgroundColor: MaterialStateProperty.all<Color>(whiteColor),
+            elevation: MaterialStateProperty.all<double>(0.25),
+            overlayColor: MaterialStateProperty.all<Color>(greenLightProfile),
+          ),
           child: Row(
             children: [
               Container(

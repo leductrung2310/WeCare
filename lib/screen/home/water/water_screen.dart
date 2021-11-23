@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
@@ -139,7 +139,10 @@ class _WaterScreenState extends State<WaterScreen>
       onPressed: () {
         Navigator.pushNamed(context, Routes.waterScreenStatistic);
       },
-      icon: const Icon(Icons.timeline),
+      icon: const Icon(
+        Icons.timeline,
+        color: waterColor,
+      ),
     );
 
     return SafeArea(

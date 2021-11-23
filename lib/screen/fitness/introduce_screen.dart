@@ -4,7 +4,7 @@ import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 import '../../routes.dart';
 
 class IntroWorkouts extends StatelessWidget {

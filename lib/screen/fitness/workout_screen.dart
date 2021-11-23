@@ -5,7 +5,7 @@ import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 
 class Workouting extends StatelessWidget {
   final List<Exercise> arguments;

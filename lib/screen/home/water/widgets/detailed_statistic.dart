@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/water_statistic_data.dart';
+import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class DetailedStatistic extends StatelessWidget {
   const DetailedStatistic({Key? key}) : super(key: key);
@@ -59,6 +59,7 @@ class DetailedStatistic extends StatelessWidget {
       height: sizeV * 16,
       width: sizeH * 100,
       child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: waterDetailedListData.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {

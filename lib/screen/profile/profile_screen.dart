@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
+import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
@@ -13,13 +17,17 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final authService = Provider.of<AuthenticService>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -99,8 +107,8 @@ class ProfileScreen extends StatelessWidget {
                 prefixIconData: Icons.arrow_forward_ios,
                 color: const Color(0xFFFFECE8),
                 iconColor: const Color(0xFFFE7E60),
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.registerUpdateInfo);
+                onTap: () async {
+                  await authService.signOutWithEmail(context);
                 },
               ),
               SizedBox(

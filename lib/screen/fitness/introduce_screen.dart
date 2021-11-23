@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/exercise.dart';
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
 import '../../constants/constants.dart';
 import '../../routes.dart';
@@ -98,10 +100,14 @@ class IntroWorkouts extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
+                  final arg = arguments.listExercise;
                   Navigator.pushNamed(
                     context,
                     Routes.workouting,
+                    arguments: arg,
                   );
+                  Provider.of<WorkoutViewModel>(context, listen: false)
+                      .startTime();
                 },
                 child: Container(
                   height: sizeV * 6,

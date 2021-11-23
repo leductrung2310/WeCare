@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
 import '../../../constants/constants.dart';
 
@@ -13,16 +15,18 @@ class RestCircle extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
+
     final size = sizeH * 55;
     return Center(
       child: TweenAnimationBuilder(
-        duration: const Duration(seconds: 30),
+        duration: Duration(seconds: workoutViewModel.restTime),
         tween: Tween(
-          begin: 0.0,
-          end: 1.0,
+          begin: 1.0,
+          end: 0.0,
         ),
         builder: (context, double value, child) {
-          int percentage = (value * 30).ceil();
+          int percentage = (value * workoutViewModel.restTime).ceil();
           return Container(
             width: size,
             height: size,

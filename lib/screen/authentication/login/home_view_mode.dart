@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class LoginViewModel extends ChangeNotifier {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   bool _isVisible = false;
   get isVisible => _isVisible;
 

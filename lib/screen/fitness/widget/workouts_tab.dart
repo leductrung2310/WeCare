@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:svg_icon/svg_icon.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 class WorkoutsTab extends StatelessWidget {
   final String title;

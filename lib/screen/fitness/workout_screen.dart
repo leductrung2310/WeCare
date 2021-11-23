@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 
 class Workouting extends StatelessWidget {
   const Workouting({Key? key}) : super(key: key);

@@ -1,9 +1,15 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/statistic_data/sleep_statistic_data.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
+import 'package:wecare_flutter/screen/home/sleep/widget/sleep_bar_chart_title.dart';
+import 'package:wecare_flutter/screen/home/water/components/weekly_calendar.dart';
+import 'package:wecare_flutter/screen/home/water/components/fl_bar_chart.dart';
 import 'package:wecare_flutter/view_model/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class HistorySleepTime extends StatelessWidget {
   const HistorySleepTime({Key? key}) : super(key: key);
@@ -13,6 +19,13 @@ class HistorySleepTime extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    FlTitlesData flTitlesData = FlTitlesData(
+      bottomTitles: SleepBarTitles.getBottomTitles(),
+      leftTitles: SleepBarTitles.getSideTitles(),
+      topTitles: SideTitles(showTitles: false),
+      rightTitles: SideTitles(showTitles: false),
+    );
 
     final sleepViewModel = Provider.of<SleepViewModel>(context);
     return Container(
@@ -28,15 +41,34 @@ class HistorySleepTime extends StatelessWidget {
         children: [
           AnimatedContainer(
             width: sizeH * 80,
-            height: sleepViewModel.selected ? 0 : sizeV * 35,
-            alignment: sleepViewModel.selected
+            height: sleepViewModel.bedTimeBtnSelected ? 0 : sizeV * 35,
+            alignment: sleepViewModel.bedTimeBtnSelected
                 ? Alignment.center
                 : AlignmentDirectional.topCenter,
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn,
-            child: Container(
-              color: primaryColor,
-            ),
+            child: sleepViewModel.bedTimeBtnSelected
+                ? const SizedBox.shrink()
+                : ChangeNotifierProvider(
+                  create: (context) => WeeklyCalendarVM(),
+                  child: Column(
+                    children: [
+                      const WeeklyCalendar(color: sleepColor),
+                      SizedBox(
+                        height: sizeV * 29,
+                        child: Padding(
+                            padding: EdgeInsets.only(top: sizeV * 1.5),
+                            child: FlBarChart(
+                              sizeH: sizeH,
+                              flTitlesData: flTitlesData,
+                              barGroups: SleepBarData.sleepBarChartList,
+                              barTouch: true,
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+                ),
           ),
           Row(
             children: [
@@ -71,7 +103,7 @@ class HistorySleepTime extends StatelessWidget {
                 ),
               ),
               Text(
-                "Average \nsleep time",
+                "Average\nsleep time",
                 style: TextStyle(
                   color: accentColor,
                   fontSize: sizeH * 5.5,
@@ -112,14 +144,14 @@ class HistorySleepTime extends StatelessWidget {
                     height: sizeV * 4,
                     width: sizeH * 25,
                     color: sleepColor,
-                    name: "Collapse",
+                    name:  sleepViewModel.bedTimeBtnSelected ? 'Expand' : 'Collapse',
                     textColor: whiteColor,
                     fontSize: sizeH * 3.5,
                     onPressed: () {
                       Provider.of<SleepViewModel>(context, listen: false)
-                              .selected =
+                              .bedTimeBtnSelected =
                           !Provider.of<SleepViewModel>(context, listen: false)
-                              .selected;
+                              .bedTimeBtnSelected;
                     },
                   ),
                 ],

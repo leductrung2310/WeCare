@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/model/exercise_arguments.dart';
 import 'package:wecare_flutter/model/food/recipes.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
+import 'package:wecare_flutter/screen/home/workout_history/workout_history.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
@@ -56,6 +58,7 @@ bool? seenOnboard;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   //* Use this to make the status bar visible
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -117,7 +120,6 @@ class WeCare extends StatelessWidget {
   String getInitalRoute() {
     //? if seenOnboard equals to true than return to sign up page
     return seenOnboard == true ? Routes.login : Routes.onboarding;
-    // return Routes.onboarding;
   }
 
   Route getRoute(RouteSettings settings) {
@@ -172,6 +174,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const RestScreen(), settings: settings);
       case Routes.waterScreenStatistic:
         return buildRoute(const WaterStatisticScreen(), settings: settings);
+      case Routes.historyWorkout:
+        return buildRoute(const WorkoutHistory(), settings: settings);
 
       default:
         return buildRoute(const MainScreen(), settings: settings);

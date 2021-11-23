@@ -4,6 +4,7 @@ import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend_popular.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_search.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
 

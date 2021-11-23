@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pattern_formatter/date_formatter.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:date_field/date_field.dart';
 import 'package:wecare_flutter/screen/profile/widgets/button.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_info_text_field_text.dart';

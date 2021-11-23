@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class ShoulderWorkout extends StatelessWidget {
   const ShoulderWorkout({Key? key}) : super(key: key);

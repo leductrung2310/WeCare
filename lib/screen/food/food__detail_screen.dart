@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/model/food/recipe_nutrition.dart';
 import 'package:wecare_flutter/model/food/recipes.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_card_image.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_ingredients.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_circle_rest.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';

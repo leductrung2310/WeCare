@@ -50,7 +50,9 @@ dependencies:
   flutter_local_notifications: ^9.1.4
   timezone: ^0.8.0
   flutter_native_timezone: ^2.0.0
-  
+  pedometer: ^3.0.0
+  cloud_firestore: ^3.1.0
+
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 

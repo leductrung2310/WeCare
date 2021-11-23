@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {

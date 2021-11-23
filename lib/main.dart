@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
 
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
@@ -14,13 +17,16 @@ import 'package:wecare_flutter/screen/home/water/water_statistic_screen.dart';
 import 'package:wecare_flutter/screen/profile/change_password_success_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_information_screen.dart';
 import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/services/google_service.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
 import 'package:wecare_flutter/view_model/sleep_view_model.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/routes.dart';
@@ -53,33 +59,20 @@ bool? seenOnboard;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //* Use this to make the status bar visible
+  await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      //* Set background color for the status bar
-      // statusBarColor: Colors.transparent,
-      //* Set the color brightness for icons of status bar
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  //to load UI for the first time
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  //? If the seenOnboard value equals to null then return false
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
   runApp(const WeCare());
 }
 
 class WeCare extends StatelessWidget {
   const WeCare({Key? key}) : super(key: key);
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     initialRoute: getInitalRoute(),
-  //     onGenerateRoute: (route) => getRoute(route),
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -98,22 +91,26 @@ class WeCare extends StatelessWidget {
             create: (context) => FoodViewModel()),
         ChangeNotifierProvider<SleepViewModel>(
             create: (context) => SleepViewModel()),
+        ChangeNotifierProvider<WorkoutViewModel>(
+            create: (context) => WorkoutViewModel()),
+        ChangeNotifierProvider<AuthenticService>(
+            create: (context) => AuthenticService()),
+        ChangeNotifierProvider<GoogleSignInProvider>(
+            create: (context) => GoogleSignInProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.main,
+        initialRoute: Routes.login,
         onGenerateRoute: (route) => getRoute(route),
       ),
     );
   }
 
   String getInitalRoute() {
-    //? if seenOnboard equals to true than return to sign up page
     return seenOnboard == true ? Routes.login : Routes.onboarding;
-    // return Routes.onboarding;
   }
 
-  Route getRoute(RouteSettings settings) {
+  Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onboarding:
         return buildRoute(const OnBoardingPage(), settings: settings);
@@ -142,7 +139,8 @@ class WeCare extends StatelessWidget {
       case Routes.foodDetailScreen:
         return buildRoute(const FoodDetailScreene(), settings: settings);
       case Routes.workouting:
-        return buildRoute(const Workouting(), settings: settings);
+        List<Exercise> arg = settings.arguments as List<Exercise>;
+        return buildRoute(Workouting(arguments: arg), settings: settings);
       case Routes.finishworout:
         return buildRoute(const FinishWorkout(), settings: settings);
       case Routes.introworkout:
@@ -160,12 +158,13 @@ class WeCare extends StatelessWidget {
       case Routes.sleepScreen:
         return buildRoute(const SleepScreen(), settings: settings);
       case Routes.takerest:
-        return buildRoute(const RestScreen(), settings: settings);
+        List<Exercise> arg = settings.arguments as List<Exercise>;
+        return buildRoute(RestScreen(arguments: arg), settings: settings);
       case Routes.waterScreenStatistic:
         return buildRoute(const WaterStatisticScreen(), settings: settings);
 
       default:
-        return buildRoute(const MainScreen(), settings: settings);
+        null;
     }
   }
 

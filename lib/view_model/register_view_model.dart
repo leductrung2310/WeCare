@@ -73,7 +73,9 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   bool onNextClick() {
-    if (emailController.text.isNotEmpty) return true;
+    if (emailController.text.isNotEmpty) {
+      return true;
+    }
     if (emailValidator(emailController.text) == "") {
       return true;
     }

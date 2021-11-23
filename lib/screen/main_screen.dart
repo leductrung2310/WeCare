@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/assets/custom_icons/custom_icon.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
 

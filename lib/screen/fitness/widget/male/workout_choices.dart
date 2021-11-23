@@ -4,7 +4,7 @@ import 'package:svg_icon/svg_icon.dart';
 import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 import '../workouts_tab.dart';
 import '../workouts_tab.dart';
 
@@ -21,11 +21,12 @@ class WorkoutChoice extends StatelessWidget {
       height: sizeV * 68,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             child: ListView.builder(
                 itemCount: 1,
                 shrinkWrap: true,
+                controller: null,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return Row(
@@ -91,7 +92,7 @@ class WorkoutChoice extends StatelessWidget {
                             }),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
+                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                         child: WorkoutsTab(
                             title: "Legs",
                             svgIcon: "assets/icons/legs.svg",
@@ -114,16 +115,6 @@ class WorkoutChoice extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
-              onPageChanged: (int page) {
-                if (Provider.of<WorkoutTabViewModel>(context, listen: false)
-                        .selectedPage ==
-                    page) {
-                  Provider.of<WorkoutTabViewModel>(context, listen: false)
-                          .selectedPage =
-                      Provider.of<WorkoutTabViewModel>(context, listen: false)
-                          .pageController;
-                }
-              },
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,

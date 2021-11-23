@@ -1,23 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/left_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 
 import '../../constants.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    final auth = Provider.of<AuthenticService>(context);
+
+    String photoUrl =
+        "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
+    if (currentUser!.photoURL != null) {
+      photoUrl = currentUser.photoURL!;
+    } else if (auth.loggedInUser.avatarUrl != null) {
+      photoUrl = auth.loggedInUser.avatarUrl!;
+    }
+
+    String name = "Unknow User";
+    if (currentUser.displayName != null) {
+      name = currentUser.displayName!;
+    } else if (auth.loggedInUser.name != null) {
+      name = auth.loggedInUser.name!;
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -29,32 +49,35 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: sizeV * 2.8,
-                        fontWeight: FontWeight.w400,
-                        color: lightBlack,
-                      ),
-                      children: [
-                        const TextSpan(text: 'How are you today,'),
-                        TextSpan(
-                          text: '\nJohn Wick 👋',
+                  Wrap(
+                    children: [
+                      RichText(
+                        text: TextSpan(
                           style: TextStyle(
-                            fontSize: sizeV * 4.5,
                             fontFamily: 'Poppins',
+                            fontSize: sizeV * 2.8,
+                            fontWeight: FontWeight.w400,
                             color: lightBlack,
-                            fontWeight: FontWeight.w700,
                           ),
+                          children: [
+                            const TextSpan(text: 'How are you today,'),
+                            TextSpan(
+                              text: '\n$name 👋',
+                              style: TextStyle(
+                                fontSize: sizeV * 3.5,
+                                fontFamily: 'Poppins',
+                                color: lightBlack,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   SizedBox(width: sizeH * 7.5),
                   CircleAvatar(
-                    backgroundImage:
-                        const AssetImage('assets/images/profile/avatar.png'),
+                    backgroundImage: NetworkImage(photoUrl),
                     radius: sizeV * 2.8,
                   ),
                 ],
@@ -67,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const LeftSection(),
-                  SizedBox(width: sizeH*5),
+                  SizedBox(width: sizeH * 5),
                   const RightSection(),
                 ],
               ),

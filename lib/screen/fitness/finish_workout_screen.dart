@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/confetti_widget.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import '../../routes.dart';
 
@@ -13,6 +16,8 @@ class FinishWorkout extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
 
     return Scaffold(
       body: Column(
@@ -57,7 +62,7 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "10",
+                      '${workoutViewModel.indexWorkout + 1}',
                       style: oWhiteTitle,
                     ),
                     Text(
@@ -72,7 +77,7 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "23",
+                      workoutViewModel.formatWorkoutTime(),
                       style: oWhiteTitle,
                     ),
                     Text(
@@ -87,7 +92,7 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "231.0",
+                      "${workoutViewModel.countWorkoutTime * 0.308}",
                       style: oWhiteTitle,
                     ),
                     Text(
@@ -106,10 +111,15 @@ class FinishWorkout extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
                   Routes.main,
+                  ModalRoute.withName('/'),
                 );
+                Provider.of<WorkoutViewModel>(context, listen: false)
+                    .indexWorkout = 0;
+                Provider.of<WorkoutViewModel>(context, listen: false)
+                    .countWorkoutTime = 0;
               },
               child: Container(
                 height: sizeV * 6,

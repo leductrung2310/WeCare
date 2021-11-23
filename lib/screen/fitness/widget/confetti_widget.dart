@@ -1,7 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 class AllConfettiWidget extends StatelessWidget {
   final Widget child;

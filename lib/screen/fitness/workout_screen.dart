@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import '../../constants.dart';
 
 class Workouting extends StatelessWidget {
-  const Workouting({Key? key}) : super(key: key);
+  final List<Exercise> arguments;
+
+  const Workouting({Key? key, required this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/images/exercises/gif_exercises/jumping_jacks.gif",
+                arguments[workoutViewModel.indexWorkout].gif,
                 height: sizeV * 60,
                 width: sizeH * 100,
               ),
               Text(
-                "Jumping Jack",
+                arguments[workoutViewModel.indexWorkout].name,
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: SizeConfig.blockSizeH! * 8,
@@ -34,7 +41,7 @@ class Workouting extends StatelessWidget {
                 ),
               ),
               Text(
-                "X 30",
+                arguments[workoutViewModel.indexWorkout].reps,
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: SizeConfig.blockSizeH! * 8,
@@ -64,7 +71,10 @@ class Workouting extends StatelessWidget {
                       IconButton(
                         iconSize: 60,
                         onPressed: () {
-                          Navigator.pushNamed(context, Routes.takerest);
+                          if (workoutViewModel.indexWorkout == 0) {
+                          } else {
+                            workoutViewModel.setPreviousIndexWorkout();
+                          }
                         },
                         icon: const Icon(
                           Icons.skip_previous,
@@ -82,11 +92,28 @@ class Workouting extends StatelessWidget {
                       IconButton(
                         iconSize: 60,
                         onPressed: () {
-                          Navigator.pushNamed(context, Routes.finishworout);
-                          Provider.of<WorkoutTabViewModel>(context,
-                                  listen: false)
-                              .confettiController
-                              .play();
+                          if (workoutViewModel.indexWorkout ==
+                              (arguments.length - 1)) {
+                            Navigator.pushNamed(context, Routes.finishworout);
+                            Provider.of<WorkoutTabViewModel>(context,
+                                    listen: false)
+                                .confettiController
+                                .play();
+                            Provider.of<WorkoutViewModel>(context,
+                                    listen: false)
+                                .getTimer
+                                .cancel();
+                          } else {
+                            final arg = arguments;
+                            Navigator.pushNamed(context, Routes.takerest,
+                                arguments: arg);
+                            Provider.of<WorkoutViewModel>(context,
+                                    listen: false)
+                                .setIndexWorkout();
+                            Provider.of<WorkoutViewModel>(context,
+                                    listen: false)
+                                .restTime = 30;
+                          }
                         },
                         icon: const Icon(
                           Icons.skip_next,
@@ -99,15 +126,18 @@ class Workouting extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-            left: sizeH * 4,
-            top: sizeV * 6,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new),
-              color: Colors.black,
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
+          // Positioned(
+          //   left: sizeH * 4,
+          //   top: sizeV * 6,
+          //   child: IconButton(
+          //     icon: const Icon(Icons.arrow_back_ios_new),
+          //     color: Colors.black,
+          //     onPressed: () {
+          //       Navigator.of(context).pop();
+          //       workoutViewModel.setPreviousIndexWorkout();
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

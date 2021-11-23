@@ -9,6 +9,8 @@ import 'package:wecare_flutter/screen/authentication/login/widget/login_button.d
 import 'package:wecare_flutter/screen/authentication/login/widget/login_input_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/services/google_service.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,6 +23,9 @@ class LoginScreen extends StatelessWidget {
 
     final passwordFocus = FocusNode();
     final loginViewModel = Provider.of<LoginViewModel>(context);
+    final authService = Provider.of<AuthenticService>(context);
+    final googleProvider =
+        Provider.of<GoogleSignInProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
@@ -62,6 +67,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             LoginInputTextField(
+                              controller: loginViewModel.emailController,
                               hintText: "Email",
                               prefixIconData: Icons.email,
                               suffixIconData: loginViewModel.isValid
@@ -80,6 +86,7 @@ class LoginScreen extends StatelessWidget {
                               },
                             ),
                             LoginInputPasswordTextField(
+                              controller: loginViewModel.passwordController,
                               hintText: "Password",
                               prefixIconData: Icons.lock,
                               suffixIconData: loginViewModel.isVisible
@@ -114,19 +121,19 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: sizeV * 2.5,
                         ),
-                        LoginButton(
-                          text: "Login ",
-                          onTap: () {
-                            Provider.of<LoginViewModel>(context, listen: false)
-                                .circular = !Provider.of<LoginViewModel>(
-                                    context,
-                                    listen: false)
-                                .circular;
-                            Navigator.pushNamed(context, Routes.main);
-                          },
-                          textColor: Colors.white,
-                          color: primaryColor,
-                        ),
+                        authService.isLoading
+                            ? const CircularProgressIndicator()
+                            : LoginButton(
+                                text: "Login ",
+                                onTap: () async {
+                                  authService.signInWithEmailAndPassword(
+                                      context,
+                                      loginViewModel.emailController.text,
+                                      loginViewModel.passwordController.text);
+                                },
+                                textColor: Colors.white,
+                                color: primaryColor,
+                              ),
                         SizedBox(
                           height: sizeV * 3.3,
                         ),
@@ -144,6 +151,7 @@ class LoginScreen extends StatelessWidget {
                               .center, //Center Row contents vertically,
                           children: <Widget>[
                             LoginWithButton(
+                              onPress: () {},
                               icon: FontAwesomeIcons.facebook,
                               size: sizeV * 9,
                             ),
@@ -151,6 +159,8 @@ class LoginScreen extends StatelessWidget {
                               width: sizeH * 14.6,
                             ),
                             LoginWithButton(
+                              onPress: () =>
+                                  googleProvider.logInWithGoogle(context),
                               icon: FontAwesomeIcons.google,
                               size: sizeV * 9,
                             ),

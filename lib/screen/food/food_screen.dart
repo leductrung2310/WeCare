@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_search.dart';
 
 class FoodScreen extends StatefulWidget {

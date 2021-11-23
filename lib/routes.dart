@@ -1,5 +1,3 @@
-import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
-
 class Routes {
   static const main = '/main_screen';
   static const home = '/home_screen';

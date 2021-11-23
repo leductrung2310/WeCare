@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';

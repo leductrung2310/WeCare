@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:svg_icon/svg_icon.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class StepCountPart extends StatelessWidget {
-  const StepCountPart({Key?   key}) : super(key: key);
+  const StepCountPart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class StepCountPart extends StatelessWidget {
           ],
         ),
       ),
-      onTap: (){},
+      onTap: () {},
     );
   }
 }
@@ -127,7 +127,7 @@ class WalkItem extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: lightBlack1,
           ),
-        ),  
+        ),
       ],
     );
   }

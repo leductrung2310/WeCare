@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 
 class RestCircle extends StatelessWidget {
   const RestCircle({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svg_icon/svg_icon.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class HomeItem extends StatelessWidget {
   const HomeItem({

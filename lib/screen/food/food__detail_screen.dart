@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_card_image.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_ingredients.dart';
 

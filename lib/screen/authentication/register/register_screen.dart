@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_button.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_text_field.dart';

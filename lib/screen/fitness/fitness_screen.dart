@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/workout_choices_female.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';

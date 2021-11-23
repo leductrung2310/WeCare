@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/detailed_statistic.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_complete_chain.dart';
@@ -38,13 +37,14 @@ class WaterStatisticScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: ChangeNotifierProvider(
-                  create: (context) => CalendarViewModel(),
+                  create: (context) => WeeklyCalendarVM(),
                   child: AnimatedChart(
                     color: waterColor,
-                    barWidth: sizeH * 5,
+                    barWidth: sizeH * 4,
                     width: sizeH * 90,
                     height: sizeV * 45,
                     maxY: 2.2,
+                    barChartGroupData: WaterBarData.waterBarChartList,
                     flTitlesData: FlTitlesData(
                       bottomTitles: WaterBarTitles.getBottomTitles(),
                       leftTitles: WaterBarTitles.getSideTitles(),
@@ -54,10 +54,11 @@ class WaterStatisticScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: sizeV * 4),
+              SizedBox(height: sizeV * 3),
               const DetailedStatistic(),
-              SizedBox(height: sizeV * 4),
+              SizedBox(height: sizeV * 3),
               const WaterCompletedChain(),
+              SizedBox(height: sizeV * 3),
             ],
           ),
         ),

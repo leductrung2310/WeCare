@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/assets/custom_icons/custom_icon.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
 import 'fitness/fitness_screen.dart';

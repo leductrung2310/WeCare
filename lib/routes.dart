@@ -1,5 +1,3 @@
-import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
-
 class Routes {
   static const main = '/main_screen';
   static const home = '/home_screen';
@@ -20,6 +18,7 @@ class Routes {
   static const sleepScreen = '/sleep_screen';
   static const workouting = '/workout_screen';
   static const finishworout = '/finish_workout_screen';
+  static const historyWorkout = '/history_workout_screen';
   static const changePasswordSuccessScreen = '/change_password_success_screen';
   static const profileInformationScreen = '/profile_information_screen';
   static const takerest = '/take_rest_screen';

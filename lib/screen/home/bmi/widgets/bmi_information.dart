@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/bmi_view_model.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class PersonalInformation extends StatelessWidget {
   const PersonalInformation({Key? key}) : super(key: key);
@@ -11,15 +13,19 @@ class PersonalInformation extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    final BMIHistoryViewModel bmiHistoryViewModel =
+        Provider.of<BMIHistoryViewModel>(context);
+
     return Column(
       children: [
+        SizedBox(height: sizeV * 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
                 Text(
-                  '170',
+                  '${bmiHistoryViewModel.newHeight}',
                   style: TextStyle(
                       color: bmiColor,
                       fontSize: sizeH * 10,
@@ -36,7 +42,7 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 SizedBox(height: sizeV * 2),
                 Text(
-                  '65',
+                  '${bmiHistoryViewModel.newWeight}',
                   style: TextStyle(
                       color: bmiColor,
                       fontSize: sizeH * 10,

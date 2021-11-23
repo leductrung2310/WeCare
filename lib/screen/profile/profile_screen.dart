@@ -1,8 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
+import 'package:wecare_flutter/view_model/proflie_view_model.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -22,43 +30,10 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 height: sizeH * 9,
               ),
-              Stack(children: [
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: CircleAvatar(
-                      radius: sizeV * 9.75,
-                      backgroundColor: Colors.red,
-                      child: CircleAvatar(
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 8,
-                                    color: Colors.grey,
-                                    offset: Offset(3, 3))
-                              ],
-                            ),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: sizeV * 2.6,
-                              child: Icon(
-                                Icons.camera_alt,
-                                size: sizeV * 2.8,
-                                color: const Color(0xFF404040),
-                              ),
-                            ),
-                          ),
-                        ),
-                        radius: sizeV * 100 / 5,
-                        backgroundImage: const AssetImage(
-                            'assets/images/profile/avatar.png'),
-                      ),
-                    )),
-              ]),
+              CustomAvatar(
+                sizeV: sizeV,
+                sizeH: sizeH,
+              ),
               SizedBox(
                 height: sizeH * 2.5,
               ),
@@ -116,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFDBD2F6),
                 iconColor: const Color(0xFF9B81E5),
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.foodDetailScreen);
+                  //Navigator.pushNamed(context, Routes.foodDetailScreen);
                 },
               ),
               ProfileCardLogout(
@@ -136,11 +111,90 @@ class ProfileScreen extends StatelessWidget {
                   'assets/images/logos/logo.png',
                   scale: sizeH / 2.5,
                 ),
-              )
+              ),
+              IconButton(
+                onPressed: () {
+                  DateTime time = DateTime.now().add(Duration(minutes: 1));
+                  Provider.of<NotificationService>(context, listen: false)
+                      .sheduledNotification(
+                    1,
+                    "Remind",
+                    "Duc Trung đi ngủ",
+                    time,
+                  );
+                },
+                icon: const Icon(Icons.access_alarm),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomAvatar extends StatelessWidget {
+  const CustomAvatar({
+    Key? key,
+    required this.sizeV,
+    required this.sizeH,
+  }) : super(key: key);
+
+  final double sizeV;
+  final double sizeH;
+
+  @override
+  Widget build(BuildContext context) {
+    final profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
+
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: CircleAvatar(
+            radius: sizeV * 9.75,
+            backgroundColor: Colors.red,
+            child: CircleAvatar(
+              radius: sizeV * 100 / 5,
+              backgroundImage: FileImage(
+                  File(Provider.of<ProfileViewModel>(context).pathAvatar)),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: SizedBox(
+                  width: sizeH * 10,
+                  height: sizeV * 5,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      profileViewModel.showImageSourceActionSheet(context);
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.zero),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(sizeV * 2.5),
+                        ),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(whiteColor),
+                      overlayColor:
+                          MaterialStateProperty.all<Color>(greenLightProfile),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.camera_alt,
+                        size: sizeV * 2.8,
+                        color: const Color(0xFF404040),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

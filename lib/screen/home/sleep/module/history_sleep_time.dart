@@ -31,12 +31,11 @@ class HistorySleepTime extends StatelessWidget {
     return Container(
       width: sizeH * 90,
       decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: sleepColor,
-        ),
-        borderRadius: BorderRadius.circular(24),
-      ),
+          border: Border.all(
+            width: 1,
+            color: sleepColor,
+          ),
+          borderRadius: BorderRadius.circular(24)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

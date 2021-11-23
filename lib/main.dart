@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/food/recipes.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 import 'package:wecare_flutter/screen/home/workout_history/workout_history.dart';
 
@@ -19,6 +20,8 @@ import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
+import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
 import 'package:wecare_flutter/view_model/sleep_view_model.dart';
@@ -101,6 +104,10 @@ class WeCare extends StatelessWidget {
             create: (context) => FoodViewModel()),
         ChangeNotifierProvider<SleepViewModel>(
             create: (context) => SleepViewModel()),
+        ChangeNotifierProvider<ProfileViewModel>(
+            create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider<NotificationService>(
+            create: (context) => NotificationService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -142,7 +149,9 @@ class WeCare extends StatelessWidget {
       case Routes.changePasswordScreen:
         return buildRoute(const ChangePasswordScreen(), settings: settings);
       case Routes.foodDetailScreen:
-        return buildRoute(const FoodDetailScreene(), settings: settings);
+        Recipes recipes = settings.arguments as Recipes;
+        return buildRoute(FoodDetailScreene(arguments: recipes),
+            settings: settings);
       case Routes.workouting:
         return buildRoute(const Workouting(), settings: settings);
       case Routes.finishworout:

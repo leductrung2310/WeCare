@@ -6,7 +6,7 @@ import 'package:wecare_flutter/screen/fitness/widget/fitness_bar_titles.dart';
 import 'package:wecare_flutter/screen/fitness/widget/total_history.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
+import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
 class FitnessHistoryScreen extends StatelessWidget {
   const FitnessHistoryScreen({Key? key}) : super(key: key);
@@ -42,7 +42,6 @@ class FitnessHistoryScreen extends StatelessWidget {
                     barWidth: sizeH * 4,
                     width: sizeH * 90,
                     height: sizeV * 45,
-                    maxY: 0,
                     barChartGroupData: FitnessBarData.fitnessBarChartList,
                     flTitlesData: FlTitlesData(
                       bottomTitles: FitnessBarTitles.getBottomTitles(),

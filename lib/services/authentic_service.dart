@@ -130,7 +130,6 @@ class AuthenticService extends ChangeNotifier {
     resetEmailAndPasswordController(context);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
-    print(user!.uid);
   }
 
   void setAvatar(value) {

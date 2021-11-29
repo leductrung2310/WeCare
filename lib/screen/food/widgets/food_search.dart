@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -44,8 +45,10 @@ class SearchBarCustom extends StatelessWidget {
       },
       onSubmitted: (query) {
         if (!foodViewModel.listNutritionHistoryLocal.contains(query)) {
-          foodViewModel.updateNutritionHistoryList(authentic.user!.uid, query);
-          foodViewModel.getNutritionHistoryList(authentic.user!.uid);
+          foodViewModel.updateNutritionHistoryList(
+              FirebaseAuth.instance.currentUser!.uid, query);
+          foodViewModel
+              .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
         }
 
         get(foodViewModel, query, context);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
+import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
 class WeekGoal extends StatelessWidget {
   const WeekGoal({Key? key}) : super(key: key);

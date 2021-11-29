@@ -29,6 +29,7 @@ import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';

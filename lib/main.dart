@@ -6,10 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
-import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/model/food/recipes.dart';
+import 'package:wecare_flutter/screen/fitness/history_fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
-import 'package:wecare_flutter/screen/home/workout_history/workout_history.dart';
 
 import 'package:wecare_flutter/screen/food/food__detail_screen.dart';
 import 'package:wecare_flutter/screen/fitness/finish_workout_screen.dart';
@@ -26,6 +25,7 @@ import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/food_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
@@ -60,6 +60,7 @@ import 'package:wecare_flutter/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
 import 'package:wecare_flutter/screen/profile/setting_screen.dart';
+import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
 
 bool? seenOnboard;
 
@@ -109,6 +110,10 @@ class WeCare extends StatelessWidget {
             create: (context) => NotificationService()),
         ChangeNotifierProvider<EditProfileViewModel>(
             create: (context) => EditProfileViewModel()),
+        ChangeNotifierProvider<WeeklyCalendarVM>(
+            create: (context) => WeeklyCalendarVM()),
+        ChangeNotifierProvider<HistoryWorkoutViewModel>(
+            create: (context) => HistoryWorkoutViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -176,8 +181,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(RestScreen(arguments: arg), settings: settings);
       case Routes.waterScreenStatistic:
         return buildRoute(const WaterStatisticScreen(), settings: settings);
-      case Routes.historyWorkout:
-        return buildRoute(const WorkoutHistory(), settings: settings);
+      case Routes.fitnessHistoryScreen:
+        return buildRoute(const FitnessHistoryScreen(), settings: settings);
 
       default:
         null;

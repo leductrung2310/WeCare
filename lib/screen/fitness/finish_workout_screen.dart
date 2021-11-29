@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/confetti_widget.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import '../../routes.dart';
@@ -18,6 +19,8 @@ class FinishWorkout extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final workoutViewModel = Provider.of<WorkoutViewModel>(context);
+    final historyWorkoutViewModel =
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false);
 
     return Scaffold(
       body: Column(
@@ -92,7 +95,8 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "${workoutViewModel.countWorkoutTime * 0.308}",
+                      (workoutViewModel.countWorkoutTime * 0.308)
+                          .toStringAsFixed(2),
                       style: oWhiteTitle,
                     ),
                     Text(
@@ -116,10 +120,12 @@ class FinishWorkout extends StatelessWidget {
                   Routes.main,
                   ModalRoute.withName('/'),
                 );
-                Provider.of<WorkoutViewModel>(context, listen: false)
-                    .indexWorkout = 0;
-                Provider.of<WorkoutViewModel>(context, listen: false)
-                    .countWorkoutTime = 0;
+                historyWorkoutViewModel.plusTotal(
+                    workoutViewModel.indexWorkout + 1,
+                    workoutViewModel.countWorkoutTime,
+                    workoutViewModel.countWorkoutTime * 0.308);
+                historyWorkoutViewModel.pushTotalHistorytoFireStore();
+                Provider.of<WorkoutViewModel>(context, listen: false).reset();
               },
               child: Container(
                 height: sizeV * 6,

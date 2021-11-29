@@ -3,15 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
-import 'package:wecare_flutter/screen/fitness/widget/custom_circle_rest.dart';
-import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
-
 import '../../routes.dart';
 
 class RestScreen extends StatelessWidget {
   final List<Exercise> arguments;
-
   const RestScreen({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -32,9 +28,12 @@ class RestScreen extends StatelessWidget {
                 SizedBox(height: sizeV * 5),
                 SizedBox(
                     height: sizeV * 35,
-                    child: Text(
-                      "${workoutViewModel.restTime}",
-                      style: const TextStyle(fontSize: 50),
+                    child: Center(
+                      child: Text(
+                        "${workoutViewModel.restTime}",
+                        style: const TextStyle(
+                            fontSize: 80, fontWeight: FontWeight.w400),
+                      ),
                     )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

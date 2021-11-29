@@ -1,16 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
+import 'package:wecare_flutter/screen/main_screen.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
-
   var dateOfBirthController = TextEditingController();
   var heightController = TextEditingController();
   var weightController = TextEditingController();
@@ -130,5 +132,20 @@ class RegisterViewModel extends ChangeNotifier {
         .doc(user!.uid)
         .set(weCareUser.toMap());
     isLoading = false;
+  }
+
+  Future<void> completeRegister(BuildContext context) async {
+    await pushUserToFireStore(context);
+
+    isLoading = false;
+    Future.delayed(
+      const Duration(seconds: 1),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const MainScreen(),
+        ),
+      ),
+    );
+    Fluttertoast.showToast(msg: "Account successfully created! Enjoy!");
   }
 }

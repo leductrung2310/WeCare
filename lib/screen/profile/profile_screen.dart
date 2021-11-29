@@ -7,6 +7,10 @@ import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
+import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
@@ -103,6 +107,8 @@ class ProfileScreen extends StatelessWidget {
                 iconColor: const Color(0xFFFE7E60),
                 onTap: () async {
                   await authService.signOutWithEmail(context);
+                  Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+                      .reset();
                 },
               ),
               SizedBox(

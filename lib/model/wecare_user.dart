@@ -34,7 +34,7 @@ class WeCareUser {
     return value;
   }
 
-  //data from server 
+  //data from server
   factory WeCareUser.fromMap(map) {
     Timestamp timestamp = map['birthDay'];
     DateTime? dateTime = timestamp.toDate();

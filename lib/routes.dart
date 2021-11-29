@@ -18,9 +18,9 @@ class Routes {
   static const sleepScreen = '/sleep_screen';
   static const workouting = '/workout_screen';
   static const finishworout = '/finish_workout_screen';
-  static const historyWorkout = '/history_workout_screen';
   static const changePasswordSuccessScreen = '/change_password_success_screen';
   static const profileInformationScreen = '/profile_information_screen';
   static const takerest = '/take_rest_screen';
   static const waterScreenStatistic = '/water_statistic_screen';
+  static const fitnessHistoryScreen = '/history_fitness_screen';
 }

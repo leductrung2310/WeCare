@@ -35,20 +35,18 @@ class FoodNutritionDiaLog extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
+    double sizeV = SizeConfig.blockSizeV!;
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(sizeH),
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: contentBox(context),
+      child: contentBox(context, sizeH, sizeV),
     );
   }
 
-  contentBox(context) {
-    SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
-    double sizeV = SizeConfig.blockSizeV!;
+  contentBox(context, sizeH, sizeV) {
     return Stack(
       children: <Widget>[
         Container(

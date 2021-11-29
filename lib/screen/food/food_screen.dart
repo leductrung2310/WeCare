@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_recommend_popular.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_search.dart';
-import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class FoodScreen extends StatelessWidget {
   const FoodScreen({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class FoodScreen extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
-    //foodViewModel.setListRecipes();
+    settingEasyLoading();
 
     return SafeArea(
       child: Scaffold(
@@ -60,58 +62,13 @@ class FoodScreen extends StatelessWidget {
                             ),
                             SizedBox(
                               height: sizeV * 32,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Row(
-                                    children: [
-                                      FoodRecommend(
-                                        cardColor: const Color(0xFFEBF2FF),
-                                        colorOne: const Color(0xFF92A3FD),
-                                        colorTwo: const Color(0xFF9DCEFF),
-                                        // nameRecipe: "",
-                                        // descriptionRecipe: '',
-                                        // image: '',
-                                        nameRecipe: foodViewModel
-                                            .listRecipes.recipes[0].title!,
-                                        descriptionRecipe:
-                                            '${foodViewModel.listRecipes.recipes[0].readyInMinutes.toString()} mins | ${foodViewModel.listRecipes.recipes[0].servings.toString()} serves',
-                                        image: foodViewModel
-                                            .listRecipes.recipes[0].image!,
-                                        onTapp: () async {
-                                          await getRecipeNutrition(
-                                              foodViewModel,
-                                              foodViewModel
-                                                  .listRecipes.recipes[0].id);
-                                          final recipe = foodViewModel
-                                              .listRecipes.recipes[0];
-
-                                          Navigator.pushNamed(
-                                              context, Routes.foodDetailScreen,
-                                              arguments: recipe);
-                                        },
-                                      ),
-                                      SizedBox(
-                                        width: sizeH * 5,
-                                      ),
-                                      FoodRecommend(
-                                        cardColor: const Color(0xFFF9EBF8),
-                                        colorOne: const Color(0xFFC58BF2),
-                                        colorTwo: const Color(0xFFEEA4CE),
-                                        nameRecipe: foodViewModel
-                                            .listRecipes.recipes[1].title!,
-                                        descriptionRecipe:
-                                            '${foodViewModel.listRecipes.recipes[1].readyInMinutes.toString()} mins | ${foodViewModel.listRecipes.recipes[1].servings.toString()} serves',
-                                        image: foodViewModel
-                                            .listRecipes.recipes[1].image!,
-                                        onTapp: () {},
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
+                              child: Provider.of<FoodViewModel>(context)
+                                      .checkLoadFoodPopular
+                                  ? widgetRecipeVegetarian(
+                                      sizeH, sizeV, foodViewModel)
+                                  : Center(
+                                      child: spinkit,
+                                    ),
                             ),
                             SizedBox(
                               height: sizeV * 2,
@@ -123,46 +80,60 @@ class FoodScreen extends StatelessWidget {
                             SizedBox(
                               height: sizeV,
                             ),
-                            FoodRecommendPopular(
-                              nameRecipe: foodViewModel
-                                  .listRecipesDessert.recipes[0].title!,
-                              descriptionRecipe:
-                                  '${foodViewModel.listRecipesDessert.recipes[0].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[0].servings.toString()} serves',
-                              image: foodViewModel
-                                  .listRecipesDessert.recipes[0].image!,
-                              onTapp: () async {
-                                await getRecipeNutrition(
-                                    foodViewModel,
-                                    foodViewModel
-                                        .listRecipesDessert.recipes[0].id);
-                                final recipe =
-                                    foodViewModel.listRecipesDessert.recipes[0];
-
-                                Navigator.pushNamed(
-                                    context, Routes.foodDetailScreen,
-                                    arguments: recipe);
-                              },
+                            SizedBox(
+                              width: sizeH * 100,
+                              child: Provider.of<FoodViewModel>(context)
+                                      .checkLoadFoodDessert
+                                  ? widgetRecipeDessert(
+                                      sizeH, sizeV, foodViewModel)
+                                  : Center(
+                                      child: spinkit,
+                                    ),
                             ),
-                            FoodRecommendPopular(
-                              nameRecipe: foodViewModel
-                                  .listRecipesDessert.recipes[1].title!,
-                              descriptionRecipe:
-                                  '${foodViewModel.listRecipesDessert.recipes[1].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[1].servings.toString()} serves',
-                              image: foodViewModel
-                                  .listRecipesDessert.recipes[1].image!,
-                              onTapp: () async {
-                                await getRecipeNutrition(
-                                    foodViewModel,
-                                    foodViewModel
-                                        .listRecipesDessert.recipes[1].id);
-                                final recipe =
-                                    foodViewModel.listRecipesDessert.recipes[1];
+                            // FoodRecommendPopular(
+                            //   nameRecipe: foodViewModel
+                            //       .listRecipesDessert.recipes[0].title,
+                            //   descriptionRecipe:
+                            //       '${foodViewModel.listRecipesDessert.recipes[0].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[0].servings.toString()} serves',
+                            //   image: foodViewModel
+                            //       .listRecipesDessert.recipes[0].image,
+                            //   onTapp: () async {
+                            //     EasyLoading.show(status: 'Loading...');
+                            //     await getRecipeNutrition(
+                            //         foodViewModel,
+                            //         foodViewModel
+                            //             .listRecipesDessert.recipes[0].id);
+                            //     final recipe =
+                            //         foodViewModel.listRecipesDessert.recipes[0];
 
-                                Navigator.pushNamed(
-                                    context, Routes.foodDetailScreen,
-                                    arguments: recipe);
-                              },
-                            ),
+                            //     Navigator.pushNamed(
+                            //         context, Routes.foodDetailScreen,
+                            //         arguments: recipe);
+                            //     EasyLoading.dismiss();
+                            //   },
+                            // ),
+                            // FoodRecommendPopular(
+                            //   nameRecipe: foodViewModel
+                            //       .listRecipesDessert.recipes[1].title,
+                            //   descriptionRecipe:
+                            //       '${foodViewModel.listRecipesDessert.recipes[1].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[1].servings.toString()} serves',
+                            //   image: foodViewModel
+                            //       .listRecipesDessert.recipes[1].image,
+                            //   onTapp: () async {
+                            //     EasyLoading.show(status: 'Loading...');
+                            //     await getRecipeNutrition(
+                            //         foodViewModel,
+                            //         foodViewModel
+                            //             .listRecipesDessert.recipes[1].id);
+                            //     final recipe =
+                            //         foodViewModel.listRecipesDessert.recipes[1];
+
+                            //     Navigator.pushNamed(
+                            //         context, Routes.foodDetailScreen,
+                            //         arguments: recipe);
+                            //     EasyLoading.dismiss();
+                            //   },
+                            // ),
                           ],
                         ),
                       ),
@@ -190,14 +161,98 @@ class FoodScreen extends StatelessWidget {
         await foodViewModel.getRecipeNutrition(idRecipe);
   }
 
-  // void setListRecipes(FoodViewModel foodViewModel) async {
-  //   foodViewModel.listRecipes = await foodViewModel.getFoodRecommendDiet();
-  //   print(foodViewModel.listRecipes.recipes[0].title!);
-  // }
+  widgetRecipeVegetarian(sizeH, sizeV, FoodViewModel foodViewModel) {
+    return ListView.builder(
+      itemCount: 1,
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+        return Row(
+          children: [
+            FoodRecommend(
+              cardColor: const Color(0xFFEBF2FF),
+              colorOne: const Color(0xFF92A3FD),
+              colorTwo: const Color(0xFF9DCEFF),
+              nameRecipe: foodViewModel.listRecipes.recipes[0].title,
+              descriptionRecipe:
+                  '${foodViewModel.listRecipes.recipes[0].readyInMinutes.toString()} mins | ${foodViewModel.listRecipes.recipes[0].servings.toString()} serves',
+              image: foodViewModel.listRecipes.recipes[0].image,
+              onTapp: () async {
+                EasyLoading.show(status: 'Loading...');
+                await getRecipeNutrition(
+                    foodViewModel, foodViewModel.listRecipes.recipes[0].id);
+                final recipe = foodViewModel.listRecipes.recipes[0];
+
+                Navigator.pushNamed(context, Routes.foodDetailScreen,
+                    arguments: recipe);
+                EasyLoading.dismiss();
+              },
+            ),
+            SizedBox(
+              width: sizeH * 5,
+            ),
+            FoodRecommend(
+              cardColor: const Color(0xFFF9EBF8),
+              colorOne: const Color(0xFFC58BF2),
+              colorTwo: const Color(0xFFEEA4CE),
+              nameRecipe: foodViewModel.listRecipes.recipes[1].title,
+              descriptionRecipe:
+                  '${foodViewModel.listRecipes.recipes[1].readyInMinutes.toString()} mins | ${foodViewModel.listRecipes.recipes[1].servings.toString()} serves',
+              image: foodViewModel.listRecipes.recipes[1].image,
+              onTapp: () async {
+                EasyLoading.show(status: 'Loading...');
+                await getRecipeNutrition(
+                    foodViewModel, foodViewModel.listRecipes.recipes[1].id);
+                final recipe = foodViewModel.listRecipes.recipes[1];
+
+                Navigator.pushNamed(context, Routes.foodDetailScreen,
+                    arguments: recipe);
+                EasyLoading.dismiss();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  widgetRecipeDessert(sizeH, sizeV, foodViewModel) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: foodViewModel.listRecipesDessert.recipes.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (BuildContext context, int index) {
+        return FoodRecommendPopular(
+          nameRecipe: foodViewModel.listRecipesDessert.recipes[index].title,
+          descriptionRecipe:
+              '${foodViewModel.listRecipesDessert.recipes[index].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[0].servings.toString()} serves',
+          image: foodViewModel.listRecipesDessert.recipes[index].image,
+          onTapp: () async {
+            EasyLoading.show(status: 'Loading...');
+            await getRecipeNutrition(foodViewModel,
+                foodViewModel.listRecipesDessert.recipes[index].id);
+            final recipe = foodViewModel.listRecipesDessert.recipes[index];
+
+            Navigator.pushNamed(context, Routes.foodDetailScreen,
+                arguments: recipe);
+            EasyLoading.dismiss();
+          },
+        );
+      },
+    );
+  }
 }
 
 final style = TextStyle(
   fontSize: SizeConfig.blockSizeH! * 4.4,
   fontFamily: "Poppins",
   fontWeight: FontWeight.w600,
+);
+
+const custom = EasyLoadingMaskType.custom;
+
+SpinKitPulse spinkit = SpinKitPulse(
+  color: primaryColor,
+  size: SizeConfig.blockSizeV! * 10,
 );

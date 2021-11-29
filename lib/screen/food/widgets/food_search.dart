@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log_no_result.dart';
-import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 
 class SearchBarCustom extends StatelessWidget {
   const SearchBarCustom({Key? key}) : super(key: key);
@@ -16,6 +18,9 @@ class SearchBarCustom extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
+    final authentic = Provider.of<AuthenticService>(context, listen: false);
+
+    settingEasyLoading();
 
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
@@ -38,9 +43,11 @@ class SearchBarCustom extends StatelessWidget {
         foodViewModel.stringSearch = query;
       },
       onSubmitted: (query) {
-        if (!foodViewModel.listFoodSearchHistory.contains(query)) {
-          foodViewModel.listFoodSearchHistory.add(query);
+        if (!foodViewModel.listNutritionHistoryLocal.contains(query)) {
+          foodViewModel.updateNutritionHistoryList(authentic.user!.uid, query);
+          foodViewModel.getNutritionHistoryList(authentic.user!.uid);
         }
+
         get(foodViewModel, query, context);
       },
       transition: CircularFloatingSearchBarTransition(),
@@ -64,9 +71,8 @@ class SearchBarCustom extends StatelessWidget {
             elevation: 4.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: Provider.of<FoodViewModel>(context)
-                  .searchFood(foodViewModel.stringSearch)
-                  .map((e) {
+              children:
+                  Provider.of<FoodViewModel>(context).runFilter().map((e) {
                 return GestureDetector(
                   // focusColor: Colors.amber,
                   // highlightColor: greenLightProfile,
@@ -112,9 +118,11 @@ class SearchBarCustom extends StatelessWidget {
 
   void get(
       FoodViewModel foodViewModel, String string, BuildContext context) async {
+    EasyLoading.showInfo('Loading...');
     final list = await foodViewModel.getFoodNutrition(string);
 
     if (list.isNotEmpty) {
+      EasyLoading.dismiss();
       showDialog(
         context: context,
         builder: (BuildContext context) {

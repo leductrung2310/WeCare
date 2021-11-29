@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/assets/custom_icons/custom_icon.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
@@ -10,7 +11,7 @@ import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
-import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
@@ -35,6 +36,9 @@ class _MainScreenState extends State<MainScreen> {
     Provider.of<FoodViewModel>(context, listen: false).setListRecipes();
     Provider.of<FoodViewModel>(context, listen: false).setListRecipesPopular();
     Provider.of<NotificationService>(context, listen: false).initialize();
+    print("object" + FirebaseAuth.instance.currentUser!.uid);
+    Provider.of<FoodViewModel>(context, listen: false)
+        .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
     super.initState();
   }
 

@@ -1,49 +1,45 @@
-import 'package:wecare_flutter/model/food/analyzedInstructions.dart';
 import 'package:wecare_flutter/model/food/extendedIngredients.dart';
 
 class Recipes {
-  late bool? vegetarian;
-  late bool? vegan;
-  late bool? glutenFree;
-  late bool? dairyFree;
-  late bool? veryHealthy;
-  late bool? cheap;
-  late bool? veryPopular;
-  late bool? sustainable;
-  late double? healthScore;
-  late double? pricePerServing;
+  late bool vegetarian;
+  late bool vegan;
+  late bool glutenFree;
+  late bool dairyFree;
+  late bool veryHealthy;
+  late bool cheap;
+  late bool veryPopular;
+  late bool sustainable;
+  late double healthScore;
+  late double pricePerServing;
   late List<ExtendedIngredients>? extendedIngredients;
   late int id;
-  late String? title;
+  late String title;
   late int readyInMinutes;
   late int servings;
-  late String? image;
-  late String? summary;
-  late String? instructions;
-  late List<AnalyzedInstructions>? analyzedInstructions;
-  late String? spoonacularSourceUrl;
+  late String image;
+  late String summary;
+  late String instructions;
 
-  Recipes(
-      {required this.vegetarian,
-      required this.vegan,
-      required this.glutenFree,
-      required this.dairyFree,
-      required this.veryHealthy,
-      required this.cheap,
-      required this.veryPopular,
-      required this.sustainable,
-      required this.healthScore,
-      required this.pricePerServing,
-      required this.extendedIngredients,
-      required this.id,
-      required this.title,
-      required this.readyInMinutes,
-      required this.servings,
-      required this.image,
-      required this.summary,
-      required this.instructions,
-      required this.analyzedInstructions,
-      required this.spoonacularSourceUrl});
+  Recipes({
+    required this.vegetarian,
+    required this.vegan,
+    required this.glutenFree,
+    required this.dairyFree,
+    required this.veryHealthy,
+    required this.cheap,
+    required this.veryPopular,
+    required this.sustainable,
+    required this.healthScore,
+    required this.pricePerServing,
+    required this.extendedIngredients,
+    required this.id,
+    required this.title,
+    required this.readyInMinutes,
+    required this.servings,
+    required this.image,
+    required this.summary,
+    required this.instructions,
+  });
 
   Recipes.fromJson(Map<String, dynamic> json) {
     vegetarian = json['vegetarian'];
@@ -56,9 +52,6 @@ class Recipes {
     sustainable = json['sustainable'];
     healthScore = json['healthScore'];
     pricePerServing = json['pricePerServing'];
-    // var list = json['extendedIngredients'] as List;
-    // List<ExtendedIngredients> extendedIngredientsList =
-    //     list.map((i) => ExtendedIngredients.fromJson(i)).toList();
     var list = json['extendedIngredients'] as List;
     List<ExtendedIngredients> imagesList =
         list.map((i) => ExtendedIngredients.fromJson(i)).toList();
@@ -76,6 +69,5 @@ class Recipes {
       json['occasions'].forEach((v) {});
     }
     instructions = json['instructions'];
-    spoonacularSourceUrl = json['spoonacularSourceUrl'];
   }
 }

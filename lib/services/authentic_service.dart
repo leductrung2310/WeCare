@@ -108,6 +108,7 @@ class AuthenticService extends ChangeNotifier {
         .then((uid) async => {
               isLoading = false,
               await getDataFromFirebase(),
+              //await pushFoodHistoryToFireStore(),
               Fluttertoast.showToast(msg: "Log in successfully"),
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const MainScreen())),
@@ -123,5 +124,33 @@ class AuthenticService extends ChangeNotifier {
     resetEmailAndPasswordController(context);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
+    print(user!.uid);
+  }
+
+  void setAvatar(value) {
+    _loggedInUser.avatarUrl = value;
+    notifyListeners();
+  }
+
+  Future updateUserAvatar(String url) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_loggedInUser.uid)
+        .update({
+      'avatarUrl': url,
+    });
+  }
+
+  pushFoodHistoryToFireStore() async {
+    await FirebaseFirestore.instance
+        .collection("foodHistory")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      '1': '',
+      '2': '',
+      '3': '',
+      '4': '',
+      '5': '',
+    });
   }
 }

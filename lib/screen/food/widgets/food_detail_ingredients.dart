@@ -18,10 +18,13 @@ class Ingredient extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 9.5),
+      padding: EdgeInsets.symmetric(
+        horizontal: sizeH * 3.75,
+        vertical: sizeV * 1.15,
+      ),
       child: SizedBox(
         // height: sizeH * 22,
-        width: sizeH * 37,
+        width: sizeH * 36,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

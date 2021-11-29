@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 const primaryColor = Color(0xFF91c788);
 const accentColor = Color.fromRGBO(0, 0, 0, .7);
@@ -175,3 +176,10 @@ final foodSearchText = TextStyle(
   fontSize: SizeConfig.blockSizeH! * 4.5,
   fontWeight: FontWeight.w500,
 );
+void settingEasyLoading() {
+  EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.pulse;
+  EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+  EasyLoading.instance.backgroundColor = primaryColor;
+  EasyLoading.instance.indicatorColor = whiteColor;
+  EasyLoading.instance.textColor = whiteColor;
+}

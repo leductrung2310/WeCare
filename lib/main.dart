@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
@@ -26,7 +28,7 @@ import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
-import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
@@ -60,7 +62,6 @@ import 'package:wecare_flutter/screen/onboarding_screen/onboarding_screen.dart';
 import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
 import 'package:wecare_flutter/screen/profile/setting_screen.dart';
-import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
 
 bool? seenOnboard;
 
@@ -76,6 +77,7 @@ void main() async {
 
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
   runApp(const WeCare());
+  configLoading();
 }
 
 class WeCare extends StatelessWidget {
@@ -119,6 +121,7 @@ class WeCare extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.login,
         onGenerateRoute: (route) => getRoute(route),
+        builder: EasyLoading.init(),
       ),
     );
   }
@@ -209,4 +212,19 @@ class WeCare extends StatelessWidget {
   //     ),
   //   );
   // }
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 1000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = primaryColor
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true;
 }

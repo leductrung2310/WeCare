@@ -121,15 +121,24 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {
-                  DateTime time = DateTime.now().add(Duration(minutes: 1));
-                  Provider.of<NotificationService>(context, listen: false)
-                      .sheduledNotification(
-                    1,
-                    "Remind",
-                    "Duc Trung đi ngủ",
-                    time,
-                  );
+                onPressed: () async {
+                  // DateTime time = DateTime.now().add(Duration(minutes: 1));
+                  // Provider.of<NotificationService>(context, listen: false)
+                  //     .sheduledNotification(
+                  //   1,
+                  //   "Remind",
+                  //   "Duc Trung đi ngủ",
+                  //   time,
+                  // );
+                  await Provider.of<ProfileViewModel>(context, listen: false)
+                      .uploadImageToFirebase(context);
+                  String url = await Provider.of<ProfileViewModel>(context,
+                          listen: false)
+                      .getUrlAvatar(context);
+                  Provider.of<AuthenticService>(context, listen: false)
+                      .setAvatar(url);
+                  Provider.of<AuthenticService>(context, listen: false)
+                      .updateUserAvatar(url);
                 },
                 icon: const Icon(Icons.access_alarm),
               ),
@@ -165,8 +174,12 @@ class CustomAvatar extends StatelessWidget {
             backgroundColor: Colors.red,
             child: CircleAvatar(
               radius: sizeV * 100 / 5,
-              backgroundImage: FileImage(
-                  File(Provider.of<ProfileViewModel>(context).pathAvatar)),
+              backgroundImage: NetworkImage(Provider.of<AuthenticService>(
+                          context,
+                          listen: false)
+                      .loggedInUser
+                      .avatarUrl ??
+                  'https://console.firebase.google.com/u/1/project/wecare-da049/storage/wecare-da049.appspot.com/files'),
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: SizedBox(

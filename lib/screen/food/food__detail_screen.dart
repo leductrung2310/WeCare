@@ -5,7 +5,8 @@ import 'package:wecare_flutter/model/food/recipes.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_card_image.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_ingredients.dart';
-import 'package:wecare_flutter/view_model/food_view_model.dart';
+import 'package:wecare_flutter/view_model/food/food_detail_view_model.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 
 class FoodDetailScreene extends StatelessWidget {
   final Recipes arguments;
@@ -34,24 +35,28 @@ class FoodDetailScreene extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back_ios_new),
                   color: Colors.black,
                   onPressed: () => Navigator.of(context).pop(),
-                  // onPressed: () {
-                  //   print(arguments.instructions!);
-                  // },
                 ),
                 Text(
-                  arguments.title!,
+                  arguments.title,
                   style: TextStyle(
                     fontFamily: "Poppins",
                     fontSize: sizeH * 6,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                CardImageFood(
-                  image: arguments.image!,
-                  protein: foodViewModel.recipeNutrition.protein,
-                  carbo: foodViewModel.recipeNutrition.carbs,
-                  fat: foodViewModel.recipeNutrition.fat,
-                  calo: foodViewModel.recipeNutrition.calories,
+                ChangeNotifierProvider(
+                  create: (context) => FoodDetailViewModel(),
+                  child: CardImageFood(
+                    image: arguments.image,
+                    recipeNutrition: foodViewModel.recipeNutrition,
+                    // protein: foodViewModel.recipeNutrition.protein!,
+                    // carbo: foodViewModel.recipeNutrition.carbs!,
+                    // fat: foodViewModel.recipeNutrition.fat!,
+                    // calo: foodViewModel.recipeNutrition.calories!,
+                  ),
+                ),
+                SizedBox(
+                  height: sizeH * 2,
                 ),
                 Text(
                   "Ingredients",
@@ -82,7 +87,7 @@ class FoodDetailScreene extends StatelessWidget {
                   ),
                 ),
                 Html(
-                  data: arguments.instructions!,
+                  data: arguments.instructions,
                   style: {
                     'li': Style(
                         fontSize: FontSize.larger,

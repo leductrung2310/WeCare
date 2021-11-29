@@ -53,7 +53,10 @@ dependencies:
   timezone: ^0.8.0
   flutter_native_timezone: ^2.0.0
   cloud_firestore: ^3.1.0
-
+  flutter_easyloading: ^3.0.3
+  flutter_spinkit: ^5.1.0
+  firebase_storage: ^10.1.0
+  
 flutter_native_splash: 
   background_image: "assets/images/logos/splash.png"
   android: true 

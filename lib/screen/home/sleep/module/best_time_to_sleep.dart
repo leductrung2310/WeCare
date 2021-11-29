@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
-import 'package:wecare_flutter/view_model/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -74,7 +74,8 @@ class BestTimeToSleep extends StatelessWidget {
                         color: sleepViewModel.selectedSleepButton == 0
                             ? sleepColor
                             : whiteColor,
-                        height: sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
+                        height:
+                            sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
                         width: sizeH * 65,
                         fontSize: sizeH * 5,
                       ),
@@ -87,7 +88,8 @@ class BestTimeToSleep extends StatelessWidget {
                               name:
                                   "${sleepViewModel.suggestedSleepTime2.hour}:${sleepViewModel.suggestedSleepTime2.minute} ${sleepViewModel.suggestedSleepTime2.period}",
                               onPressed: () {
-                                Provider.of<SleepViewModel>(context, listen: false)
+                                Provider.of<SleepViewModel>(context,
+                                        listen: false)
                                     .selectedSleepButton = 1;
                               },
                               textColor: sleepViewModel.selectedSleepButton == 1
@@ -96,8 +98,9 @@ class BestTimeToSleep extends StatelessWidget {
                               color: sleepViewModel.selectedSleepButton == 1
                                   ? sleepColor
                                   : whiteColor,
-                              height:
-                                  sleepViewModel.showBestSleepTime ? sizeV * 5 : 0,
+                              height: sleepViewModel.showBestSleepTime
+                                  ? sizeV * 5
+                                  : 0,
                               width: sizeH * 30,
                               widthBorder: 1,
                               radius: 10,
@@ -106,7 +109,8 @@ class BestTimeToSleep extends StatelessWidget {
                               name:
                                   "${sleepViewModel.suggestedSleepTime3.hour}:${sleepViewModel.suggestedSleepTime3.minute} ${sleepViewModel.suggestedSleepTime3.period} ",
                               onPressed: () {
-                                Provider.of<SleepViewModel>(context, listen: false)
+                                Provider.of<SleepViewModel>(context,
+                                        listen: false)
                                     .selectedSleepButton = 2;
                               },
                               textColor: sleepViewModel.selectedSleepButton == 2
@@ -115,8 +119,9 @@ class BestTimeToSleep extends StatelessWidget {
                               color: sleepViewModel.selectedSleepButton == 2
                                   ? sleepColor
                                   : whiteColor,
-                              height:
-                                  sleepViewModel.showBestSleepTime ? sizeV * 5 : 0,
+                              height: sleepViewModel.showBestSleepTime
+                                  ? sizeV * 5
+                                  : 0,
                               width: sizeH * 30,
                             ),
                           ],

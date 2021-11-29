@@ -2,19 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({

@@ -548,13 +548,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
-  pedometer:
-    dependency: "direct main"
-    description:
-      name: pedometer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   petitparser:
     dependency: transitive
     description:
@@ -692,7 +685,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.7"
+    version: "0.4.8"
   timezone:
     dependency: "direct main"
     description:

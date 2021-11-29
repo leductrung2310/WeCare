@@ -1,10 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
+
+  var dateOfBirthController = TextEditingController();
+  var heightController = TextEditingController();
+  var weightController = TextEditingController();
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  set isLoading(newValue) {
+    _isLoading = newValue;
+    notifyListeners();
+  }
 
   bool _isValidEmail = false;
   get isValid => _isValidEmail;
@@ -80,5 +97,38 @@ class RegisterViewModel extends ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  Future<void> pushUserToFireStore(BuildContext context) async {
+    isLoading = true;
+    User? user = FirebaseAuth.instance.currentUser;
+    WeCareUser weCareUser = WeCareUser();
+    FirebaseFirestore firebasefirestor = FirebaseFirestore.instance;
+    final registerViewModel =
+        Provider.of<RegisterViewModel>(context, listen: false);
+
+    DateTime dateTime =
+        DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
+
+    weCareUser.email = user?.email;
+    weCareUser.uid = user?.uid;
+    weCareUser.name = registerViewModel.nameController.text;
+    weCareUser.avatarUrl =
+        "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
+    weCareUser.birthDay = dateTime;
+    weCareUser.age = DateTime.now().year - dateTime.year;
+    weCareUser.height = double.parse(heightController.text);
+    weCareUser.weight = double.parse(weightController.text);
+    if (gender == 1) {
+      weCareUser.gender = true;
+    } else {
+      weCareUser.gender = false;
+    }
+
+    await firebasefirestor
+        .collection("users")
+        .doc(user!.uid)
+        .set(weCareUser.toMap());
+    isLoading = false;
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/model/bmi_ratio_data.dart';
-import 'package:wecare_flutter/view_model/bmi_view_model.dart';
+import 'package:wecare_flutter/model/statistic_data/bmi_ratio_data.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIHistorySection extends StatelessWidget {
   const BMIHistorySection({Key? key}) : super(key: key);
@@ -16,8 +15,6 @@ class BMIHistorySection extends StatelessWidget {
 
     final BMIHistoryViewModel bmiHistoryViewModel =
         Provider.of<BMIHistoryViewModel>(context);
-    String formattedDate = DateFormat('dd-MM-yyyy, kk:mm')
-        .format(bmiHistoryViewModel.bmiRatio.updatedDate);
 
     Column bmiItem(BMIRatio bmiRatio, Color color) {
       return Column(
@@ -42,7 +39,7 @@ class BMIHistorySection extends StatelessWidget {
                 ),
               ),
               Text(
-                formattedDate,
+                '',
                 style: TextStyle(
                     color: metalGreyColor,
                     fontSize: sizeV * 2.2,
@@ -91,20 +88,19 @@ class BMIHistorySection extends StatelessWidget {
             itemBuilder: (context, index) {
               var bmiHistory = bmiHistoryViewModel
                   .bmiRatioHistory.bmiRatioHistoryList[index];
-              BMIStatus bmiStatus = bmiHistory.status;
-              Color stateColor;
-              switch (bmiStatus) {
-                case BMIStatus.normal:
-                  {
-                    stateColor = primaryColor;
-                  }
-                  break;
-                case BMIStatus.underweight:
+              Color stateColor = metalGreyColor;
+              switch (bmiHistory.status) {
+                case 1:
                   {
                     stateColor = const Color(0xFF82B6E7);
                   }
                   break;
-                case BMIStatus.overweight:
+                case 2:
+                  {
+                    stateColor = primaryColor;
+                  }
+                  break;
+                case 3:
                   {
                     stateColor = const Color(0xFFE06D53);
                   }

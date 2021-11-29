@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/model/statistic_data/sleep_statistic_data.dart';
+import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/home/water/components/fl_bar_chart.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 
@@ -15,6 +16,8 @@ class LeftSection extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    var user = WeCareUser();
 
     Widget homeScreenFlChart = FlBarChart(
       sizeH: sizeH * 0.5,
@@ -56,7 +59,8 @@ class LeftSection extends StatelessWidget {
           right: 5,
           bottom: 5,
           unit: '',
-          onPressed: () {},
+          onPressed: () {
+          },
         ),
       ],
     );

@@ -7,7 +7,7 @@ import 'package:wecare_flutter/screen/home/water/widgets/detailed_statistic.dart
 import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_complete_chain.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
+import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
 import 'components/water_bar_chart_title.dart';
 
@@ -43,7 +43,6 @@ class WaterStatisticScreen extends StatelessWidget {
                     barWidth: sizeH * 4,
                     width: sizeH * 90,
                     height: sizeV * 45,
-                    maxY: 2.2,
                     barChartGroupData: WaterBarData.waterBarChartList,
                     flTitlesData: FlTitlesData(
                       bottomTitles: WaterBarTitles.getBottomTitles(),

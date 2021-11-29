@@ -5,7 +5,7 @@ import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_history.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_statistic.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_information.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIRatioScreen extends StatelessWidget {
   const BMIRatioScreen({ Key? key }) : super(key: key);
@@ -13,7 +13,6 @@ class BMIRatioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     return SafeArea(
@@ -26,7 +25,7 @@ class BMIRatioScreen extends StatelessWidget {
           const Text(''),
         ),
         body: ChangeNotifierProvider(
-          create: (context) => BMIHistoryViewModel(),
+          create: (context) => BMIHistoryViewModel(context),
           child: SingleChildScrollView(
             child: Column(
               children: [

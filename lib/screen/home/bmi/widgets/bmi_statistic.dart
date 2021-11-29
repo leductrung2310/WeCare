@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:provider/provider.dart';
 
-import 'package:wecare_flutter/view_model/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIStatistic extends StatelessWidget {
   const BMIStatistic({Key? key}) : super(key: key);
@@ -16,8 +16,30 @@ class BMIStatistic extends StatelessWidget {
 
     final BMIHistoryViewModel bmiHistoryViewModel =
         Provider.of<BMIHistoryViewModel>(context);
-    String formattedDate = DateFormat('dd-MM-yyyy')
-        .format(bmiHistoryViewModel.bmiRatio.updatedDate);
+
+    DateTime? date = bmiHistoryViewModel.bmiRatio.updatedDate;
+    String? formattedDate =
+        DateFormat('dd-MM-yyyy').format(date ?? DateTime.now());
+    double? ratio = bmiHistoryViewModel.bmiRatio.ratio;
+
+    Color stateColor = metalGreyColor;
+    switch (bmiHistoryViewModel.bmiRatio.status) {
+      case 1:
+        {
+          stateColor = const Color(0xFF82B6E7);
+        }
+        break;
+      case 2:
+        {
+          stateColor = primaryColor;
+        }
+        break;
+      case 3:
+        {
+          stateColor = const Color(0xFFE06D53);
+        }
+        break;
+    }
 
     return Container(
       padding: EdgeInsets.fromLTRB(sizeH * 4, sizeH * 2, sizeH * 4, sizeH * 4),
@@ -42,9 +64,9 @@ class BMIStatistic extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${bmiHistoryViewModel.bmiRatio.ratio}',
+                ratio.toString(),
                 style: TextStyle(
-                    color: primaryColor,
+                    color: stateColor,
                     fontSize: sizeV * 4,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins'),
@@ -126,11 +148,11 @@ class BMIStatistic extends StatelessWidget {
               Text(
                 'Last update on: ',
                 style: TextStyle(
-                    color: metalGreyColor,
-                    fontSize: sizeV * 2.5,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
-                    ),
+                  color: metalGreyColor,
+                  fontSize: sizeV * 2.5,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                ),
               ),
               Text(
                 formattedDate,

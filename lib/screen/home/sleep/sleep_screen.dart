@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/screen/home/sleep/module/best_time_to_wakeup.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 import '../../../constants/constants.dart';
 import 'module/best_time_to_sleep.dart';

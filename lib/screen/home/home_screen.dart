@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/left_side.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import '../../constants/constants.dart';
 
@@ -85,14 +85,20 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: sizeV * 3),
               const StepCountPart(),
               SizedBox(height: sizeH * 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const LeftSection(),
-                  SizedBox(width: sizeH * 5),
-                  const RightSection(),
+              MultiProvider(
+                providers: [
+                  ChangeNotifierProvider<BMIHistoryViewModel?>(
+                      create: (context) => BMIHistoryViewModel(context)),
                 ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const RightSection(),
+                    SizedBox(width: sizeH * 5),
+                    const LeftSection(),
+                  ],
+                ),
               ),
             ],
           ),

@@ -21,6 +21,8 @@ import 'package:wecare_flutter/screen/profile/profile_information_screen.dart';
 import 'package:wecare_flutter/screen/home/sleep/sleep_screen.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/services/google_service.dart';
+import 'package:wecare_flutter/view_model/edit_profile_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
@@ -29,7 +31,7 @@ import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
-import 'package:wecare_flutter/view_model/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import 'package:wecare_flutter/screen/main_screen.dart';
@@ -105,6 +107,8 @@ class WeCare extends StatelessWidget {
             create: (context) => ProfileViewModel()),
         ChangeNotifierProvider<NotificationService>(
             create: (context) => NotificationService()),
+        ChangeNotifierProvider<EditProfileViewModel>(
+            create: (context) => EditProfileViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

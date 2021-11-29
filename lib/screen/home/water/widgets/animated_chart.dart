@@ -12,7 +12,6 @@ class AnimatedChart extends StatelessWidget {
     required this.barWidth,
     required this.width,
     required this.height,
-    required this.maxY,
     required this.barChartGroupData,
     required this.flTitlesData,
   }) : super(key: key);
@@ -21,7 +20,6 @@ class AnimatedChart extends StatelessWidget {
   final double barWidth;
   final double width;
   final double height;
-  final double maxY;
   final List<BarChartGroupData> barChartGroupData;
   final FlTitlesData flTitlesData;
 

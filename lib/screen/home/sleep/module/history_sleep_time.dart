@@ -6,8 +6,8 @@ import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/screen/home/sleep/widget/sleep_bar_chart_title.dart';
 import 'package:wecare_flutter/screen/home/water/components/weekly_calendar.dart';
 import 'package:wecare_flutter/screen/home/water/components/fl_bar_chart.dart';
-import 'package:wecare_flutter/view_model/sleep_view_model.dart';
-import 'package:wecare_flutter/view_model/weekly_calendar_viewmodel.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -48,6 +48,7 @@ class HistorySleepTime extends StatelessWidget {
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn,
             child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: sleepViewModel.bedTimeBtnSelected
                   ? const SizedBox.shrink()
                   : ChangeNotifierProvider(

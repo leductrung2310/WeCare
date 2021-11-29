@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/circle_progress.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -14,6 +16,10 @@ class RightSection extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final BMIHistoryViewModel bmiHistoryViewModel =
+        Provider.of<BMIHistoryViewModel>(context);
+    double? ratio = bmiHistoryViewModel.bmiRatio.ratio;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +46,7 @@ class RightSection extends StatelessWidget {
           color: bmiColor,
           name: 'BMI Ratio',
           assetIcon: 'assets/images/home/bmi/bmi_weight.svg',
-          index: 20.5,
+          index: ratio ?? 0,
           coefficient: 22.5,
           child: SvgPicture.asset('assets/images/home/bmi/bmi_vector.svg'),
           left: sizeH * 4,

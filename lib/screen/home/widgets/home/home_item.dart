@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -38,81 +40,83 @@ class HomeItem extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    return InkWell(
-      onTap: onPressed,
-      splashColor: grey1,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        width: sizeH * 42.5,
-        height: sizeV * coefficient,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: color,
-            width: 2,
+    return Consumer<BMIHistoryViewModel>(
+      builder: (context, provider, child1) => InkWell(
+        onTap: onPressed,
+        splashColor: grey1,
+        borderRadius: BorderRadius.circular(20) ,
+        child: Container(
+          width: sizeH * 42.5,
+          height: sizeV * coefficient,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: color,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: sizeV * 2,
-              left: sizeH * 4,
-              child: Text(
-                name,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: sizeV * 2.3,
-                  color: lightBlack1,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Positioned(
-              top: sizeV * 2,
-              right: sizeH * 4,
-              child: SvgIcon(
-                assetIcon,
-                color: color,
-              ),
-            ),
-            Positioned(
-              left: left,
-              top: top,
-              right: right,
-              bottom: bottom,
-              child: child,
-            ),
-            Positioned(
-              bottom: sizeV * 2,
-              left: sizeH * 4,
-              child: RichText(
-                text: TextSpan(
+          child: Stack(
+            children: [
+              Positioned(
+                top: sizeV * 2,
+                left: sizeH * 4,
+                child: Text(
+                  name,
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: sizeV * 3,
+                    fontSize: sizeV * 2.3,
+                    color: lightBlack1,
                     fontWeight: FontWeight.w600,
-                    color: lightBlack,
                   ),
-                  children: [
-                    TextSpan(
-                      text: index.toStringAsFixed(
-                        index.truncateToDouble() == index ? 0 : 2,
-                      ),
-                    ),
-                    TextSpan(
-                      text: unit,
-                      style: TextStyle(
-                        fontSize: sizeV * 2,
-                        fontFamily: 'Poppins',
-                        color: lightBlack1,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: sizeV * 2,
+                right: sizeH * 4,
+                child: SvgIcon(
+                  assetIcon,
+                  color: color,
+                ),
+              ),
+              Positioned(
+                left: left,
+                top: top,
+                right: right,
+                bottom: bottom,
+                child: child,
+              ),
+              Positioned(
+                bottom: sizeV * 2,
+                left: sizeH * 4,
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: sizeV * 3,
+                      fontWeight: FontWeight.w600,
+                      color: lightBlack,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: index.toStringAsFixed(
+                          index.truncateToDouble() == index ? 0 : 2,
+                        ),
+                      ),
+                      TextSpan(
+                        text: unit,
+                        style: TextStyle(
+                          fontSize: sizeV * 2,
+                          fontFamily: 'Poppins',
+                          color: lightBlack1,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

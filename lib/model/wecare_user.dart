@@ -10,6 +10,8 @@ class WeCareUser {
   double? height;
   double? weight;
   String? email;
+  DateTime? sleepTime;
+  DateTime? wakeupTime;
 
   WeCareUser({
     this.uid,
@@ -21,22 +23,40 @@ class WeCareUser {
     this.weight,
     this.email,
     this.avatarUrl,
+    this.sleepTime,
+    this.wakeupTime,
   });
 
-  //data from server
+  static double checkDouble(dynamic value) {
+    if (value is int) {
+      return value.toDouble();
+    }
+    return value;
+  }
+
+  //data from server 
   factory WeCareUser.fromMap(map) {
     Timestamp timestamp = map['birthDay'];
-    DateTime dateTime = timestamp.toDate();
+    DateTime? dateTime = timestamp.toDate();
+
+    Timestamp sleepTimestamp = map['sleepTime'];
+    DateTime? sleepDateTime = sleepTimestamp.toDate();
+
+    Timestamp wakeupTimestamp = map['wakeupTime'];
+    DateTime? wakeupDateTime = wakeupTimestamp.toDate();
+
     return WeCareUser(
       uid: map['uid'],
       name: map['name'],
       age: map['age'],
       birthDay: dateTime,
       gender: map['gender'],
-      height: map['height'],
-      weight: map['weight'],
+      height: checkDouble(map['height']),
+      weight: checkDouble(map['weight']),
       email: map['email'],
       avatarUrl: map['avatarUrl'],
+      sleepTime: sleepDateTime,
+      wakeupTime: wakeupDateTime,
     );
   }
 
@@ -52,6 +72,8 @@ class WeCareUser {
       "weight": weight,
       "email": email,
       "avatarUrl": avatarUrl,
+      "sleepTime": sleepTime,
+      "wakeupTime": wakeupTime,
     };
   }
 }

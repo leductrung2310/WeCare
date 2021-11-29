@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/routes.dart';
@@ -26,6 +27,14 @@ class ProfileScreen extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final authService = Provider.of<AuthenticService>(context);
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    String name = "Unknow User";
+    if (authService.loggedInUser.name != null) {
+      name = authService.loggedInUser.name!;
+    } else if (currentUser!.displayName != null) {
+      name = currentUser.displayName!;
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -44,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                 height: sizeH * 2.5,
               ),
               Text(
-                "John Wich",
+                name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: "Poppins",

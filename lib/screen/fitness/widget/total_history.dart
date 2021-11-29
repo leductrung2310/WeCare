@@ -16,7 +16,7 @@ class TotalWorkout extends StatelessWidget {
         Provider.of<HistoryWorkoutViewModel>(context);
 
     return SizedBox(
-      height: sizeV * 13.6,
+      height: sizeV * 16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

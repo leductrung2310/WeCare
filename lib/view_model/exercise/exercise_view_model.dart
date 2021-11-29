@@ -35,8 +35,11 @@ class WorkoutViewModel extends ChangeNotifier {
     _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_restTime > 0) {
         _restTime--;
+        notifyListeners();
       } else {
         _restTimer.cancel;
+        _timer = Timer(const Duration(seconds: 1), startRestTime);
+        notifyListeners();
       }
     });
     notifyListeners();
@@ -65,7 +68,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
   set countWorkoutTime(newValue) {
     Future.delayed(
-        const Duration(microseconds: 500), () => _countWorkoutTime = newValue);
+        const Duration(microseconds: 1000), () => _countWorkoutTime = newValue);
     notifyListeners();
   }
 
@@ -86,5 +89,10 @@ class WorkoutViewModel extends ChangeNotifier {
     }
 
     return "$_minute:$_second";
+  }
+
+  void reset() {
+    indexWorkout = 0;
+    countWorkoutTime = 0;
   }
 }

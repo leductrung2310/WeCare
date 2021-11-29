@@ -73,7 +73,9 @@ class FitnessScreen extends StatelessWidget {
                       style: oBlackTitle,
                     ),
                   ),
-                  const WorkoutChoice(),
+                  auth.loggedInUser.gender == true
+                      ? const WorkoutChoice()
+                      : const FemaleChoices(),
                 ],
               ),
             ),

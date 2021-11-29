@@ -113,7 +113,8 @@ class FemaleChoices extends StatelessWidget {
                 ArmsWorkout(),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

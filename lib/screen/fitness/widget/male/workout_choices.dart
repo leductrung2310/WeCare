@@ -126,7 +126,8 @@ class WorkoutChoice extends StatelessWidget {
                 ArmsWorkout(),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

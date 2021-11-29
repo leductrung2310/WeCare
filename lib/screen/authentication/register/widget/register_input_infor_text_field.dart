@@ -10,6 +10,7 @@ class RegisterInputInfoTextField extends StatelessWidget {
     required this.suffixIconData,
     required this.textInputType,
     required this.list,
+    required this.controller,
   }) : super(key: key);
 
   final String hintText;
@@ -17,6 +18,7 @@ class RegisterInputInfoTextField extends StatelessWidget {
   final IconData suffixIconData;
   final TextInputType textInputType;
   final List<TextInputFormatter> list;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class RegisterInputInfoTextField extends StatelessWidget {
         horizontal: sizeH * 5,
       ),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           enabledBorder: inputBorderStyle,

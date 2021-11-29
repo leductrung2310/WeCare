@@ -23,21 +23,27 @@ class WeCareUser {
     this.avatarUrl,
   });
 
+  static double checkDouble(dynamic value) {
+    if (value is int) {
+      return value.toDouble();
+    }
+    return value;
+  }
+
   //data from server
-  factory WeCareUser.fromMap(map) {
+  WeCareUser.fromMap(map) {
     Timestamp timestamp = map['birthDay'];
     DateTime dateTime = timestamp.toDate();
-    return WeCareUser(
-      uid: map['uid'],
-      name: map['name'],
-      age: map['age'],
-      birthDay: dateTime,
-      gender: map['gender'],
-      height: map['height'],
-      weight: map['weight'],
-      email: map['email'],
-      avatarUrl: map['avatarUrl'],
-    );
+
+    uid = map['uid'];
+    name = map['name'];
+    age = map['age'];
+    birthDay = dateTime;
+    gender = map['gender'];
+    height = checkDouble(map['height']);
+    weight = checkDouble(map['weight']);
+    email = map['email'];
+    avatarUrl = map['avatarUrl'];
   }
 
   //send data to server

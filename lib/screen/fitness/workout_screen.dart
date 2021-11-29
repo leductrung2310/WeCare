@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import '../../constants/constants.dart';
@@ -19,6 +22,9 @@ class Workouting extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final workoutViewModel = Provider.of<WorkoutViewModel>(context);
+    final workoutViewModel2 =
+        Provider.of<WorkoutViewModel>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -99,20 +105,15 @@ class Workouting extends StatelessWidget {
                                     listen: false)
                                 .confettiController
                                 .play();
-                            Provider.of<WorkoutViewModel>(context,
-                                    listen: false)
-                                .getTimer
-                                .cancel();
+                            workoutViewModel2.getTimer.cancel();
                           } else {
+                            workoutViewModel2.setIndexWorkout();
+                            workoutViewModel2.restTime =
+                                arguments[workoutViewModel.indexWorkout]
+                                    .restTime;
                             final arg = arguments;
                             Navigator.pushNamed(context, Routes.takerest,
                                 arguments: arg);
-                            Provider.of<WorkoutViewModel>(context,
-                                    listen: false)
-                                .setIndexWorkout();
-                            Provider.of<WorkoutViewModel>(context,
-                                    listen: false)
-                                .restTime = 30;
                           }
                         },
                         icon: const Icon(
@@ -126,18 +127,6 @@ class Workouting extends StatelessWidget {
               ),
             ],
           ),
-          // Positioned(
-          //   left: sizeH * 4,
-          //   top: sizeV * 6,
-          //   child: IconButton(
-          //     icon: const Icon(Icons.arrow_back_ios_new),
-          //     color: Colors.black,
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //       workoutViewModel.setPreviousIndexWorkout();
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );

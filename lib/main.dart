@@ -120,7 +120,7 @@ class WeCare extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.login,
+        initialRoute: Routes.fitness,
         onGenerateRoute: (route) => getRoute(route),
         builder: EasyLoading.init(),
       ),

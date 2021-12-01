@@ -91,4 +91,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     totalMinutes = 0;
     totalKcal = 0.0;
   }
+
+  Future pushHistoryToFireStore() async {}
 }

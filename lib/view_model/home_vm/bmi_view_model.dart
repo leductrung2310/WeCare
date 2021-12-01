@@ -17,7 +17,7 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
   DateTime now = DateTime.now();
 
-  //App needed to restart to update   
+  //App needed to restart to update
   BMIHistoryViewModel(BuildContext context) {
     getDataFromFirestore();
     pushRatioToFirestore(context);
@@ -65,8 +65,7 @@ class BMIHistoryViewModel extends ChangeNotifier {
         .collection(FireStoreConstants.pathBMICollection)
         .doc(user?.uid)
         .set(bmiRatio.toJson())
-        .catchError((e) {
-    });
+        .catchError((e) {});
     notifyListeners();
   }
 

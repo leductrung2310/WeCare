@@ -106,26 +106,34 @@ class RegisterViewModel extends ChangeNotifier {
     User? user = FirebaseAuth.instance.currentUser;
     WeCareUser weCareUser = WeCareUser();
     FirebaseFirestore firebasefirestor = FirebaseFirestore.instance;
-    final registerViewModel =
-        Provider.of<RegisterViewModel>(context, listen: false);
 
     DateTime dateTime =
         DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
 
+    final auth = Provider.of<AuthenticService>(context);
+
+    DateTime now = DateTime.now();
+    DateTime sleepDateTime = DateTime(now.year, now.month, now.day, 22, 0);
+    DateTime wakeupDateTime = DateTime(now.year, now.month, now.day, 7, 0);
+
     weCareUser.email = user?.email;
     weCareUser.uid = user?.uid;
-    weCareUser.name = registerViewModel.nameController.text;
+    weCareUser.name = nameController.text;
     weCareUser.avatarUrl =
         "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
     weCareUser.birthDay = dateTime;
     weCareUser.age = DateTime.now().year - dateTime.year;
     weCareUser.height = double.parse(heightController.text);
     weCareUser.weight = double.parse(weightController.text);
+    weCareUser.sleepTime = sleepDateTime;
+    weCareUser.wakeupTime = wakeupDateTime;
     if (gender == 1) {
       weCareUser.gender = true;
     } else {
       weCareUser.gender = false;
     }
+
+    auth.loggedInUser = weCareUser;
 
     await firebasefirestor
         .collection("users")

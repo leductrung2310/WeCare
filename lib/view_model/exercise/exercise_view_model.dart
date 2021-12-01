@@ -7,7 +7,6 @@ class WorkoutViewModel extends ChangeNotifier {
   late int _restTime;
   int _countWorkoutTime = 0;
   late Timer _timer;
-  late Timer _restTimer;
 
   /////////////// index workout
   void setIndexWorkout() {
@@ -29,31 +28,6 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   get indexWorkout => _indexWorkout;
-
-  ///////////////// Rest time
-  void startRestTime() {
-    _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_restTime > 0) {
-        _restTime--;
-        notifyListeners();
-      } else {
-        _restTimer.cancel;
-        _timer = Timer(const Duration(seconds: 1), startRestTime);
-        notifyListeners();
-      }
-    });
-    notifyListeners();
-  }
-
-  void plusRestTime(int newValue) {
-    _restTime = _restTime + newValue;
-    notifyListeners();
-  }
-
-  set restTime(newValue) {
-    _restTime = newValue;
-    notifyListeners();
-  }
 
   int get restTime => _restTime;
 

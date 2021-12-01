@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
+import 'package:wecare_flutter/screen/fitness/widget/custom_circle_rest.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import '../../routes.dart';
 
@@ -29,27 +30,13 @@ class RestScreen extends StatelessWidget {
                 SizedBox(
                     height: sizeV * 35,
                     child: Center(
-                      child: Text(
-                        "${workoutViewModel.restTime}",
-                        style: const TextStyle(
-                            fontSize: 80, fontWeight: FontWeight.w400),
-                      ),
-                    )),
+                        child: RestCircle(
+                            time: arguments[workoutViewModel.indexWorkout + 1]
+                                .restTime))),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CustomBTN(
-                      textColor: whiteColor,
-                      name: "+ 20s",
-                      onPressed: () {
-                        Provider.of<WorkoutViewModel>(context, listen: false)
-                            .plusRestTime(20);
-                      },
-                      color: primaryColor,
-                      height: sizeV * 7,
-                      width: sizeH * 25,
-                    ),
                     CustomBTN(
                       textColor: whiteColor,
                       name: "Skip",

@@ -5,7 +5,8 @@ import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import '../../../constants/constants.dart';
 
 class RestCircle extends StatelessWidget {
-  const RestCircle({Key? key}) : super(key: key);
+  final int time;
+  const RestCircle({Key? key, required this.time}) : super(key: key);
 
   static const TWO_PI = 3.14 * 2;
 
@@ -15,18 +16,16 @@ class RestCircle extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
-
     final size = sizeH * 55;
     return Center(
       child: TweenAnimationBuilder(
-        duration: Duration(seconds: workoutViewModel.restTime),
+        duration: Duration(seconds: time),
         tween: Tween(
           begin: 1.0,
           end: 0.0,
         ),
         builder: (context, double value, child) {
-          int percentage = (value * workoutViewModel.restTime).ceil();
+          int percentage = (value * time).ceil();
           return Container(
             width: size,
             height: size,
@@ -67,7 +66,7 @@ class RestCircle extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "00:$percentage",
+                        percentage > 9 ? "00:$percentage" : "00:0$percentage",
                         style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 54,

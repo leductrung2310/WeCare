@@ -132,6 +132,8 @@ class RegisterViewModel extends ChangeNotifier {
     } else {
       weCareUser.gender = false;
     }
+    weCareUser.sleepTime = sleepDateTime;
+    weCareUser.wakeupTime = wakeupDateTime;
 
     auth.loggedInUser = weCareUser;
 

@@ -4,6 +4,7 @@ class FireStoreConstants {
   static const timestamp = 'timestamp';
   static const bmiRatio = 'ratio';
   static const status = 'status';
+  static const bmiHistory = 'history';
 
   // for user 
   static const pathUserCollection = 'users';

@@ -73,7 +73,7 @@ void main() async {
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
     ),
-  );
+);
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
@@ -117,6 +117,8 @@ class WeCare extends StatelessWidget {
             create: (context) => WeeklyCalendarVM()),
         ChangeNotifierProvider<HistoryWorkoutViewModel>(
             create: (context) => HistoryWorkoutViewModel()),
+         ChangeNotifierProvider<BMIHistoryViewModel>(
+            create: (context) => BMIHistoryViewModel(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

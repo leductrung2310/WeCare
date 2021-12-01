@@ -112,6 +112,10 @@ class RegisterViewModel extends ChangeNotifier {
     DateTime dateTime =
         DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
 
+    DateTime now = DateTime.now();
+    DateTime sleepDateTime = DateTime(now.year, now.month, now.day, 22, 0);
+    DateTime wakeupDateTime = DateTime(now.year, now.month, now.day, 7, 0);
+
     weCareUser.email = user?.email;
     weCareUser.uid = user?.uid;
     weCareUser.name = registerViewModel.nameController.text;
@@ -126,6 +130,8 @@ class RegisterViewModel extends ChangeNotifier {
     } else {
       weCareUser.gender = false;
     }
+    weCareUser.sleepTime = sleepDateTime;
+    weCareUser.wakeupTime = wakeupDateTime;
 
     await firebasefirestor
         .collection("users")

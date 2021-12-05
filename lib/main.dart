@@ -117,6 +117,8 @@ class WeCare extends StatelessWidget {
             create: (context) => WeeklyCalendarVM()),
         ChangeNotifierProvider<HistoryWorkoutViewModel>(
             create: (context) => HistoryWorkoutViewModel()),
+        ChangeNotifierProvider<BMIHistoryViewModel>(
+            create: (context) => BMIHistoryViewModel(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

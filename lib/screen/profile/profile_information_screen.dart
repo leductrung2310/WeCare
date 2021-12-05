@@ -9,6 +9,7 @@ import 'package:wecare_flutter/screen/profile/widgets/button.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_info_text_field_text.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/edit_profile_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class ProfileInformationScreen extends StatelessWidget {
   const ProfileInformationScreen({Key? key}) : super(key: key);
@@ -23,16 +24,21 @@ class ProfileInformationScreen extends StatelessWidget {
         Provider.of<EditProfileViewModel>(context, listen: true);
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context);
+    final BMIHistoryViewModel bmiHistoryViewModel =
+        Provider.of<BMIHistoryViewModel>(context);
 
-    int sleepHour = authenticService.loggedInUser.sleepTime!.hour;
-    int sleepMinute = authenticService.loggedInUser.sleepTime!.minute;
+    //! Null check operator
+    TimeOfDay currenSleepTime =
+        TimeOfDay.fromDateTime(authenticService.loggedInUser.sleepTime!);
+    TimeOfDay currenWakeupTime =
+        TimeOfDay.fromDateTime(authenticService.loggedInUser.wakeupTime!);
 
-    DateTime? birthday = editProfileViewModel.getCurrentUser.birthDay;
+    DateTime? birthday = authenticService.loggedInUser.birthDay;
     String? dateOfBirth =
         DateFormat('dd - MM - yyyy').format(birthday ?? DateTime.now());
 
     String gender = '';
-    switch (editProfileViewModel.getCurrentUser.gender) {
+    switch (authenticService.loggedInUser.gender) {
       case true:
         gender = 'Male';
         break;
@@ -122,7 +128,7 @@ class ProfileInformationScreen extends StatelessWidget {
                     text: "Name",
                   ),
                   ProfileInfoTextField(
-                    hintText: '${editProfileViewModel.getCurrentUser.name}',
+                    hintText: '${authenticService.loggedInUser.name}',
                     suffixIconData: Icons.clear,
                     textInputType: TextInputType.name,
                     list: const [],
@@ -169,7 +175,7 @@ class ProfileInformationScreen extends StatelessWidget {
                     text: "Email",
                   ),
                   ProfileInfoTextField(
-                    hintText: '${editProfileViewModel.getCurrentUser.email}',
+                    hintText: '${authenticService.loggedInUser.email}',
                     textInputType: TextInputType.emailAddress,
                     validator: (value) => '',
                     readOnly: true,
@@ -192,7 +198,7 @@ class ProfileInformationScreen extends StatelessWidget {
                             ),
                             ProfileInfoTextField(
                               hintText:
-                                  '${editProfileViewModel.getCurrentUser.weight}',
+                                  '${authenticService.loggedInUser.weight}',
                               suffixIconData: Icons.clear,
                               onTap: () {
                                 editProfileViewModel.weightController.clear();
@@ -209,8 +215,7 @@ class ProfileInformationScreen extends StatelessWidget {
                                     .weightController.text.isEmpty) {
                                   try {
                                     editProfileViewModel.weightController.text =
-                                        editProfileViewModel
-                                            .getCurrentUser.weight
+                                        authenticService.loggedInUser.weight
                                             .toString();
                                   } catch (e) {
                                     Fluttertoast.showToast(msg: e.toString());
@@ -233,7 +238,7 @@ class ProfileInformationScreen extends StatelessWidget {
                             ),
                             ProfileInfoTextField(
                               hintText:
-                                  '${editProfileViewModel.getCurrentUser.height}',
+                                  '${authenticService.loggedInUser.height}',
                               suffixIconData: Icons.clear,
                               textController:
                                   editProfileViewModel.heightController,
@@ -250,8 +255,7 @@ class ProfileInformationScreen extends StatelessWidget {
                                     .heightController.text.isEmpty) {
                                   try {
                                     editProfileViewModel.heightController.text =
-                                        editProfileViewModel
-                                            .getCurrentUser.weight
+                                        authenticService.loggedInUser.height
                                             .toString();
                                   } catch (e) {
                                     Fluttertoast.showToast(msg: e.toString());
@@ -277,18 +281,10 @@ class ProfileInformationScreen extends StatelessWidget {
                               text: "Time to wake up",
                             ),
                             ProfileInfoTextField(
-                              hintText:
-                                  '${editProfileViewModel.getWakeupTime.hour}:${editProfileViewModel.getWakeupTime.minute}',
+                              hintText: currenWakeupTime.format(context),
                               suffixIconData: Icons.access_time,
                               onTap: () {
-                                editProfileViewModel.showPicker(
-                                  context,
-                                  editProfileViewModel.selectedWakeupTime,
-                                  editProfileViewModel.wakeupTimeController,
-                                );
-                                editProfileViewModel.wakeupTimeController.text =
-                                    editProfileViewModel.selectedWakeupTime
-                                        .format(context);
+                                editProfileViewModel.showWakeupPicker(context);
                               },
                               textController:
                                   editProfileViewModel.wakeupTimeController,
@@ -311,15 +307,10 @@ class ProfileInformationScreen extends StatelessWidget {
                               text: "Time to sleep",
                             ),
                             ProfileInfoTextField(
-                              hintText: '$sleepHour:$sleepMinute',
+                              hintText: currenSleepTime.format(context),
                               suffixIconData: Icons.access_time,
                               onTap: () {
-                                editProfileViewModel.showPicker(
-                                  context,
-                                  TimeOfDay.fromDateTime(
-                                      authenticService.loggedInUser.sleepTime ?? DateTime.now()),
-                                  editProfileViewModel.sleepTimeController,
-                                );
+                                editProfileViewModel.showSleepPicker(context);
                               },
                               textController:
                                   editProfileViewModel.sleepTimeController,
@@ -349,6 +340,8 @@ class ProfileInformationScreen extends StatelessWidget {
                             await editProfileViewModel
                                 .updateUserDatatoFirestore(context);
                             editProfileViewModel.updateToLoggedInUser(context);
+                            await bmiHistoryViewModel
+                                .pushRatioToFirestore(context);
                             Navigator.pop(context);
                           }
                         },

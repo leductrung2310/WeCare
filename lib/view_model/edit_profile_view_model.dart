@@ -9,7 +9,8 @@ import 'package:wecare_flutter/services/authentic_service.dart';
 
 class EditProfileViewModel extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
-  WeCareUser _weCareUser = WeCareUser();
+
+  var _weCareUser = WeCareUser();
 
   var nameController = TextEditingController();
   var weightController = TextEditingController();
@@ -17,7 +18,6 @@ class EditProfileViewModel extends ChangeNotifier {
   var wakeupTimeController = TextEditingController();
   var sleepTimeController = TextEditingController();
 
-  WeCareUser get getCurrentUser => _weCareUser;
 
   bool _isValidName = true;
   bool _isValidWeight = true;
@@ -27,15 +27,10 @@ class EditProfileViewModel extends ChangeNotifier {
   get isValidWeight => _isValidWeight;
   get isValidHeight => _isValidHeight;
 
-  var selectedSleepTime = const TimeOfDay(hour: 22, minute: 00);
-  var selectedWakeupTime = const TimeOfDay(hour: 7, minute: 00);
+  var selectedSleepTime = const TimeOfDay(hour: 0, minute: 0);
+  var selectedWakeupTime = const TimeOfDay(hour: 0, minute: 0);
 
-  get getSleepTime => selectedSleepTime;
-  get getWakeupTime => selectedWakeupTime;
-
-  //! This function is fine
-  Future<void> showPicker(BuildContext context, TimeOfDay selectedTime,
-      TextEditingController timeController) async {
+  Future<void> showWakeupPicker(BuildContext context) async {
     final TimeOfDay? timeOfDay = await showTimePicker(
       builder: (context, child) {
         return Theme(
@@ -50,9 +45,31 @@ class EditProfileViewModel extends ChangeNotifier {
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    if (timeOfDay != null && timeOfDay != selectedTime) {
-      selectedTime = timeOfDay;
-      timeController.text = selectedTime.format(context);
+    if (timeOfDay != null && timeOfDay != selectedWakeupTime) {
+      selectedWakeupTime = timeOfDay;
+      wakeupTimeController.text = selectedWakeupTime.format(context);
+      notifyListeners();
+    }
+  }
+
+  Future<void> showSleepPicker(BuildContext context) async {
+    final TimeOfDay? timeOfDay = await showTimePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            primaryColor: primaryColor,
+            backgroundColor: primaryColor,
+            dialogBackgroundColor: primaryColor,
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (timeOfDay != null && timeOfDay != selectedSleepTime) {
+      selectedSleepTime = timeOfDay;
+      sleepTimeController.text = selectedSleepTime.format(context);
       notifyListeners();
     }
   }
@@ -121,15 +138,9 @@ class EditProfileViewModel extends ChangeNotifier {
         Provider.of<AuthenticService>(context, listen: false);
 
     var now = DateTime.now();
-    DateTime dateTimeSleep = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        authenticService.loggedInUser.sleepTime!.hour,
-        authenticService.loggedInUser.sleepTime!.minute);
-    print(sleepTimeController.text);
-    print(dateTimeSleep);
-      
+    DateTime dateTimeSleep = DateTime(now.year, now.month, now.day,
+        selectedSleepTime.hour, selectedSleepTime.minute);
+    
     DateTime dateTimeWakeup = DateTime(now.year, now.month, now.day,
         selectedWakeupTime.hour, selectedWakeupTime.minute);
 
@@ -149,7 +160,7 @@ class EditProfileViewModel extends ChangeNotifier {
       };
     }
 
-    await firebaseFirestore
+    await firebaseFirestore 
         .collection(FireStoreConstants.pathUserCollection)
         .doc(authenticService.loggedInUser.uid)
         .set(

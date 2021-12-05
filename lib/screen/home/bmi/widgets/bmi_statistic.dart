@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:provider/provider.dart';
-
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIStatistic extends StatelessWidget {
@@ -19,26 +18,21 @@ class BMIStatistic extends StatelessWidget {
 
     DateTime? date = bmiHistoryViewModel.bmiRatio.updatedDate;
     String? formattedDate =
-        DateFormat('dd-MM-yyyy').format(date ?? DateTime.now());
+        DateFormat('dd - MM - yyyy').format(date ?? DateTime.now());
     double? ratio = bmiHistoryViewModel.bmiRatio.ratio;
 
-    Color stateColor = metalGreyColor;
-    switch (bmiHistoryViewModel.bmiRatio.status) {
-      case 1:
-        {
-          stateColor = const Color(0xFF82B6E7);
-        }
-        break;
-      case 2:
-        {
-          stateColor = primaryColor;
-        }
-        break;
-      case 3:
-        {
-          stateColor = const Color(0xFFE06D53);
-        }
-        break;
+    Color calculateStatus() {
+      double ratio = bmiHistoryViewModel.bmiRatio.ratio ?? 18;
+      if (ratio >= 16 && ratio <= 18.5) {
+        return const Color(0xFF82B6E7);
+      }
+      if (ratio >= 18.6 && ratio <= 25) {
+        return primaryColor;
+      }
+      if (ratio >= 25.1 && ratio <= 40) {
+        return  const Color(0xFFE06D53);
+      }
+      return metalGreyColor;
     }
 
     return Container(
@@ -66,7 +60,7 @@ class BMIStatistic extends StatelessWidget {
               Text(
                 ratio.toString(),
                 style: TextStyle(
-                    color: stateColor,
+                    color: calculateStatus(),
                     fontSize: sizeV * 4,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins'),

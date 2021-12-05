@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,11 +7,7 @@ import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
-import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -29,12 +24,9 @@ class ProfileScreen extends StatelessWidget {
     final authService = Provider.of<AuthenticService>(context);
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    String name = "Unknow User";
-    if (authService.loggedInUser.name != null) {
-      name = authService.loggedInUser.name!;
-    } else if (currentUser!.displayName != null) {
-      name = currentUser.displayName!;
-    }
+    late String name;
+    name = authService.loggedInUser.name ??
+        (currentUser?.displayName ?? 'Unknow User');
 
     return SafeArea(
       child: Scaffold(
@@ -139,15 +131,21 @@ class ProfileScreen extends StatelessWidget {
                   //   "Duc Trung đi ngủ",
                   //   time,
                   // );
-                  await Provider.of<ProfileViewModel>(context, listen: false)
-                      .uploadImageToFirebase(context);
-                  String url = await Provider.of<ProfileViewModel>(context,
-                          listen: false)
-                      .getUrlAvatar(context);
-                  Provider.of<AuthenticService>(context, listen: false)
-                      .setAvatar(url);
-                  Provider.of<AuthenticService>(context, listen: false)
-                      .updateUserAvatar(url);
+                  // await Provider.of<ProfileViewModel>(context, listen: false)
+                  //     .uploadImageToFirebase(context);
+                  // String url = await Provider.of<ProfileViewModel>(context,
+                  //         listen: false)
+                  //     .getUrlAvatar(context);
+                  // Provider.of<AuthenticService>(context, listen: false)
+                  //     .setAvatar(url);
+                  // Provider.of<AuthenticService>(context, listen: false)
+                  //     .updateUserAvatar(url);
+
+                  await FirebaseFirestore.instance
+                      .collection('weekgoal')
+                      .doc(FirebaseAuth.instance.currentUser?.uid)
+                      .get()
+                      .then((value) => print(value.data()));
                 },
                 icon: const Icon(Icons.access_alarm),
               ),

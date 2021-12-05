@@ -15,6 +15,7 @@ import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -193,28 +194,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () async {
-                  // DateTime time = DateTime.now().add(Duration(minutes: 1));
-                  // Provider.of<NotificationService>(context, listen: false)
-                  //     .sheduledNotification(
-                  //   1,
-                  //   "Remind",
-                  //   "Duc Trung đi ngủ",
-                  //   time,
-                  // );
-                  // await Provider.of<ProfileViewModel>(context, listen: false)
-                  //     .uploadImageToFirebase(context);
-                  // String url = await Provider.of<ProfileViewModel>(context,
-                  //         listen: false)
-                  //     .getUrlAvatar(context);
-                  // Provider.of<AuthenticService>(context, listen: false)
-                  //     .setAvatar(url);
-                  // Provider.of<AuthenticService>(context, listen: false)
-                  //     .updateUserAvatar(url);
-                  // Provider.of<NotificationService>(context, listen: false)
-                  //     .cancelNotification();
-                  print(Provider.of<AuthenticService>(context, listen: false)
-                      .loggedInUser
-                      .avatarUrl);
                 },
                 icon: const Icon(Icons.access_alarm),
               ),

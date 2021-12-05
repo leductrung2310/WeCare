@@ -1,8 +1,35 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/model/statistic_data/statistic_data.dart';
+
+import '../../constants/firestore_constants.dart';
+
+class SleepData {
+  double sleepHours = 0;
+  double sleepTimes = 0;
+
+  SleepData({
+    required this.sleepHours,
+    required this.sleepTimes,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      FireStoreConstants.sleepHours: sleepHours,
+      FireStoreConstants.sleepTimes: sleepTimes,
+    };
+  }
+
+  factory SleepData.fromDocument(DocumentSnapshot doc) {
+    return SleepData(
+      sleepHours: doc[FireStoreConstants.sleepHours],
+      sleepTimes: doc[FireStoreConstants.sleepTimes],
+    );
+  }
+}
 
 class SleepStatisticData extends StatticticData {
   SleepStatisticData(int id, String name, double y, Color color)
@@ -10,7 +37,6 @@ class SleepStatisticData extends StatticticData {
 }
 
 class SleepBarData {
-
   static double interval = 2.5;
 
   static List<SleepStatisticData> statisticListData = [
@@ -23,17 +49,18 @@ class SleepBarData {
     SleepStatisticData(6, 'S', 6.5, sleepColor),
   ];
 
-  static List<BarChartGroupData> sleepBarChartList = SleepBarData.statisticListData
-        .map(
-          (SleepStatisticData data) => BarChartGroupData(
-            x: data.id,
-            barRods: [
-              BarChartRodData(
-                y: data.y,
-                colors: [data.color],
-              ),
-            ],
-          ),
-        )
-        .toList();
+  static List<BarChartGroupData> sleepBarChartList =
+      SleepBarData.statisticListData
+          .map(
+            (SleepStatisticData data) => BarChartGroupData(
+              x: data.id,
+              barRods: [
+                BarChartRodData(
+                  y: data.y,
+                  colors: [data.color],
+                ),
+              ],
+            ),
+          )
+          .toList();
 }

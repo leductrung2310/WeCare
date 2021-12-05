@@ -71,6 +71,7 @@ class WaterCompletedChain extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -87,20 +88,23 @@ class WaterCompletedChain extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: SizedBox(
-              height: sizeV * 5,
-              width: sizeH * 90,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                itemCount: waterCompleteChainList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => _waterDrop(
-                  waterCompleteChainList[index],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: sizeV * 10,
+                width: sizeH * 87,
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                  itemCount: waterCompleteChainList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => _waterDrop(
+                    waterCompleteChainList[index],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),

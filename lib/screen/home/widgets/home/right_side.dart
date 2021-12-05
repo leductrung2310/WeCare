@@ -5,6 +5,7 @@ import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/circle_progress.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -20,6 +21,7 @@ class RightSection extends StatelessWidget {
     final BMIHistoryViewModel bmiHistoryViewModel =
         Provider.of<BMIHistoryViewModel>(context);
     double? ratio = bmiHistoryViewModel.bmiRatio.ratio;
+    final WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +31,7 @@ class RightSection extends StatelessWidget {
           color: waterColor,
           name: 'Water',
           assetIcon: 'assets/images/home/water/water_drop.svg',
-          index: 1.29,
+          index: waterViewModel.getCurrentIndex,
           coefficient: 22.5,
           child: const CustomProgressIndicator(),
           left: sizeV * 5.5,

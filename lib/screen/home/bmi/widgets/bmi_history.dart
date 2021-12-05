@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/model/statistic_data/bmi_ratio_data.dart';
-import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 import '../../../../constants/firestore_constants.dart';
 
@@ -60,8 +58,8 @@ class BMIHistorySection extends StatelessWidget {
             ],
           ),
           Divider(
-            indent: sizeH * 4,
-            endIndent: sizeH * 4,
+            indent: sizeH * 3,
+            endIndent: sizeH * 3,
             thickness: 1,
             color: metalGreyColor,
             height: sizeV * 1.5,

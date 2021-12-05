@@ -9,8 +9,6 @@ import 'package:wecare_flutter/services/authentic_service.dart';
 
 class BMIHistoryViewModel extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
-  final BMIRatioHistory bmiRatioHistory =
-      BMIRatioHistory(bmiRatioHistoryList: []);
 
   BMIRatio _bmiRatio = BMIRatio();
 
@@ -50,12 +48,12 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
     await firebaseFirestore
         .collection(FireStoreConstants.pathBMICollection)
-        .doc(user?.uid)
+        .doc(authenticService.loggedInUser.uid)
         .set(bmiRatio.toJson())
         .catchError((e) {});
     await firebaseFirestore
         .collection(FireStoreConstants.pathBMICollection)
-        .doc(user?.uid)
+        .doc(authenticService.loggedInUser.uid)
         .collection(FireStoreConstants.bmiHistory)
         .doc(formattedNow)
         .set(bmiRatio.toJson());

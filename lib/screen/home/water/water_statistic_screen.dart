@@ -1,15 +1,10 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/detailed_statistic.dart';
-import 'package:wecare_flutter/screen/home/water/widgets/animated_chart.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_complete_chain.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
-import 'components/water_bar_chart_title.dart';
+import 'widgets/water_weekly_chart.dart';
 
 class WaterStatisticScreen extends StatelessWidget {
   const WaterStatisticScreen({Key? key}) : super(key: key);
@@ -17,7 +12,6 @@ class WaterStatisticScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     return SafeArea(
@@ -34,25 +28,7 @@ class WaterStatisticScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: sizeV * 2.5),
-              Align(
-                alignment: Alignment.topCenter,
-                child: ChangeNotifierProvider(
-                  create: (context) => WeeklyCalendarVM(),
-                  child: AnimatedChart(
-                    color: waterColor,
-                    barWidth: sizeH * 4,
-                    width: sizeH * 90,
-                    height: sizeV * 45,
-                    barChartGroupData: WaterBarData.waterBarChartList,
-                    flTitlesData: FlTitlesData(
-                      bottomTitles: WaterBarTitles.getBottomTitles(),
-                      leftTitles: WaterBarTitles.getSideTitles(),
-                      topTitles: SideTitles(showTitles: false),
-                      rightTitles: SideTitles(showTitles: false),
-                    ),
-                  ),
-                ),
-              ),
+              const WaterWeeklyChart(),
               SizedBox(height: sizeV * 3),
               const DetailedStatistic(),
               SizedBox(height: sizeV * 3),

@@ -30,6 +30,7 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   void selectImageSource(ImageSource imageSource, context) async {
+
     final pickedImage = await _picker.pickImage(source: imageSource);
 
     if (pickedImage == null) {

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
-import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -38,12 +36,6 @@ class ProfileScreen extends StatelessWidget {
     late String name;
     name = authService.loggedInUser.name ??
         (currentUser?.displayName ?? 'Unknow User');
-
-    // if (authService.loggedInUser.name != null) {
-    //   name = authService.loggedInUser.name!;
-    // } else if (currentUser?.displayName != null) {
-    //   name = currentUser?.displayName ?? "Unknow User";
-    // }
 
     return SafeArea(
       child: Scaffold(

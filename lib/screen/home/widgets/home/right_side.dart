@@ -54,7 +54,7 @@ class RightSection extends StatelessWidget {
           right: sizeH * 4,
           bottom: sizeV * 6,
           unit: '',
-          onPressed: () {
+          onPressed: () async {
             Navigator.pushNamed(context, Routes.bmiScreen);
           },
         ),

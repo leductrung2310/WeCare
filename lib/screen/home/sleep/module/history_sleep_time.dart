@@ -55,7 +55,10 @@ class HistorySleepTime extends StatelessWidget {
                       create: (context) => WeeklyCalendarVM(),
                       child: Column(
                         children: [
-                          const WeeklyCalendar(color: sleepColor),
+                          WeeklyCalendar(
+                            color: sleepColor,
+                            onPressed: () {},
+                          ),
                           SizedBox(
                             height: sizeV * 29,
                             child: Padding(

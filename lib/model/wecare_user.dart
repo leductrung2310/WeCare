@@ -40,7 +40,7 @@ class WeCareUser {
     DateTime? dateTime = timestamp.toDate();
 
     Timestamp sleepTimestamp = map['sleepTime'];
-    DateTime? sleepDateTime = sleepTimestamp.toDate();
+    DateTime sleepDateTime = sleepTimestamp.toDate();
 
     Timestamp wakeupTimestamp = map['wakeupTime'];
     DateTime? wakeupDateTime = wakeupTimestamp.toDate();

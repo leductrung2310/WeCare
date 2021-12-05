@@ -125,7 +125,6 @@ class RegisterViewModel extends ChangeNotifier {
     weCareUser.weight = double.parse(weightController.text);
     weCareUser.sleepTime = sleepDateTime;
     weCareUser.wakeupTime = wakeupDateTime;
-
     if (gender == 1) {
       weCareUser.gender = true;
     } else {

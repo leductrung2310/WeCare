@@ -8,9 +8,11 @@ class WeeklyCalendar extends StatelessWidget {
   const WeeklyCalendar({
     Key? key,
     required this.color,
+    required this.onPressed,
   }) : super(key: key);
 
   final Color color;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,11 @@ class WeeklyCalendar extends StatelessWidget {
     String _now = DateFormat('dd-MM-yyyy').format(DateTime.now());
     String curentTime =
         DateFormat('dd-MM-yyyy').format(weeklyCalendarVM.currentTime);
+
+    void onpress() {
+      weeklyCalendarVM.changeCalendar(true);
+      onPressed;
+    }
 
     Widget calenderBtn(IconData data, void Function() onPressed, Color color) {
       return InkWell(
@@ -53,7 +60,7 @@ class WeeklyCalendar extends StatelessWidget {
         children: [
           calenderBtn(
             Icons.keyboard_arrow_left,
-            () => weeklyCalendarVM.changeCalendar(true),
+            onpress,
             color,
           ),
           SizedBox(width: sizeH * 2),

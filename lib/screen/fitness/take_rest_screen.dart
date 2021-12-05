@@ -77,7 +77,7 @@ class RestScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        " ${workoutViewModel.indexWorkout + 2}/${arguments.length}",
+                        " ${workoutViewModel.indexWorkout + 2}/${arguments.length - 1}",
                         style: TextStyle(
                           color: primaryColor,
                           fontSize: sizeV * 3,

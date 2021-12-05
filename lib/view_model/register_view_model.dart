@@ -110,7 +110,7 @@ class RegisterViewModel extends ChangeNotifier {
     DateTime dateTime =
         DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
 
-    final auth = Provider.of<AuthenticService>(context);
+    final auth = Provider.of<AuthenticService>(context, listen: false);
 
     DateTime now = DateTime.now();
     DateTime sleepDateTime = DateTime(now.year, now.month, now.day, 22, 0);

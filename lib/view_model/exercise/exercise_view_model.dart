@@ -1,12 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
 
 class WorkoutViewModel extends ChangeNotifier {
   int _indexWorkout = 0;
   late int _restTime;
   int _countWorkoutTime = 0;
   late Timer _timer;
+  List<Exercise> _listExercise = [];
+
+  List<Exercise> get listExercise => _listExercise;
+
+  set listExercise(List<Exercise> newVal) {
+    _listExercise = newVal;
+    notifyListeners();
+  }
 
   /////////////// index workout
   void setIndexWorkout() {
@@ -48,9 +57,9 @@ class WorkoutViewModel extends ChangeNotifier {
 
   get countWorkoutTime => _countWorkoutTime;
 
-  String formatWorkoutTime() {
-    int _minute = _countWorkoutTime ~/ 60;
-    int _second = _countWorkoutTime - (_minute * 60);
+  String formatWorkoutTime(int time) {
+    int _minute = time ~/ 60;
+    int _second = time - (_minute * 60);
 
     if (_minute < 10) {
       if (_second < 10) {

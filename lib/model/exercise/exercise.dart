@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Exercise {
   String gif;
   String name;
@@ -50,6 +48,12 @@ List<Exercise> listArmBeginner = [
     reps: "x30",
     restTime: 15,
   ),
+  Exercise(
+    name: "Arm Beginner",
+    gif: "",
+    reps: "",
+    restTime: 0,
+  ),
 ];
 
 List<Exercise> listArmInter = [
@@ -94,6 +98,12 @@ List<Exercise> listArmInter = [
     gif: "assets/images/exercises/gif_exercises/push_ups.gif",
     reps: "x30",
     restTime: 30,
+  ),
+  Exercise(
+    name: "Arm Intermediate",
+    gif: "",
+    reps: "",
+    restTime: 0,
   ),
 ];
 
@@ -145,5 +155,11 @@ List<Exercise> listArmAdvanced = [
     gif: "assets/images/exercises/gif_exercises/daimond_pushups.gif",
     reps: "x10",
     restTime: 30,
+  ),
+  Exercise(
+    name: "Arm Advanced",
+    gif: "",
+    reps: "",
+    restTime: 0,
   ),
 ];

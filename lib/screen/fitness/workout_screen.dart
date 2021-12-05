@@ -106,7 +106,7 @@ class Workouting extends StatelessWidget {
                         iconSize: 60,
                         onPressed: () {
                           if (workoutViewModel.indexWorkout ==
-                              (arguments.length - 1)) {
+                              (arguments.length - 2)) {
                             Navigator.pushNamed(context, Routes.finishworout);
                             Provider.of<WorkoutTabViewModel>(context,
                                     listen: false)
@@ -118,6 +118,7 @@ class Workouting extends StatelessWidget {
                             final arg = arguments;
                             Navigator.pushNamed(context, Routes.takerest,
                                 arguments: arg);
+                            workoutViewModel2.listExercise = arguments;
                           }
                         },
                         icon: const Icon(

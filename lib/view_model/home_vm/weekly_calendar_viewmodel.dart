@@ -6,6 +6,8 @@ class WeeklyCalendarVM extends ChangeNotifier {
 
   DateTime get getStartOfWeek => startOfWeek;
 
+  DateTime get getEndOfWeek => endOfWeek;
+
   DateTime currentTime = DateTime.now();
 
   WeeklyCalendarVM() {

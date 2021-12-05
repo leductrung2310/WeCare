@@ -52,7 +52,10 @@ class AnimatedChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            WeeklyCalendar(color: color),
+            WeeklyCalendar(
+              color: color,
+              onPressed: () {},
+            ),
             SizedBox(
               height: sizeV * 2,
             ),

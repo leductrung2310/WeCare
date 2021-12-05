@@ -80,7 +80,8 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      workoutViewModel.formatWorkoutTime(),
+                      workoutViewModel
+                          .formatWorkoutTime(workoutViewModel.countWorkoutTime),
                       style: oWhiteTitle,
                     ),
                     Text(
@@ -124,8 +125,17 @@ class FinishWorkout extends StatelessWidget {
                     workoutViewModel.indexWorkout + 1,
                     workoutViewModel.countWorkoutTime,
                     workoutViewModel.countWorkoutTime * 0.308);
+                historyWorkoutViewModel.plusTotalWeekly(
+                    context,
+                    workoutViewModel.indexWorkout + 1,
+                    workoutViewModel.countWorkoutTime,
+                    workoutViewModel.countWorkoutTime * 0.308);
                 historyWorkoutViewModel.pushTotalHistorytoFireStore();
+                historyWorkoutViewModel.pushHistoryToFireStore(context);
+                historyWorkoutViewModel
+                    .pushTotalWeeklyHistoryToFirestore(context);
                 Provider.of<WorkoutViewModel>(context, listen: false).reset();
+                historyWorkoutViewModel.pushWeekGoal(context);
               },
               child: Container(
                 height: sizeV * 6,

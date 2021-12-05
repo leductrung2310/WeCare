@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
+import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
 import '../../constants/constants.dart';
@@ -96,38 +97,22 @@ class IntroWorkouts extends StatelessWidget {
             bottom: sizeV * 4,
             right: sizeH * 10,
             left: sizeH * 10,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  final arg = arguments.listExercise;
-                  Navigator.pushNamed(
-                    context,
-                    Routes.workouting,
-                    arguments: arg,
-                  );
-                  Provider.of<WorkoutViewModel>(context, listen: false)
-                      .startTime();
-                },
-                child: Container(
-                  height: sizeV * 6,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Let's Go",
-                      style: TextStyle(
-                        fontSize: sizeV * 2.8,
-                        fontFamily: "poppins",
-                        color: whiteColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            child: CustomBTN(
+              name: "Let's Go",
+              color: primaryColor,
+              textColor: whiteColor,
+              height: sizeV * 6,
+              fontSize: 24,
+              onPressed: () {
+                final arg = arguments.listExercise;
+                Navigator.pushNamed(
+                  context,
+                  Routes.workouting,
+                  arguments: arg,
+                );
+                Provider.of<WorkoutViewModel>(context, listen: false)
+                    .startTime();
+              },
             ),
           ),
           Positioned(

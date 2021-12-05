@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
@@ -89,7 +90,13 @@ class Workouting extends StatelessWidget {
                       ),
                       IconButton(
                         iconSize: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  pauseDialog(context, sizeV * 50, sizeH * 80));
+                          //workoutViewModel2.getTimer.cancel();
+                        },
                         icon: const Icon(
                           Icons.pause_circle,
                           color: primaryColor,
@@ -99,7 +106,7 @@ class Workouting extends StatelessWidget {
                         iconSize: 60,
                         onPressed: () {
                           if (workoutViewModel.indexWorkout ==
-                              (arguments.length - 1)) {
+                              (arguments.length - 2)) {
                             Navigator.pushNamed(context, Routes.finishworout);
                             Provider.of<WorkoutTabViewModel>(context,
                                     listen: false)
@@ -108,12 +115,10 @@ class Workouting extends StatelessWidget {
                             workoutViewModel2.getTimer.cancel();
                           } else {
                             workoutViewModel2.setIndexWorkout();
-                            workoutViewModel2.restTime =
-                                arguments[workoutViewModel.indexWorkout]
-                                    .restTime;
                             final arg = arguments;
                             Navigator.pushNamed(context, Routes.takerest,
                                 arguments: arg);
+                            workoutViewModel2.listExercise = arguments;
                           }
                         },
                         icon: const Icon(
@@ -131,4 +136,84 @@ class Workouting extends StatelessWidget {
       ),
     );
   }
+}
+
+Dialog pauseDialog(BuildContext context, double height, double width) {
+  return Dialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: primaryColor.withOpacity(0.9),
+      ),
+      height: height,
+      width: width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(24.0),
+            child: Text(
+              "PAUSE",
+              style: TextStyle(
+                fontSize: 32,
+                color: whiteColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          CustomBTN(
+            width: 260,
+            height: 70,
+            name: "RESTART THIS EXERCISE",
+            textColor: whiteColor,
+            fontWeight: FontWeight.w700,
+            colorBorder: whiteColor,
+            color: primaryColor,
+            widthBorder: 5,
+            radius: 12,
+            onPressed: () {
+              Provider.of<WorkoutViewModel>(context, listen: false)
+                  .indexWorkout = 0;
+              Navigator.of(context).pop();
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          CustomBTN(
+            height: 70,
+            width: 260,
+            name: "QUIT",
+            textColor: whiteColor,
+            fontWeight: FontWeight.w700,
+            colorBorder: whiteColor,
+            color: primaryColor,
+            widthBorder: 5,
+            radius: 12,
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, Routes.main);
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          CustomBTN(
+            height: 70,
+            width: 260,
+            name: "RESUME",
+            textColor: whiteColor,
+            fontWeight: FontWeight.w700,
+            colorBorder: whiteColor,
+            color: primaryColor,
+            widthBorder: 5,
+            radius: 12,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    ),
+  );
 }

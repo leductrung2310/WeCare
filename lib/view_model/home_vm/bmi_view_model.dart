@@ -14,6 +14,9 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
   BMIRatio get bmiRatio => _bmiRatio;
 
+  DateTime now = DateTime.now();
+
+  //App needed to restart to update
   BMIHistoryViewModel(BuildContext context) {
     getDataFromFirestore();
     getQuerySnapshot();
@@ -31,7 +34,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
-
     double ratio = calculateBMIratio(authenticService.loggedInUser.height,
         authenticService.loggedInUser.weight);
 
@@ -49,7 +51,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
         .doc(authenticService.loggedInUser.uid)
         .set(bmiRatio.toJson())
         .catchError((e) {});
-
     await firebaseFirestore
         .collection(FireStoreConstants.pathBMICollection)
         .doc(authenticService.loggedInUser.uid)
@@ -60,12 +61,18 @@ class BMIHistoryViewModel extends ChangeNotifier {
   }
 
   Future<void> getDataFromFirestore() async {
+    print('phat' + _firebaseAuth.currentUser!.uid.toString());
     await FirebaseFirestore.instance
         .collection(FireStoreConstants.pathBMICollection)
-        .doc(_firebaseAuth.currentUser?.uid)
+        .doc(_firebaseAuth.currentUser!.uid)
         .get()
         .then((value) {
-      _bmiRatio = BMIRatio.fromDocument(value);
+      if (value.data() == null) {
+        print('phat nill');
+      } else {
+        print('phat dep');
+        _bmiRatio = BMIRatio.fromDocument(value);
+      }
     });
     notifyListeners();
   }

@@ -102,29 +102,29 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   Future<void> pushUserToFireStore(BuildContext context) async {
+    String? name = nameController.text.trim();
+    final auth = Provider.of<AuthenticService>(context, listen: false);
     isLoading = true;
     User? user = FirebaseAuth.instance.currentUser;
     WeCareUser weCareUser = WeCareUser();
     FirebaseFirestore firebasefirestor = FirebaseFirestore.instance;
-    final registerViewModel =
-        Provider.of<RegisterViewModel>(context, listen: false);
 
     DateTime dateTime =
         DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
-
     DateTime now = DateTime.now();
     DateTime sleepDateTime = DateTime(now.year, now.month, now.day, 22, 0);
     DateTime wakeupDateTime = DateTime(now.year, now.month, now.day, 7, 0);
-
     weCareUser.email = user?.email;
     weCareUser.uid = user?.uid;
-    weCareUser.name = registerViewModel.nameController.text;
+    weCareUser.name = user?.displayName ?? name;
     weCareUser.avatarUrl =
         "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
     weCareUser.birthDay = dateTime;
     weCareUser.age = DateTime.now().year - dateTime.year;
     weCareUser.height = double.parse(heightController.text);
     weCareUser.weight = double.parse(weightController.text);
+    weCareUser.sleepTime = sleepDateTime;
+    weCareUser.wakeupTime = wakeupDateTime;
     if (gender == 1) {
       weCareUser.gender = true;
     } else {
@@ -133,10 +133,12 @@ class RegisterViewModel extends ChangeNotifier {
     weCareUser.sleepTime = sleepDateTime;
     weCareUser.wakeupTime = wakeupDateTime;
 
+    auth.loggedInUser = weCareUser;
     await firebasefirestor
         .collection("users")
         .doc(user!.uid)
         .set(weCareUser.toMap());
+    await pushFoodHistoryToFireStore();
     isLoading = false;
   }
 
@@ -153,5 +155,33 @@ class RegisterViewModel extends ChangeNotifier {
       ),
     );
     Fluttertoast.showToast(msg: "Account successfully created! Enjoy!");
+  }
+
+  pushFoodHistoryToFireStore() async {
+    await FirebaseFirestore.instance
+        .collection("foodHistory")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      '1': '',
+      '2': '',
+      '3': '',
+      '4': '',
+      '5': '',
+    });
+  }
+
+  void reset() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    dateOfBirthController = TextEditingController();
+    heightController = TextEditingController();
+    weightController = TextEditingController();
+    _isLoading = false;
+    _isValidEmail = false;
+    _isVisible = false;
+    _isConfirmVisible = false;
+    _gender = 0;
   }
 }

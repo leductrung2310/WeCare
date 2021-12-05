@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/button.dart';
 
 class ChangePasswordSuccessScreen extends StatelessWidget {
@@ -47,7 +48,9 @@ class ChangePasswordSuccessScreen extends StatelessWidget {
                     horizontal: sizeH * 6, vertical: sizeV * 1.5),
                 child: ProfileButton(
                   text: "Continue",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, Routes.main);
+                  },
                   color: primaryColor,
                   textColor: whiteColor,
                 ),

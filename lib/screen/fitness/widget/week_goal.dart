@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 
 class WeekGoal extends StatelessWidget {
   const WeekGoal({Key? key}) : super(key: key);
@@ -13,9 +13,13 @@ class WeekGoal extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    final weeklyCalendar = Provider.of<WeeklyCalendarVM>(context);
+    DateTime currentTime = DateTime.now();
+    final historyWorkoutViewModel =
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false);
 
-    int firstDayOfWeek = weeklyCalendar.startOfWeek.day;
+    int getDay(int x) {
+      return currentTime.subtract(Duration(days: currentTime.weekday - x)).day;
+    }
 
     return InkWell(
       onTap: () => {
@@ -53,13 +57,27 @@ class WeekGoal extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomeDate(text: "$firstDayOfWeek"),
-                CustomeDate(text: '${firstDayOfWeek + 1}'),
-                CustomeDate(text: '${firstDayOfWeek + 2}'),
-                CustomeDate(text: '${firstDayOfWeek + 3}'),
-                CustomeDate(text: '${firstDayOfWeek + 4}'),
-                CustomeDate(text: '${firstDayOfWeek + 5}'),
-                CustomeDate(text: '${firstDayOfWeek + 6}'),
+                historyWorkoutViewModel.checkWorkouted(getDay(1))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(1)),
+                historyWorkoutViewModel.checkWorkouted(getDay(2))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(2)),
+                historyWorkoutViewModel.checkWorkouted(getDay(3))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(3)),
+                historyWorkoutViewModel.checkWorkouted(getDay(4))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(4)),
+                historyWorkoutViewModel.checkWorkouted(getDay(5))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(5)),
+                historyWorkoutViewModel.checkWorkouted(getDay(6))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(6)),
+                historyWorkoutViewModel.checkWorkouted(getDay(7))
+                    ? const CustomeDate(text: 0)
+                    : CustomeDate(text: getDay(7)),
               ],
             )
           ],
@@ -70,7 +88,7 @@ class WeekGoal extends StatelessWidget {
 }
 
 class CustomeDate extends StatelessWidget {
-  final String text;
+  final int text;
   const CustomeDate({
     Key? key,
     required this.text,
@@ -78,20 +96,36 @@ class CustomeDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: const BoxDecoration(
-        color: grey1,
-        shape: BoxShape.circle,
-      ),
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: oSubtitle,
-        ),
-      ),
-    );
+    return text != 0
+        ? Container(
+            width: 40,
+            height: 40,
+            decoration: const BoxDecoration(
+              color: grey1,
+              shape: BoxShape.circle,
+            ),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "$text",
+                style: oSubtitle,
+              ),
+            ),
+          )
+        : Container(
+            width: 40,
+            height: 40,
+            decoration: const BoxDecoration(
+              color: primaryColor,
+              shape: BoxShape.circle,
+            ),
+            child: const Align(
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.check,
+                color: whiteColor,
+              ),
+            ),
+          );
   }
 }

@@ -111,7 +111,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   ? CustomTextBtn(
                       name: 'Get started',
                       onPressed: () {
-                        //Navigator.pushNamed(context, '/signup_screen');
                         Navigator.push(
                           context,
                           MaterialPageRoute(

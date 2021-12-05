@@ -29,6 +29,7 @@ import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
@@ -73,7 +74,7 @@ void main() async {
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
     ),
-);
+  );
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
@@ -117,8 +118,10 @@ class WeCare extends StatelessWidget {
             create: (context) => WeeklyCalendarVM()),
         ChangeNotifierProvider<HistoryWorkoutViewModel>(
             create: (context) => HistoryWorkoutViewModel()),
-         ChangeNotifierProvider<BMIHistoryViewModel>(
+        ChangeNotifierProvider<BMIHistoryViewModel>(
             create: (context) => BMIHistoryViewModel(context)),
+        ChangeNotifierProvider<WaterViewModel>(
+            create: (context) => WaterViewModel(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

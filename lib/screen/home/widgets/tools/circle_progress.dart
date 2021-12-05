@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -16,13 +18,22 @@ class CustomProgressIndicator extends StatelessWidget {
 
     final size = sizeV * 10;
 
+    WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
+
     return Align(
       alignment: Alignment.center,
       child: TweenAnimationBuilder(
         tween: Tween(begin: 0.0, end: 1.0),
         duration: const Duration(seconds: 1),
         builder: (BuildContext _, double value, child) {
-          int percentage = (value * ((1.29 / 2) * 100)).ceil();
+          int percentage = (value *
+                  ((waterViewModel.getCurrentIndex /
+                          waterViewModel.desiredAmount) *
+                      100))
+              .ceil();
+          if(percentage > 100) {
+            percentage = 100;
+          }
           return Container(
             height: size,
             width: size,
@@ -36,7 +47,14 @@ class CustomProgressIndicator extends StatelessWidget {
                       endAngle: twoPi,
                       center: Alignment.center,
                       //The stops[] must have the same length as colors[]
-                      stops: [value * (1.29 / 2), value * (1.29 / 2)],
+                      stops: [
+                        value *
+                            (waterViewModel.getCurrentIndex /
+                                waterViewModel.desiredAmount),
+                        value *
+                            (waterViewModel.getCurrentIndex /
+                                waterViewModel.desiredAmount)
+                      ],
                       colors: [waterColor, Colors.grey.withAlpha(55)],
                     ).createShader(rect);
                   },

@@ -1,7 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/constants/firestore_constants.dart';
 import 'package:wecare_flutter/model/statistic_data/statistic_data.dart';
+
+class WaterData {
+  double waterIndex = 0;
+  int drinkTimes = 0;
+
+  WaterData({
+    required this.waterIndex,
+    required this.drinkTimes,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      FireStoreConstants.waterIndex: waterIndex,
+      FireStoreConstants.drinkTimes: drinkTimes,
+    };
+  }
+
+  factory WaterData.fromDocument(DocumentSnapshot doc) {
+    return WaterData(
+        waterIndex: doc[FireStoreConstants.waterIndex],
+        drinkTimes: doc[FireStoreConstants.drinkTimes],
+    );
+  }
+}
 
 class WaterStatisticData extends StatticticData {
   WaterStatisticData(int id, String name, double y, Color color)

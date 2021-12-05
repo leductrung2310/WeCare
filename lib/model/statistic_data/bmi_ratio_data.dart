@@ -26,16 +26,3 @@ class BMIRatio {
     );
   }
 }
-
-//this class don;t need to be saved on Firebase
-class BMIRatioHistory {
-  List<BMIRatio> bmiRatioHistoryList;
-
-  BMIRatioHistory({required this.bmiRatioHistoryList});
-
-  set setBMIRatioHistoryList(newValue) {
-    bmiRatioHistoryList = newValue;
-  }
-
-  get getRatioHistoryList => bmiRatioHistoryList;
-}

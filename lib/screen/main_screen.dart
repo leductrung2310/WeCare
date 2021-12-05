@@ -42,7 +42,6 @@ class _MainScreenState extends State<MainScreen> {
     Provider.of<NotificationService>(context, listen: false).initialize();
     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getTotalWorkoutFromFirebase();
-    print("object" + FirebaseAuth.instance.currentUser!.uid);
     Provider.of<FoodViewModel>(context, listen: false)
         .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
     super.initState();

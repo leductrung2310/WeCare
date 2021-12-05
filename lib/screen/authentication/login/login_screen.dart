@@ -11,6 +11,7 @@ import 'package:wecare_flutter/screen/authentication/login/widget/login_password
 import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/services/google_service.dart';
+import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -151,7 +152,9 @@ class LoginScreen extends StatelessWidget {
                               .center, //Center Row contents vertically,
                           children: <Widget>[
                             LoginWithButton(
-                              onPress: () {},
+                              onPress: () {
+                                authService.signInWithFacebook(context);
+                              },
                               icon: FontAwesomeIcons.facebook,
                               size: sizeV * 9,
                             ),
@@ -179,6 +182,9 @@ class LoginScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.pushNamed(context, Routes.register);
+                                Provider.of<RegisterViewModel>(context,
+                                        listen: false)
+                                    .reset();
                               },
                               child: Text(
                                 "SignUp",

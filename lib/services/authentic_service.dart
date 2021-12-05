@@ -5,10 +5,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
 
 class AuthenticService extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -27,6 +30,14 @@ class AuthenticService extends ChangeNotifier {
 
   set isLoading(newValue) {
     _isLoading = newValue;
+    notifyListeners();
+  }
+
+  bool _isLoginHome = false;
+
+  bool get isLoginHome => _isLoginHome;
+  set isLoginHome(newValue) {
+    _isLoginHome = newValue;
     notifyListeners();
   }
 
@@ -58,18 +69,17 @@ class AuthenticService extends ChangeNotifier {
         .get()
         .then((value) {
       _loggedInUser = WeCareUser.fromMap(value.data());
+      _isLoginHome = true;
+      notifyListeners();
     });
   }
 
   void whenCompleteSignIn(BuildContext context) {
     isLoading = false;
     Fluttertoast.showToast(msg: "Log in successfully");
-    Future.delayed(
-      const Duration(seconds: 1),
-      () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MainScreen(),
-        ),
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const MainScreen(),
       ),
     );
   }
@@ -80,13 +90,10 @@ class AuthenticService extends ChangeNotifier {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) async => {await getDataFromFirebase()})
-          .timeout(const Duration(seconds: 10))
-          .whenComplete(() => {whenCompleteSignIn(context)});
+          .then((uid) async => {whenCompleteSignIn(context)});
     } catch (e) {
       isLoading = false;
       Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
-      print(e);
     }
   }
 
@@ -123,16 +130,16 @@ class AuthenticService extends ChangeNotifier {
     return message;
   }
 
-  Future<void> signOutWithEmail(BuildContext context) async {
+  Future<void> signOut(BuildContext context) async {
     isLoading = false;
     loggedInUser = WeCareUser();
     await FirebaseAuth.instance.signOut();
+    FacebookAuth.instance.logOut();
     resetEmailAndPasswordController(context);
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
+    Navigator.pushReplacementNamed(context, Routes.login);
   }
 
-  void setAvatar(value) {
+  set setAvatar(value) {
     _loggedInUser.avatarUrl = value;
     notifyListeners();
   }
@@ -146,16 +153,54 @@ class AuthenticService extends ChangeNotifier {
     });
   }
 
-  pushFoodHistoryToFireStore() async {
-    await FirebaseFirestore.instance
-        .collection("foodHistory")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
-      '1': '',
-      '2': '',
-      '3': '',
-      '4': '',
-      '5': '',
-    });
+  late AccessToken fbAccessToken;
+
+  void signInWithFacebook(BuildContext context) async {
+    isLoading = true;
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      switch (result.status) {
+        case LoginStatus.cancelled:
+          break;
+        case LoginStatus.failed:
+          break;
+        case LoginStatus.operationInProgress:
+          break;
+        case LoginStatus.success:
+          fbAccessToken = result.accessToken!;
+          var credential = FacebookAuthProvider.credential(fbAccessToken.token);
+          await signInFirebase(credential, context);
+          break;
+      }
+    } catch (e) {
+      isLoading = false;
+      Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
+    }
+  }
+
+  Future signInFirebase(AuthCredential credential, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential).then(
+            (uid) => {
+              Fluttertoast.showToast(msg: "Log in successfully"),
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ChangePasswordScreen(),
+                ),
+              )
+            },
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        // handle the error here
+        print(e.code);
+      } else if (e.code == 'invalid-credential') {
+        // handle the error here
+        print(e.code);
+      }
+    } catch (e) {
+      // handle the error here
+      print(e);
+    }
   }
 }

@@ -150,7 +150,6 @@ class CardImageFood extends StatelessWidget {
   additionNutrition(context, sizeH, sizeV, foodDetailViewModel) {
     return AnimatedContainer(
       width: sizeH * 80,
-      height: foodDetailViewModel.checkIconShow ? 0 : sizeV * 85,
       alignment: foodDetailViewModel.checkIconShow
           ? Alignment.center
           : AlignmentDirectional.topCenter,
@@ -170,27 +169,38 @@ class CardImageFood extends StatelessWidget {
                           style: styleOne,
                         ),
                         SizedBox(
-                          height: sizeV * 85,
-                          child: ListView.builder(
-                              itemCount: 1,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    for (var item in recipeNutrition.good!)
-                                      Text(
-                                        item.title!,
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: recipeNutrition.good!.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Center(
+                                      child: Text(
+                                        recipeNutrition.good![index].title!,
                                         style: styleThree,
                                       ),
-                                    for (var item in recipeNutrition.bad!)
-                                      Text(
-                                        item.title!,
-                                        style: styleThree,
-                                      ),
-                                  ],
-                                );
-                              }),
+                                    );
+                                  }),
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: recipeNutrition.bad!.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Center(
+                                    child: Text(
+                                      recipeNutrition.bad![index].title!,
+                                      style: styleThree,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -203,27 +213,38 @@ class CardImageFood extends StatelessWidget {
                           style: styleOne,
                         ),
                         SizedBox(
-                          height: sizeV * 85,
-                          child: ListView.builder(
-                              itemCount: 1,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    for (var item in recipeNutrition.good!)
-                                      Text(
-                                        item.amount!,
-                                        style: styleFour,
-                                      ),
-                                    for (var item in recipeNutrition.bad!)
-                                      Text(
-                                        item.amount!,
-                                        style: styleFour,
-                                      ),
-                                  ],
-                                );
-                              }),
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: recipeNutrition.good!.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Center(
+                                    child: Text(
+                                      recipeNutrition.good![index].amount!,
+                                      style: styleFour,
+                                    ),
+                                  );
+                                },
+                              ),
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: recipeNutrition.bad!.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Center(
+                                    child: Text(
+                                      recipeNutrition.bad![index].amount!,
+                                      style: styleFour,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),

@@ -36,7 +36,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
-
     double ratio = calculateBMIratio(authenticService.loggedInUser.height,
         authenticService.loggedInUser.weight);
 
@@ -54,7 +53,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
         .doc(user?.uid)
         .set(bmiRatio.toJson())
         .catchError((e) {});
-
     await firebaseFirestore
         .collection(FireStoreConstants.pathBMICollection)
         .doc(user?.uid)
@@ -65,12 +63,18 @@ class BMIHistoryViewModel extends ChangeNotifier {
   }
 
   Future<void> getDataFromFirestore() async {
+    print('phat' + _firebaseAuth.currentUser!.uid.toString());
     await FirebaseFirestore.instance
         .collection(FireStoreConstants.pathBMICollection)
-        .doc(_firebaseAuth.currentUser?.uid)
+        .doc(_firebaseAuth.currentUser!.uid)
         .get()
         .then((value) {
-      _bmiRatio = BMIRatio.fromDocument(value);
+      if (value.data() == null) {
+        print('phat nill');
+      } else {
+        print('phat dep');
+        _bmiRatio = BMIRatio.fromDocument(value);
+      }
     });
     notifyListeners();
   }

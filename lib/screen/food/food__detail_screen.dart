@@ -5,6 +5,7 @@ import 'package:wecare_flutter/model/food/recipes.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_card_image.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_detail_ingredients.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/view_model/food/food_detail_view_model.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 
@@ -23,6 +24,8 @@ class FoodDetailScreene extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: customAppBar(
+            context, Colors.black, 'Recipe Detail', const SizedBox.shrink()),
         backgroundColor: const Color(0xFFF4F8FE),
         body: SingleChildScrollView(
           child: Padding(
@@ -31,11 +34,6 @@ class FoodDetailScreene extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                  color: Colors.black,
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
                 Text(
                   arguments.title,
                   style: TextStyle(

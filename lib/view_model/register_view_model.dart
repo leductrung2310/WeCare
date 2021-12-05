@@ -102,6 +102,8 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   Future<void> pushUserToFireStore(BuildContext context) async {
+    String? name = nameController.text.trim();
+    final auth = Provider.of<AuthenticService>(context, listen: false);
     isLoading = true;
     User? user = FirebaseAuth.instance.currentUser;
     WeCareUser weCareUser = WeCareUser();
@@ -109,16 +111,12 @@ class RegisterViewModel extends ChangeNotifier {
 
     DateTime dateTime =
         DateFormat("dd/MM/yyyy").parse(dateOfBirthController.text);
-
-    final auth = Provider.of<AuthenticService>(context, listen: false);
-
     DateTime now = DateTime.now();
     DateTime sleepDateTime = DateTime(now.year, now.month, now.day, 22, 0);
     DateTime wakeupDateTime = DateTime(now.year, now.month, now.day, 7, 0);
-
     weCareUser.email = user?.email;
     weCareUser.uid = user?.uid;
-    weCareUser.name = nameController.text;
+    weCareUser.name = user?.displayName ?? name;
     weCareUser.avatarUrl =
         "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
     weCareUser.birthDay = dateTime;
@@ -136,11 +134,11 @@ class RegisterViewModel extends ChangeNotifier {
     weCareUser.wakeupTime = wakeupDateTime;
 
     auth.loggedInUser = weCareUser;
-
     await firebasefirestor
         .collection("users")
         .doc(user!.uid)
         .set(weCareUser.toMap());
+    await pushFoodHistoryToFireStore();
     isLoading = false;
   }
 
@@ -157,5 +155,33 @@ class RegisterViewModel extends ChangeNotifier {
       ),
     );
     Fluttertoast.showToast(msg: "Account successfully created! Enjoy!");
+  }
+
+  pushFoodHistoryToFireStore() async {
+    await FirebaseFirestore.instance
+        .collection("foodHistory")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      '1': '',
+      '2': '',
+      '3': '',
+      '4': '',
+      '5': '',
+    });
+  }
+
+  void reset() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    dateOfBirthController = TextEditingController();
+    heightController = TextEditingController();
+    weightController = TextEditingController();
+    _isLoading = false;
+    _isValidEmail = false;
+    _isVisible = false;
+    _isConfirmVisible = false;
+    _gender = 0;
   }
 }

@@ -183,3 +183,5 @@ void settingEasyLoading() {
   EasyLoading.instance.indicatorColor = whiteColor;
   EasyLoading.instance.textColor = whiteColor;
 }
+
+final kPasswordRegex = RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");

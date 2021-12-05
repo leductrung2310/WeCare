@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +10,8 @@ import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
-import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
-import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -193,8 +189,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () async {
-                },
+                onPressed: () async {},
                 icon: const Icon(Icons.access_alarm),
               ),
             ],

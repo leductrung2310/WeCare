@@ -156,7 +156,6 @@ class AuthenticService extends ChangeNotifier {
   late AccessToken fbAccessToken;
 
   void signInWithFacebook(BuildContext context) async {
-    isLoading = true;
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       switch (result.status) {
@@ -173,7 +172,6 @@ class AuthenticService extends ChangeNotifier {
           break;
       }
     } catch (e) {
-      isLoading = false;
       Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
     }
   }
@@ -193,14 +191,11 @@ class AuthenticService extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
         // handle the error here
-        print(e.code);
       } else if (e.code == 'invalid-credential') {
         // handle the error here
-        print(e.code);
       }
     } catch (e) {
       // handle the error here
-      print(e);
     }
   }
 }

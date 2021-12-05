@@ -30,7 +30,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
   Future<void> pushRatioToFirestore(BuildContext context) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _firebaseAuth.currentUser;
 
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
@@ -61,16 +60,13 @@ class BMIHistoryViewModel extends ChangeNotifier {
   }
 
   Future<void> getDataFromFirestore() async {
-    print('phat' + _firebaseAuth.currentUser!.uid.toString());
     await FirebaseFirestore.instance
         .collection(FireStoreConstants.pathBMICollection)
         .doc(_firebaseAuth.currentUser!.uid)
         .get()
         .then((value) {
       if (value.data() == null) {
-        print('phat nill');
       } else {
-        print('phat dep');
         _bmiRatio = BMIRatio.fromDocument(value);
       }
     });
@@ -83,7 +79,7 @@ class BMIHistoryViewModel extends ChangeNotifier {
         .doc(_firebaseAuth.currentUser?.uid)
         .collection(FireStoreConstants.bmiHistory)
         .get();
-    
+
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 }

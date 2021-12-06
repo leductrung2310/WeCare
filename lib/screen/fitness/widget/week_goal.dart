@@ -24,6 +24,8 @@ class WeekGoal extends StatelessWidget {
     return InkWell(
       onTap: () => {
         Navigator.of(context).pushNamed(Routes.fitnessHistoryScreen),
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .getHistoryWorkoutsFromFirebase(context, ""),
       },
       child: Container(
         decoration: BoxDecoration(
@@ -108,7 +110,7 @@ class CustomeDate extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 "$text",
-                style: oSubtitle,
+                style: profileInfoHintText,
               ),
             ),
           )

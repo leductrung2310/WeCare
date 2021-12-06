@@ -91,9 +91,18 @@ class AuthenticService extends ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) async => {whenCompleteSignIn(context)});
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        Fluttertoast.showToast(msg: 'Invalid Email');
+      } else if (e.code == 'user-disabled') {
+        Fluttertoast.showToast(msg: 'User Disabled');
+      } else if (e.code == 'user-not-found') {
+        Fluttertoast.showToast(msg: 'User Not Found');
+      } else if (e.code == 'wrong-password') {
+        Fluttertoast.showToast(msg: 'Wrong Password');
+      }
       isLoading = false;
-      Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
+      //Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
     }
   }
 

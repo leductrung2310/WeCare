@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +24,18 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
 
   List<HistoryWorkoutDay> _listHistory = [];
   List<Day> _listDay = [];
+
+  DateTime _currentTime = DateTime.now();
+  late DateTime startOfWeek =
+      _currentTime.subtract(Duration(days: currentTime.weekday - 1));
+  late DateTime endOfWeek = currentTime
+      .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
+
+  DateTime get getStartOfWeek => startOfWeek;
+
+  DateTime get getEndOfWeek => endOfWeek;
+
+  bool _isLoadingWorkouts = false;
 
   int get totalWorkouts => _totalWorkouts;
   set totalWorkouts(newVal) {
@@ -88,11 +98,38 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get isLoadingWorkouts => _isLoadingWorkouts;
+  set isLoadingWorkouts(newVal) {
+    _isLoadingWorkouts = newVal;
+    notifyListeners();
+  }
+
+  DateTime get currentTime => _currentTime;
+  set currentTime(newVal) {
+    _currentTime = newVal;
+    notifyListeners();
+  }
+
+  void changeCalendar(bool isPrevious) {
+    if (isPrevious) {
+      currentTime = currentTime.subtract(const Duration(days: 7));
+      startOfWeek =
+          currentTime.subtract(Duration(days: currentTime.weekday - 1));
+      endOfWeek = currentTime
+          .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
+    } else {
+      currentTime = currentTime.add(const Duration(days: 7));
+      startOfWeek =
+          currentTime.subtract(Duration(days: currentTime.weekday - 1));
+      endOfWeek = currentTime
+          .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
+    }
+    notifyListeners();
+  }
+
   String getDay(int x) {
-    DateTime currentTime = DateTime.now();
-    int day = currentTime.subtract(Duration(days: currentTime.weekday - x)).day;
-    int month =
-        currentTime.subtract(Duration(days: currentTime.weekday - x)).month;
+    int day = startOfWeek.add(Duration(days: x)).day;
+    int month = startOfWeek.add(Duration(days: x)).month;
     return "$day-$month";
   }
 
@@ -189,15 +226,19 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     listDay = [];
   }
 
+  resetHistoryChart() {
+    listHistory = [];
+    listDay = [];
+    currentTime = DateTime.now();
+    startOfWeek =
+        _currentTime.subtract(Duration(days: currentTime.weekday - 1));
+    endOfWeek = currentTime
+        .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
+  }
+
   String getSubDocument(BuildContext context) {
-    final weeklyCalendar =
-        Provider.of<WeeklyCalendarVM>(context, listen: false);
-
-    String formattedStartOfWeek =
-        DateFormat('ddMMyy').format(weeklyCalendar.getStartOfWeek);
-    String formattedEndOfWeek =
-        DateFormat('ddMMyy').format(weeklyCalendar.getEndOfWeek);
-
+    String formattedStartOfWeek = DateFormat('ddMMyy').format(getStartOfWeek);
+    String formattedEndOfWeek = DateFormat('ddMMyy').format(getEndOfWeek);
     return "$formattedStartOfWeek-$formattedEndOfWeek";
   }
 
@@ -229,11 +270,14 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .set(historyWorkoutDay.toJson());
   }
 
-  Future<void> getHistoryWorkoutsFromFirebase(BuildContext context) async {
-    String subDocument = getSubDocument(context);
+  Future<void> getHistoryWorkoutsFromFirebase(
+      BuildContext context, String subDocument) async {
+    isLoadingWorkouts = true;
+    String subDoc = getSubDocument(context);
+    subDocument != "" ? subDocument = subDocument : subDocument = subDoc;
 
-    for (int i = 1; i < 8; i++) {
-      FirebaseFirestore.instance
+    for (int i = 0; i < 7; i++) {
+      await FirebaseFirestore.instance
           .collection("workoutsHistory")
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .collection("list")
@@ -247,9 +291,12 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
             var doc = i.data();
             listHistory.add(HistoryWorkoutDay.fromMap(doc));
           }
+          notifyListeners();
+          isLoadingWorkouts = false;
         },
       );
     }
+    isLoadingWorkouts = false;
   }
 
   Future pushTotalWeeklyHistoryToFirestore(BuildContext context) async {
@@ -270,7 +317,10 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .set(totalWeekly.toMap());
   }
 
-  Future<void> getTotalWeeklyHistoryToFirestore(BuildContext context) async {
+  Future<void> getTotalWeeklyHistoryToFirestore(
+    BuildContext context,
+  ) async {
+    isLoadingWorkouts = true;
     FirebaseFirestore firebasefirestore = FirebaseFirestore.instance;
 
     String subDocument = getSubDocument(context);
@@ -283,7 +333,10 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .get()
         .then((value) {
       totalWeekly = TotalWeekly.fromMap(value.data());
+      isLoadingWorkouts = false;
     });
+
+    isLoadingWorkouts = false;
 
     week = totalWeekly.week;
     totalWeeklyWorkouts = totalWeekly.totalWorkouts;
@@ -306,8 +359,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         listDay.add(Day.fromMap(doc));
       }
     });
-
-
   }
 
   Future pushWeekGoal(BuildContext context) async {
@@ -320,7 +371,7 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .collection('weekgoal')
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection(subDocument)
-    .doc(getCurrentDay())
-    .set(day.toJson());
+        .doc(getCurrentDay())
+        .set(day.toJson());
   }
 }

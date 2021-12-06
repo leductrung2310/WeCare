@@ -189,7 +189,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  print(currentUser!.uid);
+                },
                 icon: const Icon(Icons.access_alarm),
               ),
             ],

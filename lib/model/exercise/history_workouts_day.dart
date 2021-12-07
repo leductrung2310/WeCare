@@ -68,3 +68,28 @@ class Day {
     return Day(day: map['day']);
   }
 }
+
+class ChartData {
+  double? totalKcalDay;
+
+  static double checkDouble(dynamic value) {
+    if (value is int) {
+      return value.toDouble();
+    }
+    return value;
+  }
+
+  ChartData({
+    this.totalKcalDay,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'totalKcalDay': totalKcalDay,
+    };
+  }
+
+  factory ChartData.fromMap(map) {
+    return ChartData(totalKcalDay: checkDouble(map['totalKcalDay']));
+  }
+}

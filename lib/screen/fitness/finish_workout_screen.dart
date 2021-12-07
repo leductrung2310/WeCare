@@ -130,8 +130,14 @@ class FinishWorkout extends StatelessWidget {
                     workoutViewModel.countWorkoutTime * 0.308);
                 historyWorkoutViewModel.pushTotalHistorytoFireStore();
                 historyWorkoutViewModel.pushHistoryToFireStore(context);
+                String subDocument =
+                    historyWorkoutViewModel.getSubDocument(context);
+                historyWorkoutViewModel.pushTotalWeeklyHistoryToFirestore(
+                    context, subDocument);
+                historyWorkoutViewModel.plusTotalDailyWorkouts(
+                    workoutViewModel.countWorkoutTime * 0.308);
                 historyWorkoutViewModel
-                    .pushTotalWeeklyHistoryToFirestore(context);
+                    .pushTotalDailyWorkoutsToFireStore(context);
                 Provider.of<WorkoutViewModel>(context, listen: false).reset();
                 historyWorkoutViewModel.pushWeekGoal(context);
               },

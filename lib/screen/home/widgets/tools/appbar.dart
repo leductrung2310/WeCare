@@ -11,7 +11,11 @@ AppBar customAppBar(
       onPressed: () {
         Navigator.pop(context);
         Provider.of<HistoryWorkoutViewModel>(context, listen: false)
-            .resetHistoryChart();
+            .resetHistoryChart(i: 0);
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .resetTime();
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .getTotalWeeklyHistoryToFirestore(context, "");
       },
       icon: Icon(
         Icons.arrow_back_ios_new,

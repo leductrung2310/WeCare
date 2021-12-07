@@ -138,36 +138,52 @@ class FitnessHistoryScreen extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: ChangeNotifierProvider(
                   create: (context) => WeeklyCalendarVM(),
-                  child: AnimatedChart(
-                    onPressed1: () {
-                      historyWorkoutViewModel.listHistory = [];
-                      historyWorkoutViewModel.changeCalendar(true);
-                      String subDocument =
-                          historyWorkoutViewModel.getSubDocument(context);
-                      historyWorkoutViewModel.getHistoryWorkoutsFromFirebase(
-                          context, subDocument);
-                      print(historyWorkoutViewModel.listHistory);
-                    },
-                    onPressed2: () {
-                      historyWorkoutViewModel.listHistory = [];
-                      historyWorkoutViewModel.changeCalendar(false);
-                      String subDocument =
-                          historyWorkoutViewModel.getSubDocument(context);
-                      historyWorkoutViewModel.getHistoryWorkoutsFromFirebase(
-                          context, subDocument);
-                    },
-                    color: primaryColor,
-                    barWidth: sizeH * 4,
-                    width: sizeH * 90,
-                    height: sizeV * 45,
-                    barChartGroupData: FitnessBarData.fitnessBarChartList,
-                    flTitlesData: FlTitlesData(
-                      bottomTitles: FitnessBarTitles.getBottomTitles(),
-                      leftTitles: FitnessBarTitles.getSideTitles(),
-                      topTitles: SideTitles(showTitles: false),
-                      rightTitles: SideTitles(showTitles: false),
-                    ),
-                  ),
+                  child: historyWorkoutViewModel.isLoadingChart
+                      ? spinkit
+                      : AnimatedChart(
+                          onPressed1: () {
+                            historyWorkoutViewModel.resetHistoryChart();
+                            historyWorkoutViewModel.changeCalendar(true);
+                            String subDocument =
+                                historyWorkoutViewModel.getSubDocument(context);
+                            historyWorkoutViewModel
+                                .getHistoryWorkoutsFromFirebase(
+                                    context, subDocument);
+                            historyWorkoutViewModel
+                                .getTotalWeeklyHistoryToFirestore(
+                                    context, subDocument);
+                            historyWorkoutViewModel
+                                .getHistoryWorkoutsChartFromFireStore(
+                                    context, subDocument);
+                          },
+                          onPressed2: () {
+                            historyWorkoutViewModel.resetHistoryChart();
+                            historyWorkoutViewModel.changeCalendar(false);
+                            String subDocument =
+                                historyWorkoutViewModel.getSubDocument(context);
+                            historyWorkoutViewModel
+                                .getHistoryWorkoutsFromFirebase(
+                                    context, subDocument);
+                            historyWorkoutViewModel
+                                .getTotalWeeklyHistoryToFirestore(
+                                    context, subDocument);
+                            historyWorkoutViewModel
+                                .getHistoryWorkoutsChartFromFireStore(
+                                    context, subDocument);
+                          },
+                          color: primaryColor,
+                          barWidth: sizeH * 4,
+                          width: sizeH * 90,
+                          height: sizeV * 45,
+                          barChartGroupData:
+                              FitnessBarData.fitnessBarChartList(context),
+                          flTitlesData: FlTitlesData(
+                            bottomTitles: FitnessBarTitles.getBottomTitles(),
+                            leftTitles: FitnessBarTitles.getSideTitles(),
+                            topTitles: SideTitles(showTitles: false),
+                            rightTitles: SideTitles(showTitles: false),
+                          ),
+                        ),
                 ),
               ),
               historyWorkoutViewModel.totalWeeklyWorkouts != 0

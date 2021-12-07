@@ -26,6 +26,10 @@ class WeekGoal extends StatelessWidget {
         Navigator.of(context).pushNamed(Routes.fitnessHistoryScreen),
         Provider.of<HistoryWorkoutViewModel>(context, listen: false)
             .getHistoryWorkoutsFromFirebase(context, ""),
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .getTotalWeeklyHistoryToFirestore(context, ""),
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .getHistoryWorkoutsChartFromFireStore(context, ""),
       },
       child: Container(
         decoration: BoxDecoration(

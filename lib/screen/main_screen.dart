@@ -40,13 +40,15 @@ class _MainScreenState extends State<MainScreen> {
     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getTotalWorkoutFromFirebase();
     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
-        .getTotalWeeklyHistoryToFirestore(context);
+        .getTotalWeeklyHistoryToFirestore(context, "");
     Provider.of<FoodViewModel>(context, listen: false)
         .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getWeekGoal(context);
     Provider.of<BMIHistoryViewModel>(context, listen: false)
         .getDataFromFirestore();
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+        .getTotalDailyWorkoutsFromFireStore(context, "");
     Provider.of<WaterViewModel>(context, listen: false).getDataFromFirestore();
     super.initState();
   }

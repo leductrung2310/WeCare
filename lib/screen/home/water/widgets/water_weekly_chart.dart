@@ -75,6 +75,8 @@ class WaterWeeklyChart extends StatelessWidget {
       child: ChangeNotifierProvider(
         create: (context) => WeeklyCalendarVM(),
         child: AnimatedChart(
+          onPressed1: () {},
+          onPressed2: () {},
           color: waterColor,
           barWidth: sizeH * 4,
           width: sizeH * 90,

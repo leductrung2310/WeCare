@@ -100,7 +100,6 @@ class AuthenticService extends ChangeNotifier {
       } else if (e.code == 'user-not-found') {
         Fluttertoast.showToast(msg: 'User Not Found');
       } else if (e.code == 'wrong-password') {
-        print(e.code);
         Fluttertoast.showToast(msg: 'Wrong Password');
       }
       isLoading = false;

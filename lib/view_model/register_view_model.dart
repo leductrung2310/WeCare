@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants/firestore_constants.dart';
+import 'package:wecare_flutter/model/statistic_data/bmi_ratio_data.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
@@ -138,20 +140,45 @@ class RegisterViewModel extends ChangeNotifier {
         .collection("users")
         .doc(user!.uid)
         .set(weCareUser.toMap());
-    await pushFoodHistoryToFireStore();
     isLoading = false;
+  }
+
+  double calculateBMIratio(double? height, double? weight) {
+    return double.parse(
+        ((weight ?? 10) / ((height ?? 30) * 0.02)).toStringAsFixed(2));
+  }
+
+  Future<void> pushRatioToFirestore(BuildContext context) async {
+    double? height = double.parse(heightController.text);
+    double? weight = double.parse(weightController.text);
+    double ratio = calculateBMIratio(height, weight);
+
+    BMIRatio bmiRatio = BMIRatio(ratio: ratio, updatedDate: DateTime.now());
+
+    String formattedNow = DateFormat('dd-MM-yyyy-hh-mm').format(DateTime.now());
+
+    await FirebaseFirestore.instance
+        .collection(FireStoreConstants.pathBMICollection)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .set(bmiRatio.toJson())
+        .catchError((e) {});
+    await FirebaseFirestore.instance
+        .collection(FireStoreConstants.pathBMICollection)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection(FireStoreConstants.bmiHistory)
+        .doc(formattedNow)
+        .set(bmiRatio.toJson());
+    notifyListeners();
   }
 
   Future<void> completeRegister(BuildContext context) async {
     await pushUserToFireStore(context);
-
+    await pushRatioToFirestore(context);
+    await pushFoodHistoryToFireStore();
     isLoading = false;
-    Future.delayed(
-      const Duration(seconds: 1),
-      () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MainScreen(),
-        ),
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const MainScreen(),
       ),
     );
     Fluttertoast.showToast(msg: "Account successfully created! Enjoy!");

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
@@ -149,8 +150,16 @@ class BestTimeToSleep extends StatelessWidget {
                       CupertinoSwitch(
                         value: sleepViewModel.alarmValue,
                         onChanged: (newValue) {
-                          Provider.of<SleepViewModel>(context, listen: false)
-                              .alarmValue = newValue;
+                          if (Provider.of<SleepViewModel>(context,
+                                      listen: false)
+                                  .selectedSleepButton ==
+                              -1) {
+                            Fluttertoast.showToast(
+                                msg: 'Please choose time to sleep!');
+                          } else {
+                            Provider.of<SleepViewModel>(context, listen: false)
+                                .alarmValue = newValue;
+                          }
                         },
                         activeColor: sleepColor,
                       ),

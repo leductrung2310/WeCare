@@ -50,33 +50,40 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Wrap(
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: sizeV * 2.8,
-                            fontWeight: FontWeight.w400,
-                            color: lightBlack,
-                          ),
-                          children: [
-                            const TextSpan(text: 'How are you today,'),
-                            TextSpan(
-                              text: '\n$name 👋',
-                              style: TextStyle(
-                                fontSize: sizeV * 3.5,
-                                fontFamily: 'Poppins',
-                                color: lightBlack,
-                                fontWeight: FontWeight.w700,
-                              ),
+                      SizedBox(
+                        width: sizeH * 60,
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: sizeV * 2.8,
+                              fontWeight: FontWeight.w400,
+                              color: lightBlack,
                             ),
-                          ],
+                            children: [
+                              const TextSpan(text: 'How are you today,'),
+                              TextSpan(
+                                text: '\n$name 👋',
+                                style: TextStyle(
+                                  fontSize: sizeV * 3.5,
+                                  fontFamily: 'Poppins',
+                                  color: lightBlack,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(width: sizeH * 7.5),
                   CircleAvatar(
-                    backgroundImage: NetworkImage(photoUrl),
+                    backgroundImage: NetworkImage(Provider.of<AuthenticService>(
+                                context)
+                            .loggedInUser
+                            .avatarUrl ??
+                        'https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e'),
                     radius: sizeV * 2.8,
                   ),
                 ],

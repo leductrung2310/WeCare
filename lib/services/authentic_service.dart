@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
@@ -189,22 +190,59 @@ class AuthenticService extends ChangeNotifier {
     try {
       await FirebaseAuth.instance.signInWithCredential(credential).then(
             (uid) => {
-              Fluttertoast.showToast(msg: "Log in successfully"),
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const ChangePasswordScreen(),
-                ),
-              )
+              checkExistUser(uid.user?.uid, context),
             },
           );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        // handle the error here
+        String email = e.email!;
+        AuthCredential pendingCredential = e.credential!;
+
+        List<String> userSignInMethods =
+            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+        // if (userSignInMethods.first == 'facebook.com') {
+        //   // Create a new Facebook credential
+        //   String accessToken = await GoogleSignInAuthentication;
+        //   var facebookAuthCredential =
+        //       FacebookAuthProvider.credential(accessToken);
+
+        //   // Sign the user in with the credential
+        //   UserCredential userCredential =
+        //       await auth.signInWithCredential(facebookAuthCredential);
+
+        //   // Link the pending credential with the existing account
+        //   await userCredential.user.linkWithCredential(pendingCredential);
+
+        //   // Success! Go back to your application flow
+        //   return goToApplication();
+        // }
+        Fluttertoast.showToast(msg: e.code);
       } else if (e.code == 'invalid-credential') {
-        // handle the error here
+        Fluttertoast.showToast(msg: e.code);
       }
     } catch (e) {
-      // handle the error here
+      Fluttertoast.showToast(msg: e.toString());
     }
+  }
+
+  void checkExistUser(uid, context) async {
+    await FirebaseFirestore.instance.collection("users").doc(uid).get().then(
+      (value) {
+        if (value.exists) {
+          Fluttertoast.showToast(msg: "Log in successfully");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const MainScreen(),
+            ),
+          );
+        } else {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const RegisterUpdateInfoScreen(),
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -173,17 +173,19 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFFFECE8),
                 iconColor: const Color(0xFFFE7E60),
                 onTap: () async {
-                  await authService.signOut(context);
-                  await Provider.of<GoogleSignInProvider>(context,
-                          listen: false)
-                      .logOutGoogle(context);
                   Provider.of<HistoryWorkoutViewModel>(context, listen: false)
                       .reset();
                   Provider.of<ChangePasswordViewModel>(context, listen: false)
                       .reset();
-                  Provider.of<LoginViewModel>(context, listen: false).reset();
                   Provider.of<BMIHistoryViewModel>(context, listen: false)
                       .resetInfo();
+                  if (authService.loginType == 1) {
+                    await authService.signOut(context);
+                  } else {
+                    await Provider.of<GoogleSignInProvider>(context,
+                            listen: false)
+                        .logOutGoogle(context);
+                  }
                 },
               ),
               SizedBox(
@@ -196,8 +198,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () async {
-                },
+                onPressed: () async {},
                 icon: const Icon(Icons.access_alarm),
               ),
             ],

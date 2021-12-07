@@ -102,9 +102,6 @@ class WaterWeeklyChart extends StatelessWidget {
           width: sizeH * 90,
           height: sizeV * 45,
           barChartGroupData: waterBarChartList,
-          onPressed: () {
-            waterViewModel.getQuerySnapshot();
-          },
           flTitlesData: FlTitlesData(
             bottomTitles: getBottomTitles(),
             leftTitles: getSideTitles(),

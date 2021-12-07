@@ -16,27 +16,32 @@ class AuthenticService extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
   bool _isLoading = false;
 
+  int _loginType = 0;
+
   WeCareUser _loggedInUser = WeCareUser();
 
   WeCareUser get loggedInUser => _loggedInUser;
-
   set loggedInUser(newVal) {
     _loggedInUser = newVal;
     notifyListeners();
   }
 
   bool get isLoading => _isLoading;
-
   set isLoading(newValue) {
     _isLoading = newValue;
     notifyListeners();
   }
 
   bool _isLoginHome = false;
-
   bool get isLoginHome => _isLoginHome;
   set isLoginHome(newValue) {
     _isLoginHome = newValue;
+    notifyListeners();
+  }
+
+  int get loginType => _loginType;
+  set loginType(newValue) {
+    _loginType = newValue;
     notifyListeners();
   }
 
@@ -90,7 +95,7 @@ class AuthenticService extends ChangeNotifier {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) async => {whenCompleteSignIn(context)});
+          .then((uid) async => {loginType = 1, whenCompleteSignIn(context)});
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         Fluttertoast.showToast(msg: 'Invalid Email');
@@ -102,7 +107,6 @@ class AuthenticService extends ChangeNotifier {
         Fluttertoast.showToast(msg: 'Wrong Password');
       }
       isLoading = false;
-      //Fluttertoast.showToast(msg: getMessageFromErrorCode(e));
     }
   }
 
@@ -225,19 +229,21 @@ class AuthenticService extends ChangeNotifier {
   }
 
   double _desiredAmount = 0;
-  set setDesiredAmount(newVal){
+  set setDesiredAmount(newVal) {
     _desiredAmount = newVal;
     notifyListeners();
   }
+
   get getDesiredAmount => _desiredAmount;
 
   double calculateDesiredAmount(BuildContext context) {
     return ((_loggedInUser.weight ?? 10) * 0.03);
   }
-  
+
   void checkExistUser(uid, context) async {
     await FirebaseFirestore.instance.collection("users").doc(uid).get().then(
       (value) {
+        loginType = 1;
         if (value.exists) {
           Fluttertoast.showToast(msg: "Log in successfully");
           Navigator.of(context).push(

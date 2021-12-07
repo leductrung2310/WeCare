@@ -10,6 +10,7 @@ class FireStoreConstants {
   static const pathWaterCollection = 'water';
   static const waterIndex = 'index';
   static const drinkTimes = 'drinkTimes';
+  static const id = 'id';
 
   // for sleep hours
   static const pathSleepCollection = 'sleep';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -18,7 +20,7 @@ class DetailedStatistic extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            data.index.toString(),
+            data.index.toStringAsFixed(0),
             style: TextStyle(
               color: whiteColor,
               fontFamily: 'Poppins',
@@ -54,6 +56,14 @@ class DetailedStatistic extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
+
+    List<WaterDetailedStatisticData> waterDetailedListData = [
+      WaterDetailedStatisticData(index: waterViewModel.getAverageIndex, unit: 'ml/day', title: 'Average'),
+      WaterDetailedStatisticData(index: waterViewModel.getAveragePercent, unit: '%', title: 'Completed'),
+      WaterDetailedStatisticData(index: waterViewModel.getAverageDrinkTimes, unit: 'times/day', title: 'Times'),
+    ];
 
     return SizedBox(
       height: sizeV * 16,

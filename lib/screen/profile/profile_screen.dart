@@ -13,6 +13,7 @@ import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/services/google_service.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -181,6 +182,8 @@ class ProfileScreen extends StatelessWidget {
                   Provider.of<ChangePasswordViewModel>(context, listen: false)
                       .reset();
                   Provider.of<LoginViewModel>(context, listen: false).reset();
+                  Provider.of<BMIHistoryViewModel>(context, listen: false)
+                      .resetInfo();
                 },
               ),
               SizedBox(
@@ -194,7 +197,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () async {
-                  print(currentUser!.uid);
                 },
                 icon: const Icon(Icons.access_alarm),
               ),

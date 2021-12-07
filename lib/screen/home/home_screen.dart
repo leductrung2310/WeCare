@@ -7,6 +7,7 @@ import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 
 import '../../constants/constants.dart';
+import '../../view_model/home_vm/water_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({

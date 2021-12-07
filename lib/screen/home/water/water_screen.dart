@@ -7,6 +7,7 @@ import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_painter.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 class WaterScreen extends StatefulWidget {
@@ -139,7 +140,10 @@ class _WaterScreenState extends State<WaterScreen>
 
     WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
     double remained =
-        waterViewModel.desiredAmount - waterViewModel.waterData.waterIndex;
+        Provider.of<AuthenticService>(context).calculateDesiredAmount(context) -
+            waterViewModel.waterData.waterIndex;
+    AuthenticService authenticService = Provider.of<AuthenticService>(context);
+
     if (remained < 0) {
       remained = 0;
     }
@@ -147,11 +151,12 @@ class _WaterScreenState extends State<WaterScreen>
         (waterViewModel.waterData.waterIndex * 1000).toStringAsFixed(0);
 
     IconButton iconButton = IconButton(
-      onPressed: () {
+      onPressed: () async {
+        await waterViewModel.getQuerySnapshot();
+        waterViewModel.calculateAverage(context);
+        Provider.of<WaterViewModel>(context, listen: false).pushDataToFirestore2(context);
+        //waterViewModel.calculateAverage(context);
         Navigator.pushNamed(context, Routes.waterScreenStatistic);
-        waterViewModel.getQuerySnapshot();
-        //waterViewModel.convertFutureToList();
-        waterViewModel.convertDocumentsToList();
       },
       icon: const Icon(
         Icons.timeline,
@@ -181,13 +186,13 @@ class _WaterScreenState extends State<WaterScreen>
                   fourthAnimation.value,
                 ),
                 child: AnimatedContainer(
-                  duration: const Duration(seconds: 3),
+                  duration: const Duration(seconds: 2),
                   height: waterViewModel.getCurrentIndex >=
-                          waterViewModel.desiredAmount
+                          authenticService.getDesiredAmount
                       ? sizeV * 160
                       : sizeV *
                           (waterViewModel.getCurrentIndex /
-                              waterViewModel.desiredAmount) *
+                              authenticService.getDesiredAmount) *
                           150,
                   width: sizeH * 100,
                 ),
@@ -250,6 +255,7 @@ class _WaterScreenState extends State<WaterScreen>
                         .calculateCurrentIndex(waterViewModel.getDrinkAmount);
                     waterViewModel.calculateDrinkTimes();
                     waterViewModel.pushDataToFirestore(context);
+                    waterViewModel.getQuerySnapshot();
                   },
                   color: waterColor,
                   textColor: whiteColor,

@@ -88,4 +88,4 @@ class DiaLogInformation extends StatelessWidget {
   }
 }
 
-final text = TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
+const text = TextStyle(fontSize: 20, fontWeight: FontWeight.w600);

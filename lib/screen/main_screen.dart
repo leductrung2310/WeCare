@@ -13,7 +13,6 @@ import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

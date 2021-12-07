@@ -19,7 +19,7 @@ class BMIStatistic extends StatelessWidget {
     DateTime? date = bmiHistoryViewModel.bmiRatio.updatedDate;
     String? formattedDate =
         DateFormat('dd - MM - yyyy').format(date ?? DateTime.now());
-    double? ratio = bmiHistoryViewModel.bmiRatio.ratio;
+    double? ratio = bmiHistoryViewModel.bmiRatio.ratio ?? 0;
 
     Color calculateStatus() {
       double ratio = bmiHistoryViewModel.bmiRatio.ratio ?? 18;

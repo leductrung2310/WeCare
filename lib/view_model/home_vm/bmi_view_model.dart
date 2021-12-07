@@ -28,6 +28,11 @@ class BMIHistoryViewModel extends ChangeNotifier {
         ((weight ?? 10) / ((height ?? 30) * 0.02)).toStringAsFixed(2));
   }
 
+  void resetInfo() {
+    _bmiRatio.ratio = 0;
+    _bmiRatio.updatedDate = DateTime.now();
+  }
+
   Future<void> pushRatioToFirestore(BuildContext context) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 

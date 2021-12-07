@@ -75,7 +75,8 @@ class WorkoutViewModel extends ChangeNotifier {
   }
 
   void reset() {
-    indexWorkout = 0;
+    Future.delayed(const Duration(seconds: 1), () => indexWorkout = 0);
+
     countWorkoutTime = 0;
   }
 }

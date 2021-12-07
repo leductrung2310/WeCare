@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -8,6 +10,12 @@ AppBar customAppBar(
     leading: IconButton(
       onPressed: () {
         Navigator.pop(context);
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .resetHistoryChart(i: 0);
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .resetTime();
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .getTotalWeeklyHistoryToFirestore(context, "");
       },
       icon: Icon(
         Icons.arrow_back_ios_new,

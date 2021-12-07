@@ -103,6 +103,7 @@ class FemaleChoices extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,

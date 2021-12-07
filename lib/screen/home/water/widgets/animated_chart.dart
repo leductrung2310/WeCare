@@ -14,6 +14,8 @@ class AnimatedChart extends StatelessWidget {
     required this.height,
     required this.barChartGroupData,
     required this.flTitlesData,
+    required this.onPressed,
+
   }) : super(key: key);
 
   final Color color;
@@ -22,6 +24,7 @@ class AnimatedChart extends StatelessWidget {
   final double height;
   final List<BarChartGroupData> barChartGroupData;
   final FlTitlesData flTitlesData;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class AnimatedChart extends StatelessWidget {
           children: [
             WeeklyCalendar(
               color: color,
-              onPressed: () {},
+              onPressed:() => onPressed(),
             ),
             SizedBox(
               height: sizeV * 2,

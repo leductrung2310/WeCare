@@ -139,6 +139,7 @@ class FitnessHistoryScreen extends StatelessWidget {
                     width: sizeH * 90,
                     height: sizeV * 45,
                     barChartGroupData: FitnessBarData.fitnessBarChartList,
+                    onPressed: () {},
                     flTitlesData: FlTitlesData(
                       bottomTitles: FitnessBarTitles.getBottomTitles(),
                       leftTitles: FitnessBarTitles.getSideTitles(),

@@ -9,10 +9,10 @@ import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -48,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
         .getWeekGoal(context);
     Provider.of<BMIHistoryViewModel>(context, listen: false)
         .getDataFromFirestore();
+    Provider.of<WaterViewModel>(context, listen: false).getDataFromFirestore();
     super.initState();
   }
 

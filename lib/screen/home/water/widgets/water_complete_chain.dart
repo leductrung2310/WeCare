@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
 import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -55,6 +58,38 @@ class WaterCompletedChain extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
+
+    double desiredAmonut =
+        Provider.of<AuthenticService>(context, listen: false).getDesiredAmount;
+
+    List indexesList = waterViewModel.getWaterHistoryList
+        .map((data) => data.waterIndex)
+        .toList();
+    List<WaterCompleteChainData> waterCompleteChainList = [
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(0) / desiredAmonut) * 100,
+          dayOfWeek: 'Mon'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(1) / desiredAmonut) * 100,
+          dayOfWeek: 'Tue'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(2) / desiredAmonut) * 100,
+          dayOfWeek: 'Wed'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(3) / desiredAmonut) * 100,
+          dayOfWeek: 'Thu'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(4) / desiredAmonut) * 100,
+          dayOfWeek: 'Fri'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(5) / desiredAmonut) * 100,
+          dayOfWeek: 'Sat'),
+      WaterCompleteChainData(
+          percentage: (indexesList.elementAt(6) / desiredAmonut) * 100,
+          dayOfWeek: 'Sun'),
+    ];
+
     return Container(
       width: sizeH * 90,
       height: sizeV * 17,
@@ -93,7 +128,7 @@ class WaterCompletedChain extends StatelessWidget {
             children: [
               SizedBox(
                 height: sizeV * 10,
-                width: sizeH * 87,
+                width: sizeH * 90,
                 child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),

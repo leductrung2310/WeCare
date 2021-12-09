@@ -234,7 +234,7 @@ class AuthenticService extends ChangeNotifier {
     notifyListeners();
   }
 
-  get getDesiredAmount => _desiredAmount;
+  double get getDesiredAmount => _desiredAmount;
 
   double calculateDesiredAmount(BuildContext context) {
     return ((_loggedInUser.weight ?? 10) * 0.03);

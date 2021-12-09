@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../view_model/home_vm/water_view_model.dart';
 
 AppBar customAppBar(
     BuildContext context, Color color, String name, Widget child) {
@@ -16,6 +17,7 @@ AppBar customAppBar(
             .resetTime();
         Provider.of<HistoryWorkoutViewModel>(context, listen: false)
             .getTotalWeeklyHistoryToFirestore(context, "");
+        Provider.of<WaterViewModel>(context, listen: false).resetChart();
       },
       icon: Icon(
         Icons.arrow_back_ios_new,

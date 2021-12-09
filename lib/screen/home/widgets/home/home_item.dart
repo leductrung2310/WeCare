@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
-import 'package:wecare_flutter/view_model/food/food_view_model.dart';
-import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
-import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -101,7 +96,7 @@ class HomeItem extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: index.toStringAsFixed(
-                        index.truncateToDouble() == index ? 0 : 2,
+                        index.truncateToDouble() == index ? 1 : 2,
                       ),
                     ),
                     TextSpan(

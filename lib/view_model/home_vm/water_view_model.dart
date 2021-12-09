@@ -44,13 +44,13 @@ class WaterViewModel extends ChangeNotifier {
 
   DateTime currentTime = DateTime.now();
 
-  DateTime calculateStartOfWeek() {
+  DateTime calculateStartOfWeek(DateTime dateTime) {
     return startOfWeek =
-        currentTime.subtract(Duration(days: currentTime.weekday - 1));
+        dateTime.subtract(Duration(days: currentTime.weekday - 1));
   }
 
-  DateTime calculateEndOfWeek() {
-    return endOfWeek = currentTime
+  DateTime calculateEndOfWeek(DateTime dateTime) {
+    return endOfWeek = dateTime
         .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
   }
 
@@ -62,11 +62,12 @@ class WaterViewModel extends ChangeNotifier {
     }
   }
 
-  void calculateDailyID() {
-    _waterData.id = DateTime.now().weekday;
-  }
+  List<WaterData> _waterHistory = [];
 
-  final List<WaterData> _waterHistory = [];
+  set waterHistory(newVal) {
+    _waterHistory = newVal;
+    notifyListeners();
+  }
 
   get getWaterHistoryList => _waterHistory;
 
@@ -87,14 +88,46 @@ class WaterViewModel extends ChangeNotifier {
   get getreminderTimes => _reminderTimes;
 
   void calculateReminderNumber(BuildContext context) {
-    double desiredAmount = Provider.of<AuthenticService>(context).getDesiredAmount;
+    double desiredAmount =
+        Provider.of<AuthenticService>(context).getDesiredAmount;
     _reminderTimes = desiredAmount ~/ _drinkAmount;
   }
 
+  bool _isLoadingStatisticInfo = true;
+
+  set setIsLoading(newVal) {
+    _isLoadingStatisticInfo = newVal;
+    notifyListeners();
+  }
+
+  bool get getIsLoadingInfo => _isLoadingStatisticInfo;
+
   WaterViewModel(BuildContext context) {
-    calculateStartOfWeek();
-    calculateEndOfWeek();
+    calculateStartOfWeek(currentTime);
+    calculateEndOfWeek(currentTime);
     getDataFromFirestore();
+    notifyListeners();
+  }
+
+  void reset() {
+    _waterData.drinkTimes = 0;
+    _waterData.waterIndex = 0;
+    _waterData.id = 0;
+    _waterHistory.clear();
+    _averageIndex = 0;
+    _averageDrinkTimes = 0;
+    _averageCompletedPercent = 0;
+    _drinkAmount = 0.3;
+    notifyListeners();
+  }
+
+  Future<void> resetChart() async {
+    _waterHistory.clear();
+    _averageIndex = 0;
+    _averageDrinkTimes = 0;
+    _averageCompletedPercent = 0;
+    _isLoadingStatisticInfo = false;
+    currentTime = DateTime.now();
     notifyListeners();
   }
 
@@ -102,7 +135,7 @@ class WaterViewModel extends ChangeNotifier {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     String colPath =
-        '${formatDateTime(true, calculateStartOfWeek())}-${formatDateTime(true, calculateEndOfWeek())}';
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
     String docPath = formatDateTime(false, currentTime);
 
     AuthenticService authenticService =
@@ -127,11 +160,8 @@ class WaterViewModel extends ChangeNotifier {
   Future<void> pushDataToFirestore2(BuildContext context) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    DateTime currentTime = DateTime.now();
-    startOfWeek = currentTime.subtract(Duration(days: currentTime.weekday - 1));
-
     String colPath =
-        '${formatDateTime(true, calculateStartOfWeek())}-${formatDateTime(true, calculateEndOfWeek())}';
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
 
     AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
@@ -159,7 +189,7 @@ class WaterViewModel extends ChangeNotifier {
 
   Future<void> getDataFromFirestore() async {
     String colPath =
-        '${formatDateTime(true, calculateStartOfWeek())}-${formatDateTime(true, calculateEndOfWeek())}';
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
     String docPath = formatDateTime(false, currentTime);
     await FirebaseFirestore.instance
         .collection(FireStoreConstants.pathWaterCollection)
@@ -174,28 +204,76 @@ class WaterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getQuerySnapshot() async {
+  // Future<void> getQuerySnapshot(int x) async {
+  //   String colPath =
+  //       '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
+  //   for (int i = 0; i < 7; i++) {
+  //     await FirebaseFirestore.instance
+  //         .collection(FireStoreConstants.pathWaterCollection)
+  //         .doc(_firebaseAuth.currentUser?.uid)
+  //         .collection(colPath)
+  //         .get()
+  //         .then((values) {
+  //       var docSnapshots = values.docs;
+  //       for (var j in docSnapshots) {
+  //         var doc = j.data();
+  //         if (_waterHistory.length >= docSnapshots.length) {
+  //           _waterHistory.clear();
+  //         }
+  //         _waterHistory.add(WaterData.fromMap(doc));
+  //       }
+  //     });
+  //   }
+  //   notifyListeners();
+  // }
+
+  Future<void> getQuerySnapshot(int isLastWeek) async {
+    _waterHistory = [];
+    _isLoadingStatisticInfo = true;
+    if (isLastWeek == -1) {
+      currentTime = currentTime.subtract(const Duration(days: 7));
+    }
+    if (isLastWeek == 1) {
+      currentTime = currentTime.add(const Duration(days: 7));
+    }
+
     String colPath =
-        '${formatDateTime(true, calculateStartOfWeek())}-${formatDateTime(true, calculateEndOfWeek())}';
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
+    _waterHistory.clear();
+
     await FirebaseFirestore.instance
         .collection(FireStoreConstants.pathWaterCollection)
         .doc(_firebaseAuth.currentUser?.uid)
         .collection(colPath)
         .get()
-        .then((value) {
-      var docSnapshots = value.docs;
-      for (var i in docSnapshots) {
-        var doc = i.data();
-        if (_waterHistory.length >= docSnapshots.length) {
-          _waterHistory.clear();
-        }
+        .then((values) {
+      var docSnapshots = values.docs;
+      for (var j in docSnapshots) {
+        var doc = j.data();
         _waterHistory.add(WaterData.fromMap(doc));
       }
     });
+
+    addMissedItemToList();
+    _isLoadingStatisticInfo = false;
     notifyListeners();
   }
 
-  void calculateAverage(BuildContext context) {
+  void addMissedItemToList() {
+    int missedItem = 7 - _waterHistory.length;
+    for (int i = 1; i <= missedItem; i++) {
+      _waterHistory.insert(
+        i - 1,
+        WaterData(
+          waterIndex: 0,
+          drinkTimes: 0,
+          id: i,
+        ),
+      );
+    }
+  }
+
+  Future<void> calculateAverage(BuildContext context) async {
     //* Average weekly index
     double indexTotal = 0;
     List indexesList = _waterHistory.map((data) => data.waterIndex).toList();

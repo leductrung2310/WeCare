@@ -62,12 +62,9 @@ class SleepScreen extends StatelessWidget {
                 name: "Calculate wake-up time",
                 textColor: whiteColor,
                 onPressed: () {
-                  Provider.of<SleepViewModel>(context, listen: false)
-                      .calcullateBestWakeupTime();
-                  Provider.of<SleepViewModel>(context, listen: false)
-                      .showBestWakeupTime = true;
-                  Provider.of<SleepViewModel>(context, listen: false)
-                      .showBestSleepTime = false;
+                  sleepViewModel.calculateBestWakeupTime();
+                  sleepViewModel.showBestWakeupTime = true;
+                  sleepViewModel.showBestSleepTime = false;
                 },
               ),
               const BestTimeToWakeup(),

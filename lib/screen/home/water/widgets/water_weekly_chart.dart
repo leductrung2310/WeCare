@@ -1,4 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/statistic_data/water_statistic_data.dart';
@@ -26,8 +27,7 @@ class WaterWeeklyChart extends StatelessWidget {
 
     List<WaterData> waterHisListBarData = waterViewModel.getWaterHistoryList;
 
-    double interval = authenticService.getDesiredAmount / 4;
-    String stringInterval = interval.toStringAsFixed(1);
+    double interval = authenticService.getDesiredAmount % 2 == 0 ? 0.4 : 0.5;
 
     //? convert each item to a string by using JSON encoding
     //final jsonList = waterHisListBarData.map((e) => jsonEncode(e)).toList();
@@ -71,11 +71,16 @@ class WaterWeeklyChart extends StatelessWidget {
           fontSize: SizeConfig.blockSizeV! * 1.6,
         ),
         margin: 10,
-        interval: double.parse(stringInterval),
+        interval: interval,
         reservedSize: 30,
         getTitles: (double value) => value == 0 ? '0' : '${value}L',
       );
     }
+
+    List indexesList = waterViewModel.getWaterHistoryList
+        .map((data) => data.waterIndex)
+        .toList();
+    List sampleIndexesList = [0, 0, 0, 0, 0, 0, 0];
 
     List<BarChartGroupData> waterBarChartList = waterHisListBarData
         .map((WaterData data) => BarChartGroupData(
@@ -90,13 +95,40 @@ class WaterWeeklyChart extends StatelessWidget {
             ))
         .toList();
 
+    Widget emptyWidget() {
+      return Column(
+        children: [
+          Image.asset(
+            'assets/images/home/water/empty.png',
+            height: sizeV * 27,
+            width: sizeH * 85,
+          ),
+          Text(
+            "There's nothing here!",
+            style: TextStyle(
+              fontFamily: 'poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: sizeV * 2.5,
+              color: lightBlack,
+            ),
+          ),
+        ],
+      );
+    }
+
     return Align(
       alignment: Alignment.topCenter,
       child: ChangeNotifierProvider(
         create: (context) => WeeklyCalendarVM(),
         child: AnimatedChart(
-          onPressed1: () {},
-          onPressed2: () {},
+          onPressed1: () async {
+            await waterViewModel.getQuerySnapshot(-1);
+            await waterViewModel.calculateAverage(context);
+          },
+          onPressed2: () async {
+            await waterViewModel.getQuerySnapshot(1);
+            await waterViewModel.calculateAverage(context);
+          },
           color: waterColor,
           barWidth: sizeH * 4,
           width: sizeH * 90,
@@ -108,6 +140,8 @@ class WaterWeeklyChart extends StatelessWidget {
             topTitles: SideTitles(showTitles: false),
             rightTitles: SideTitles(showTitles: false),
           ),
+          isEmptyData: listEquals(indexesList, sampleIndexesList),
+          widget: emptyWidget(),
         ),
       ),
     );

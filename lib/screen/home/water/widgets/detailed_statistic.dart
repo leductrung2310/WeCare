@@ -60,16 +60,24 @@ class DetailedStatistic extends StatelessWidget {
     WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
 
     List<WaterDetailedStatisticData> waterDetailedListData = [
-      WaterDetailedStatisticData(index: waterViewModel.getAverageIndex, unit: 'ml/day', title: 'Average'),
-      WaterDetailedStatisticData(index: waterViewModel.getAveragePercent, unit: '%', title: 'Completed'),
-      WaterDetailedStatisticData(index: waterViewModel.getAverageDrinkTimes, unit: 'times/day', title: 'Times'),
+      WaterDetailedStatisticData(
+          index: waterViewModel.getAverageIndex,
+          unit: 'ml/day',
+          title: 'Average'),
+      WaterDetailedStatisticData(
+          index: waterViewModel.getAveragePercent,
+          unit: '%',
+          title: 'Completed'),
+      WaterDetailedStatisticData(
+          index: waterViewModel.getAverageDrinkTimes,
+          unit: 'times/day',
+          title: 'Times'),
     ];
 
     return SizedBox(
       height: sizeV * 16,
-      width: sizeH * 100,
+      width: sizeH * 98,
       child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
           itemCount: waterDetailedListData.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {

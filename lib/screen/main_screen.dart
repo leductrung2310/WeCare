@@ -49,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getTotalDailyWorkoutsFromFireStore(context, "");
     Provider.of<WaterViewModel>(context, listen: false).getDataFromFirestore();
+    Provider.of<WaterViewModel>(context, listen: false).getQuerySnapshot(0);
     super.initState();
   }
 

@@ -10,23 +10,24 @@ import '../../constants/firestore_constants.dart';
 class SleepData {
   double sleepHours = 0;
   double sleepTimes = 0;
+  int idSleep = 0;
 
   SleepData({
     required this.sleepHours,
-    required this.sleepTimes,
+    required this.idSleep,
   });
 
   Map<String, dynamic> toJson() {
     return {
       FireStoreConstants.sleepHours: sleepHours,
-      FireStoreConstants.sleepTimes: sleepTimes,
+      FireStoreConstants.idSleep : idSleep,
     };
   }
 
   factory SleepData.fromDocument(DocumentSnapshot doc) {
     return SleepData(
       sleepHours: doc[FireStoreConstants.sleepHours],
-      sleepTimes: doc[FireStoreConstants.sleepTimes],
+      idSleep: doc[FireStoreConstants.idSleep],
     );
   }
 }

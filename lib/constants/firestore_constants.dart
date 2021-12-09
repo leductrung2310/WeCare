@@ -15,8 +15,8 @@ class FireStoreConstants {
   // for sleep hours
   static const pathSleepCollection = 'sleep';
   static const sleepHours = 'sleepHours';
-  static const sleepTimes = 'sleepTimes';
   static const sleepHistory = 'sleepHistory';
+  static const idSleep = 'idSleep';
 
   // for user 
   static const pathUserCollection = 'users';

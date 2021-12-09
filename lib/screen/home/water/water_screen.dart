@@ -152,11 +152,11 @@ class _WaterScreenState extends State<WaterScreen>
 
     IconButton iconButton = IconButton(
       onPressed: () async {
-        await waterViewModel.getQuerySnapshot();
-        waterViewModel.calculateAverage(context);
-        Provider.of<WaterViewModel>(context, listen: false).pushDataToFirestore2(context);
-        //waterViewModel.calculateAverage(context);
         Navigator.pushNamed(context, Routes.waterScreenStatistic);
+        await waterViewModel.getQuerySnapshot(0);
+        waterViewModel.calculateAverage(context);
+        await Provider.of<WaterViewModel>(context, listen: false).pushDataToFirestore2(context);
+        // waterViewModel.setIsLoading = false;
       },
       icon: const Icon(
         Icons.timeline,
@@ -250,12 +250,13 @@ class _WaterScreenState extends State<WaterScreen>
                 CustomTextBtn(
                   name:
                       'Drink now (${((waterViewModel.getDrinkAmount) * 1000).round()}ml)',
-                  onPressed: () {
+                  onPressed: () async {
                     waterViewModel
                         .calculateCurrentIndex(waterViewModel.getDrinkAmount);
                     waterViewModel.calculateDrinkTimes();
                     waterViewModel.pushDataToFirestore(context);
-                    waterViewModel.getQuerySnapshot();
+                    await waterViewModel.getQuerySnapshot(0);
+                    // waterViewModel.setIsLoading = false;
                   },
                   color: waterColor,
                   textColor: whiteColor,

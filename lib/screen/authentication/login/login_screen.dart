@@ -98,7 +98,9 @@ class LoginScreen extends StatelessWidget {
                               onChanged: (value) {},
                               validator: (value) {},
                               inputType: TextInputType.visiblePassword,
-                              onFieldSubmitted: (value) {},
+                              onFieldSubmitted: (value) {
+                                return;
+                              },
                               focusNode: passwordFocus,
                             ),
                             GestureDetector(

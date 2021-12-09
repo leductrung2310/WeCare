@@ -158,6 +158,8 @@ class SelectWakeUpTime extends StatelessWidget {
           textColor: whiteColor,
           onPressed: () {
             Provider.of<SleepViewModel>(context, listen: false)
+                .selectedSleepButton = -1;
+            Provider.of<SleepViewModel>(context, listen: false)
                 .calculateSleepTime();
             Provider.of<SleepViewModel>(context, listen: false)
                 .showBestSleepTime = true;

@@ -14,6 +14,7 @@ import 'package:wecare_flutter/services/google_service.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
@@ -165,7 +166,15 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFDBD2F6),
                 iconColor: const Color(0xFF9B81E5),
                 onTap: () {
-                  //Navigator.pushNamed(context, Routes.foodDetailScreen);
+                  DateTime time =
+                      DateTime.now().add(const Duration(minutes: 1));
+                  Provider.of<NotificationService>(context, listen: false)
+                      .sheduledNotification(
+                    1,
+                    "Remind",
+                    "Duc Trung đi ngủ",
+                    time,
+                  );
                 },
               ),
               ProfileCardLogout(

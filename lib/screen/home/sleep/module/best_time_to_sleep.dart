@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -17,6 +19,10 @@ class BestTimeToSleep extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final sleepViewModel = Provider.of<SleepViewModel>(context);
+    final sleepViewModelNoListen =
+        Provider.of<SleepViewModel>(context, listen: false);
+    final notificationViewModel =
+        Provider.of<NotificationService>(context, listen: false);
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -68,6 +74,22 @@ class BestTimeToSleep extends StatelessWidget {
                         onPressed: () {
                           Provider.of<SleepViewModel>(context, listen: false)
                               .selectedSleepButton = 0;
+                          if (sleepViewModelNoListen.alarmValue) {
+                            DateTime dateTime = DateTime(
+                              DateTime.now().year,
+                              DateTime.now().month,
+                              DateTime.now().day,
+                              sleepViewModel.suggestedSleepTime1.hour,
+                              sleepViewModel.suggestedSleepTime1.minute,
+                            );
+                            notificationViewModel.cancelNotification();
+                            notificationViewModel.sheduledNotification(
+                              1,
+                              'Sleep',
+                              'It is time to sleep',
+                              dateTime,
+                            );
+                          }
                         },
                         textColor: sleepViewModel.selectedSleepButton == 0
                             ? whiteColor
@@ -92,6 +114,23 @@ class BestTimeToSleep extends StatelessWidget {
                                 Provider.of<SleepViewModel>(context,
                                         listen: false)
                                     .selectedSleepButton = 1;
+                                notificationViewModel.cancelNotification();
+                                if (sleepViewModelNoListen.alarmValue) {
+                                  DateTime dateTime = DateTime(
+                                    DateTime.now().year,
+                                    DateTime.now().month,
+                                    DateTime.now().day,
+                                    sleepViewModel.suggestedSleepTime2.hour,
+                                    sleepViewModel.suggestedSleepTime2.minute,
+                                  );
+                                  notificationViewModel.cancelNotification();
+                                  notificationViewModel.sheduledNotification(
+                                    1,
+                                    'Sleep',
+                                    'It is time to sleep',
+                                    dateTime,
+                                  );
+                                }
                               },
                               textColor: sleepViewModel.selectedSleepButton == 1
                                   ? whiteColor
@@ -113,6 +152,22 @@ class BestTimeToSleep extends StatelessWidget {
                                 Provider.of<SleepViewModel>(context,
                                         listen: false)
                                     .selectedSleepButton = 2;
+                                if (sleepViewModelNoListen.alarmValue) {
+                                  DateTime dateTime = DateTime(
+                                    DateTime.now().year,
+                                    DateTime.now().month,
+                                    DateTime.now().day,
+                                    sleepViewModel.suggestedSleepTime3.hour,
+                                    sleepViewModel.suggestedSleepTime3.minute,
+                                  );
+                                  notificationViewModel.cancelNotification();
+                                  notificationViewModel.sheduledNotification(
+                                    1,
+                                    'Sleep',
+                                    'It is time to sleep',
+                                    dateTime,
+                                  );
+                                }
                               },
                               textColor: sleepViewModel.selectedSleepButton == 2
                                   ? whiteColor
@@ -150,15 +205,63 @@ class BestTimeToSleep extends StatelessWidget {
                       CupertinoSwitch(
                         value: sleepViewModel.alarmValue,
                         onChanged: (newValue) {
-                          if (Provider.of<SleepViewModel>(context,
-                                      listen: false)
-                                  .selectedSleepButton ==
-                              -1) {
-                            Fluttertoast.showToast(
-                                msg: 'Please choose time to sleep!');
+                          Provider.of<SleepViewModel>(context, listen: false)
+                              .alarmValue = newValue;
+                          if (!newValue) {
+                            notificationViewModel.cancelNotification();
+                            sleepViewModelNoListen.selectedSleepButton = -1;
                           } else {
-                            Provider.of<SleepViewModel>(context, listen: false)
-                                .alarmValue = newValue;
+                            switch (
+                                sleepViewModelNoListen.selectedSleepButton) {
+                              case 0:
+                                DateTime dateTime = DateTime(
+                                  DateTime.now().year,
+                                  DateTime.now().month,
+                                  DateTime.now().day,
+                                  sleepViewModel.suggestedSleepTime1.hour,
+                                  sleepViewModel.suggestedSleepTime1.minute,
+                                );
+                                notificationViewModel.cancelNotification();
+                                notificationViewModel.sheduledNotification(
+                                  1,
+                                  'Sleep',
+                                  'It is time to sleep',
+                                  dateTime,
+                                );
+                                break;
+                              case 1:
+                                DateTime dateTime = DateTime(
+                                  DateTime.now().year,
+                                  DateTime.now().month,
+                                  DateTime.now().day,
+                                  sleepViewModel.suggestedSleepTime2.hour,
+                                  sleepViewModel.suggestedSleepTime2.minute,
+                                );
+                                notificationViewModel.cancelNotification();
+                                notificationViewModel.sheduledNotification(
+                                  1,
+                                  'Sleep',
+                                  'It is time to sleep',
+                                  dateTime,
+                                );
+                                break;
+                              case 2:
+                                DateTime dateTime = DateTime(
+                                  DateTime.now().year,
+                                  DateTime.now().month,
+                                  DateTime.now().day,
+                                  sleepViewModel.suggestedSleepTime3.hour,
+                                  sleepViewModel.suggestedSleepTime3.minute,
+                                );
+                                notificationViewModel.cancelNotification();
+                                notificationViewModel.sheduledNotification(
+                                  1,
+                                  'Sleep',
+                                  'It is time to sleep',
+                                  dateTime,
+                                );
+                                break;
+                            }
                           }
                         },
                         activeColor: sleepColor,

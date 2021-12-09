@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:wecare_flutter/constants/constants.dart';
@@ -118,11 +119,13 @@ class NotificationService extends ChangeNotifier {
 
     var platform = NotificationDetails(android: android, iOS: ios);
 
+    DateTime datetime = DateTime.parse(
+        DateFormat("yyyy-MM-dd hh:mm:00.000").format(DateTime.now()));
+    print(datetime.toString());
     Duration duration = Duration(
-      hours: time.hour - DateTime.now().hour,
-      minutes: time.minute - DateTime.now().minute,
+      hours: time.hour - datetime.hour,
+      minutes: time.minute - datetime.minute,
     );
-
     _flutterLocalNotificationsPlugin.zonedSchedule(
       idNotification,
       title,

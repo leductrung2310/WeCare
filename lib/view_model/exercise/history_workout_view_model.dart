@@ -236,10 +236,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
       totalWorkoutsFromDB = TotalWorkouts.fromMap(value.data());
     });
 
-    print(totalWorkouts);
-    print(totalMinutes);
-    print(totalKcal);
-
     totalWorkouts = totalWorkoutsFromDB.totalWorkouts;
     totalMinutes = totalWorkoutsFromDB.totalMinutes;
     totalKcal = totalWorkoutsFromDB.totalKcal;
@@ -256,16 +252,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     totalWeeklyWorkouts = 0;
     listHistory = [];
     listDay = [];
-
-    print(totalWorkouts);
-    print(totalMinutes);
-    print(totalKcal);
-    print(week);
-    print(totalWeeklyKcal);
-    print(totalWeeklyMinutes);
-    print(totalWeeklyWorkouts);
-    print(listHistory);
-    print(listDay);
   }
 
   resetHistoryChart({int i = 1}) {
@@ -500,6 +486,5 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .collection("chart")
         .doc(getCurrentDay())
         .set(charData.toJson());
-    print(charData.totalKcalDay);
   }
 }

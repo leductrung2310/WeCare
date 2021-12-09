@@ -58,13 +58,14 @@ class BestTimeToWakeup extends StatelessWidget {
                       name:
                           "${sleepViewModel.suggestedWakeupTime1.hour}:${sleepViewModel.suggestedWakeupTime1.minute} ${sleepViewModel.suggestedWakeupTime1.period} (Suggested)",
                       onPressed: () {
-                        Provider.of<SleepViewModel>(context, listen: false)
-                            .selectedWakeupBtn = 3;
+                        sleepViewModel.firstWakeupButtonSelected =
+                            !sleepViewModel.getFirstWakeupButtonSelected;
                       },
-                      textColor: sleepViewModel.selectedWakeupBtn == 3
-                          ? whiteColor
-                          : sleepColor,
-                      color: sleepViewModel.selectedWakeupBtn == 3
+                      textColor:
+                          sleepViewModel.getFirstWakeupButtonSelected == true
+                              ? whiteColor
+                              : sleepColor,
+                      color: sleepViewModel.getFirstWakeupButtonSelected == true
                           ? sleepColor
                           : whiteColor,
                       height: sleepViewModel.showBestWakeupTime ? sizeV * 6 : 0,
@@ -80,14 +81,13 @@ class BestTimeToWakeup extends StatelessWidget {
                             name:
                                 '${sleepViewModel.suggestedWakeupTime2.hour}:${sleepViewModel.suggestedWakeupTime2.minute} ${sleepViewModel.suggestedWakeupTime2.period}',
                             onPressed: () {
-                              Provider.of<SleepViewModel>(context,
-                                      listen: false)
-                                  .selectedWakeupBtn = 4;
+                              sleepViewModel.secondWakeupButtonSelected =
+                                  !sleepViewModel.getSecondWakeupButtonSelected;
                             },
-                            textColor: sleepViewModel.selectedWakeupBtn == 4
+                            textColor: sleepViewModel.getSecondWakeupButtonSelected == true
                                 ? whiteColor
                                 : sleepColor,
-                            color: sleepViewModel.selectedWakeupBtn == 4
+                            color: sleepViewModel.getSecondWakeupButtonSelected == true
                                 ? sleepColor
                                 : whiteColor,
                             height: sleepViewModel.showBestWakeupTime
@@ -100,14 +100,13 @@ class BestTimeToWakeup extends StatelessWidget {
                             name:
                                 "${sleepViewModel.suggestedWakeupTime3.hour}:${sleepViewModel.suggestedWakeupTime3.minute} ${sleepViewModel.suggestedWakeupTime3.period} ",
                             onPressed: () {
-                              Provider.of<SleepViewModel>(context,
-                                      listen: false)
-                                  .selectedWakeupBtn = 5;
+                              sleepViewModel.thirdWakeupButtonSelected =
+                            !sleepViewModel.getThirdWakeupButtonSelected;
                             },
-                            textColor: sleepViewModel.selectedWakeupBtn == 5
+                            textColor: sleepViewModel.getThirdWakeupButtonSelected == true
                                 ? whiteColor
                                 : sleepColor,
-                            color: sleepViewModel.selectedWakeupBtn == 5
+                            color: sleepViewModel.getThirdWakeupButtonSelected == true
                                 ? sleepColor
                                 : whiteColor,
                             height: sleepViewModel.showBestWakeupTime

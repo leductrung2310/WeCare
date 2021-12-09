@@ -66,29 +66,35 @@ class WaterCompletedChain extends StatelessWidget {
     List indexesList = waterViewModel.getWaterHistoryList
         .map((data) => data.waterIndex)
         .toList();
-    List<WaterCompleteChainData> waterCompleteChainList = [
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(0) / desiredAmonut) * 100,
-          dayOfWeek: 'Mon'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(1) / desiredAmonut) * 100,
-          dayOfWeek: 'Tue'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(2) / desiredAmonut) * 100,
-          dayOfWeek: 'Wed'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(3) / desiredAmonut) * 100,
-          dayOfWeek: 'Thu'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(4) / desiredAmonut) * 100,
-          dayOfWeek: 'Fri'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(5) / desiredAmonut) * 100,
-          dayOfWeek: 'Sat'),
-      WaterCompleteChainData(
-          percentage: (indexesList.elementAt(6) / desiredAmonut) * 100,
-          dayOfWeek: 'Sun'),
-    ];
+
+    List<WaterCompleteChainData> waterCompleteChainList = [];
+    try {
+      waterCompleteChainList.addAll([
+        WaterCompleteChainData(
+            percentage: (indexesList[0] / desiredAmonut) * 100,
+            dayOfWeek: 'Mon'),
+        WaterCompleteChainData(
+            percentage: (indexesList[1] / desiredAmonut) * 100,
+            dayOfWeek: 'Tue'),
+        WaterCompleteChainData(
+            percentage: (indexesList[2] / desiredAmonut) * 100,
+            dayOfWeek: 'Wed'),
+        WaterCompleteChainData(
+            percentage: (indexesList[3] / desiredAmonut) * 100,
+            dayOfWeek: 'Thu'),
+        WaterCompleteChainData(
+            percentage: (indexesList[4] / desiredAmonut) * 100,
+            dayOfWeek: 'Fri'),
+        WaterCompleteChainData(
+            percentage: (indexesList[5] / desiredAmonut) * 100,
+            dayOfWeek: 'Sat'),
+        WaterCompleteChainData(
+            percentage: (indexesList[6] / desiredAmonut) * 100,
+            dayOfWeek: 'Sun'),
+      ]);
+    } catch (e) {
+      print(e.toString());
+    }
 
     return Container(
       width: sizeH * 90,
@@ -128,7 +134,7 @@ class WaterCompletedChain extends StatelessWidget {
             children: [
               SizedBox(
                 height: sizeV * 10,
-                width: sizeH * 90,
+                width: sizeH * 86,
                 child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),

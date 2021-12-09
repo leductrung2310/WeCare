@@ -82,6 +82,14 @@ class BMIHistorySection extends StatelessWidget {
       return metalGreyColor;
     }
 
+    Widget emptyWidget() {
+      return Image.asset(
+        'assets/images/home/bmi/empty_history.png',
+        height: sizeV * 30,
+        width: sizeH * 90,
+      );
+    }
+
     return Column(
       children: [
         Divider(
@@ -113,17 +121,20 @@ class BMIHistorySection extends StatelessWidget {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
-                return const Text("There's nothing here");
+                return emptyWidget();
               }
-              return ListView.builder(
-                itemCount: snapshot.data?.docs.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot documentSnapshot =
-                      snapshot.data!.docs[index];
-                  BMIRatio bmiRatio = BMIRatio.fromDocument(documentSnapshot);
-                  return bmiItem(bmiRatio, calculateStatus(bmiRatio));
-                },
-              );
+              return snapshot.data?.docs.isEmpty == true
+                  ? emptyWidget()
+                  : ListView.builder(
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot documentSnapshot =
+                            snapshot.data!.docs[index];
+                        BMIRatio bmiRatio =
+                            BMIRatio.fromDocument(documentSnapshot);
+                        return bmiItem(bmiRatio, calculateStatus(bmiRatio));
+                      },
+                    );
             },
           ),
         ),

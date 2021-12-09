@@ -5,8 +5,9 @@ import 'package:wecare_flutter/screen/home/water/components/fl_bar_chart.dart';
 
 import '../../../../constants/constants.dart';
 
+// ignore: must_be_immutable
 class AnimatedChart extends StatelessWidget {
-  const AnimatedChart({
+  AnimatedChart({
     Key? key,
     required this.color,
     required this.barWidth,
@@ -16,6 +17,8 @@ class AnimatedChart extends StatelessWidget {
     required this.flTitlesData,
     required this.onPressed1,
     required this.onPressed2,
+    this.widget,
+    this.isEmptyData,
   }) : super(key: key);
 
   final Color color;
@@ -26,6 +29,8 @@ class AnimatedChart extends StatelessWidget {
   final FlTitlesData flTitlesData;
   final Function() onPressed1;
   final Function() onPressed2;
+  Widget? widget = const SizedBox.shrink();
+  bool? isEmptyData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +70,14 @@ class AnimatedChart extends StatelessWidget {
               height: sizeV * 2,
             ),
             Expanded(
-              child: FlBarChart(
-                sizeH: sizeH,
-                flTitlesData: flTitlesData,
-                barGroups: barChartGroupData,
-                barTouch: true,
-              ),
+              child: isEmptyData == true
+                  ? widget!
+                  : FlBarChart(
+                      sizeH: sizeH,
+                      flTitlesData: flTitlesData,
+                      barGroups: barChartGroupData,
+                      barTouch: true,
+                    ),
             ),
           ],
         ),

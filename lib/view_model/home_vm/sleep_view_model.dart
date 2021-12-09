@@ -1,22 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/statistic_data/sleep_statistic_data.dart';
 import 'package:wecare_flutter/model/time_model.dart';
 
+import '../../services/authentic_service.dart';
+
 class SleepViewModel extends ChangeNotifier {
+  //! General
+  final _firebaseAuth = FirebaseAuth.instance;
+  double _averageSleep = 7.7;
+  bool _alarmValue = false;
+
+  SleepData _sleepData = SleepData(sleepHours: 0, idSleep: 0);
+
+  SleepData get sleepData => _sleepData;
+
   String _dropdownHourValue = "7";
   String _dropdownMinuteValue = "00";
-  String _dropdownValue = "AM";
-  bool _isBedTimeBtnClick = false;
+  String _dropdownPeriodValue = "AM";
+
+  //! for bed time part
+  bool _isBedTimeBtnClick = false; //* for the calculate bed time button
   bool _showBestSleepTime = false;
-  double _averageSleep = 7.7;
-  int _selectedSleepButton = -1;
-  bool _alarmValue = false;
+  bool _firstSleepButtonSelected = false;
+  bool _secondSleepButtonSelected = false;
+  bool _thirdSleepButtonSelected = false;
   final Time _suggestedSleepTime1 = Time(hour: 0, minute: 0, period: "AM");
   final Time _suggestedSleepTime2 = Time(hour: 0, minute: 0, period: "AM");
   final Time _suggestedSleepTime3 = Time(hour: 0, minute: 0, period: "AM");
 
   late TimeOfDay _now;
   bool _showBestWakeupTime = false;
-  int _selectedWakeupBtn = 0;
+  bool _firstWakeupButtonSelected = false;
+  bool _secondWakeupButtonSelected = false;
+  bool _thirdWakeupButtonSelected = false;
   bool _isWakeupTimeBtnClick = false;
   bool _alarmWakeupTime = false;
   final Time _suggestedWakeupTime1 = Time(hour: 0, minute: 0, period: "AM");
@@ -27,22 +47,19 @@ class SleepViewModel extends ChangeNotifier {
     _dropdownHourValue = newValue!;
     notifyListeners();
   }
-
   String get dropdownHourValue => _dropdownHourValue;
 
   set dropdownMinuteValue(String? newValue) {
     _dropdownMinuteValue = newValue!;
     notifyListeners();
   }
-
   String get dropdownMinuteValue => _dropdownMinuteValue;
 
   set dropdownValue(String? newValue) {
-    _dropdownValue = newValue!;
+    _dropdownPeriodValue = newValue!;
     notifyListeners();
   }
-
-  String get dropdownValue => _dropdownValue;
+  String get dropdownValue => _dropdownPeriodValue;
 
   set bedTimeBtnSelected(newValue) {
     _isBedTimeBtnClick = newValue;
@@ -58,12 +75,26 @@ class SleepViewModel extends ChangeNotifier {
 
   double get averageSleep => _averageSleep;
 
-  set selectedSleepButton(newValue) {
-    _selectedSleepButton = newValue;
+  set firstSleepButtonSelected(newValue) {
+    _firstSleepButtonSelected = newValue;
     notifyListeners();
   }
 
-  get selectedSleepButton => _selectedSleepButton;
+  get getFirstSleepButtonSelected => _firstSleepButtonSelected;
+
+  set secondSleepButtonSelected(newValue) {
+    _secondSleepButtonSelected = newValue;
+    notifyListeners();
+  }
+
+  get getSecondSleepButtonSelected => _secondSleepButtonSelected;
+
+  set thirdSleepButtonSelected(newValue) {
+    _thirdSleepButtonSelected = newValue;
+    notifyListeners();
+  }
+
+  get getThirdSleepButtonSelected => _thirdSleepButtonSelected;
 
   set alarmValue(newValue) {
     _alarmValue = newValue;
@@ -93,7 +124,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime1.period = "AM";
         }
       } else {
-        _suggestedSleepTime1.period = _dropdownValue;
+        _suggestedSleepTime1.period = _dropdownPeriodValue;
       }
     } else {
       _suggestedSleepTime1.hour = int.parse(_dropdownHourValue) - 7;
@@ -105,7 +136,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime1.period = "AM";
         }
       } else {
-        _suggestedSleepTime1.period = _dropdownValue;
+        _suggestedSleepTime1.period = _dropdownPeriodValue;
       }
     }
 
@@ -122,7 +153,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime2.period = "AM";
         }
       } else {
-        _suggestedSleepTime2.period = _dropdownValue;
+        _suggestedSleepTime2.period = _dropdownPeriodValue;
       }
     } else {
       _suggestedSleepTime2.hour = int.parse(_dropdownHourValue) - 6;
@@ -134,7 +165,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime2.period = "AM";
         }
       } else {
-        _suggestedSleepTime2.period = _dropdownValue;
+        _suggestedSleepTime2.period = _dropdownPeriodValue;
       }
     }
 
@@ -151,7 +182,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime3.period = "AM";
         }
       } else {
-        _suggestedSleepTime3.period = _dropdownValue;
+        _suggestedSleepTime3.period = _dropdownPeriodValue;
       }
     } else {
       _suggestedSleepTime3.hour = int.parse(_dropdownHourValue) - 4;
@@ -163,7 +194,7 @@ class SleepViewModel extends ChangeNotifier {
           _suggestedSleepTime3.period = "AM";
         }
       } else {
-        _suggestedSleepTime3.period = _dropdownValue;
+        _suggestedSleepTime3.period = _dropdownPeriodValue;
       }
     }
 
@@ -181,13 +212,27 @@ class SleepViewModel extends ChangeNotifier {
   }
 
   get showBestWakeupTime => _showBestWakeupTime;
-
-  set selectedWakeupBtn(newValue) {
-    _selectedWakeupBtn = newValue;
+  
+  set firstWakeupButtonSelected(newValue) {
+    _firstWakeupButtonSelected = newValue;
     notifyListeners();
   }
 
-  get selectedWakeupBtn => _selectedWakeupBtn;
+  get getFirstWakeupButtonSelected => _firstWakeupButtonSelected;
+
+  set secondWakeupButtonSelected(newValue) {
+    _secondWakeupButtonSelected = newValue;
+    notifyListeners();
+  }
+
+  get getSecondWakeupButtonSelected => _secondWakeupButtonSelected;
+
+  set thirdWakeupButtonSelected(newValue) {
+    _thirdWakeupButtonSelected = newValue;
+    notifyListeners();
+  }
+
+  get getThirdWakeupButtonSelected => _thirdWakeupButtonSelected;
 
   set wakeupTimeBtnSelected(newValue) {
     _isWakeupTimeBtnClick = newValue;
@@ -207,13 +252,13 @@ class SleepViewModel extends ChangeNotifier {
 
   get alarmWakeupTime => _alarmWakeupTime;
 
-  void calcullateBestWakeupTime() {
+  void calculateBestWakeupTime() {
     _now = TimeOfDay.now();
     int nowMinute = _now.minute;
     int nowHour = _now.hourOfPeriod;
     DayPeriod nowPeriod = _now.period;
 
-    //* Caluclate the first wakeup time
+    //* Calculate the first wakeup time
     _suggestedWakeupTime1.minute = nowMinute + 15;
     if (_suggestedWakeupTime1.minute >= 60) {
       _suggestedWakeupTime1.hour = nowHour + 1 + 6;
@@ -225,14 +270,15 @@ class SleepViewModel extends ChangeNotifier {
       _suggestedWakeupTime1.hour = _suggestedWakeupTime1.hour - 12;
       if (nowPeriod == DayPeriod.am) {
         _suggestedWakeupTime1.period = 'PM';
-      } else {_suggestedWakeupTime1.period = 'AM';}
+      } else {
+        _suggestedWakeupTime1.period = 'AM';
+      }
     }
-    if (_suggestedWakeupTime1.hour == 12 &&
-        nowPeriod == DayPeriod.pm) {
+    if (_suggestedWakeupTime1.hour == 12 && nowPeriod == DayPeriod.pm) {
       _suggestedWakeupTime1.hour = 0;
     }
 
-    //* Caluclate the second wakeup time
+    //* Calculate the second wakeup time
     _suggestedWakeupTime2.minute = nowMinute + 15 + 30;
     if (_suggestedWakeupTime2.minute > 60) {
       _suggestedWakeupTime2.hour = nowHour + 1 + 4;
@@ -244,14 +290,16 @@ class SleepViewModel extends ChangeNotifier {
       _suggestedWakeupTime2.hour = _suggestedWakeupTime2.hour - 12;
       if (nowPeriod == DayPeriod.am) {
         _suggestedWakeupTime2.period = 'PM';
-      } else {_suggestedWakeupTime2.period = 'AM';}
+      } else {
+        _suggestedWakeupTime2.period = 'AM';
+      }
     }
     if (_suggestedWakeupTime2.hour == 12 &&
         _suggestedWakeupTime2.period == 'PM') {
       _suggestedWakeupTime2.hour = 0;
     }
 
-    //* Caluclate the final wakeup time
+    //* Calculate the final wakeup time
     _suggestedWakeupTime3.minute = nowMinute + 15 + 30;
     if (_suggestedWakeupTime3.minute > 60) {
       _suggestedWakeupTime3.hour = nowHour + 1 + 7;
@@ -263,11 +311,84 @@ class SleepViewModel extends ChangeNotifier {
       _suggestedWakeupTime3.hour = _suggestedWakeupTime3.hour - 12;
       if (nowPeriod == DayPeriod.am) {
         _suggestedWakeupTime3.period = 'PM';
-      } else {_suggestedWakeupTime3.period = 'AM';}
+      } else {
+        _suggestedWakeupTime3.period = 'AM';
+      }
     }
     if (_suggestedWakeupTime3.hour == 12 &&
         _suggestedWakeupTime3.period == 'PM') {
       _suggestedWakeupTime3.hour = 0;
     }
+  }
+
+  late DateTime startOfWeek;
+  late DateTime endOfWeek;
+
+  DateTime currentTime = DateTime.now();
+
+  DateTime calculateStartOfWeek(DateTime dateTime) {
+    return startOfWeek =
+        dateTime.subtract(Duration(days: currentTime.weekday - 1));
+  }
+
+  DateTime calculateEndOfWeek(DateTime dateTime) {
+    return endOfWeek = dateTime
+        .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
+  }
+
+  String formatDateTime(bool isCollection, DateTime dateTime) {
+    if (isCollection) {
+      return DateFormat('ddMMyyyy').format(dateTime);
+    } else {
+      return DateFormat('dd-MM').format(dateTime);
+    }
+  }
+
+  Future<void> pushDataToFirestore(BuildContext context) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    String colPath =
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
+    String docPath = formatDateTime(false, currentTime);
+
+    AuthenticService authenticService =
+        Provider.of<AuthenticService>(context, listen: false);
+
+    // await firebaseFirestore
+    //     .collection(FireStoreConstants.pathWaterCollection)
+    //     .doc(_firebaseAuth.currentUser?.uid) 
+    //     .collection(colPath)
+    //     .doc(docPath)
+    //     .set(waterData.toJson())
+    //     .catchError((e) {});
+
+    notifyListeners();
+  }
+
+  Future<void> pushDataToFirestore2(BuildContext context) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    String colPath =
+        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
+
+    AuthenticService authenticService =
+        Provider.of<AuthenticService>(context, listen: false);
+
+    for (int i = currentTime.weekday; i <= 7; i++) {
+      DateTime dateTime = startOfWeek.add(Duration(days: i - 1));
+      var secondeData = SleepData(sleepHours: 0, idSleep: 0);
+
+      // await firebaseFirestore
+      //     .collection(FireStoreConstants.pathWaterCollection)
+      //     .doc(_firebaseAuth.currentUser?.uid)
+      //     .collection(colPath)
+      //     .doc(formatDateTime(false, dateTime))
+      //     .set(formatDateTime(true, dateTime) ==
+      //             formatDateTime(true, currentTime)
+      //         ? _waterData.toJson()
+      //         : secondeData.toJson())
+      //     .catchError((e) {});
+    }
+    notifyListeners();
   }
 }

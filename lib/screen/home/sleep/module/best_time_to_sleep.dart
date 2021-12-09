@@ -72,6 +72,10 @@ class BestTimeToSleep extends StatelessWidget {
                         name:
                             "${sleepViewModel.suggestedSleepTime1.hour}:${sleepViewModel.suggestedSleepTime1.minute} ${sleepViewModel.suggestedSleepTime1.period} (Suggested)",
                         onPressed: () {
+                                                    sleepViewModel.firstSleepButtonSelected =
+                              !sleepViewModel.getFirstSleepButtonSelected;
+                          sleepViewModel.secondSleepButtonSelected = false;
+                          sleepViewModel.thirdSleepButtonSelected = false;
                           Provider.of<SleepViewModel>(context, listen: false)
                               .selectedSleepButton = 0;
                           if (sleepViewModelNoListen.alarmValue) {
@@ -91,12 +95,14 @@ class BestTimeToSleep extends StatelessWidget {
                             );
                           }
                         },
-                        textColor: sleepViewModel.selectedSleepButton == 0
-                            ? whiteColor
-                            : sleepColor,
-                        color: sleepViewModel.selectedSleepButton == 0
-                            ? sleepColor
-                            : whiteColor,
+                        textColor:
+                            sleepViewModel.getFirstSleepButtonSelected == true
+                                ? whiteColor
+                                : sleepColor,
+                        color:
+                            sleepViewModel.getFirstSleepButtonSelected == true
+                                ? sleepColor
+                                : whiteColor,
                         height:
                             sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
                         width: sizeH * 65,
@@ -131,13 +137,22 @@ class BestTimeToSleep extends StatelessWidget {
                                     dateTime,
                                   );
                                 }
+                                sleepViewModel.secondSleepButtonSelected =
+                                    !sleepViewModel
+                                        .getSecondSleepButtonSelected;
+                                sleepViewModel.firstSleepButtonSelected = false;
+                                sleepViewModel.thirdSleepButtonSelected = false;
                               },
-                              textColor: sleepViewModel.selectedSleepButton == 1
-                                  ? whiteColor
-                                  : sleepColor,
-                              color: sleepViewModel.selectedSleepButton == 1
-                                  ? sleepColor
-                                  : whiteColor,
+                              textColor:
+                                  sleepViewModel.getSecondSleepButtonSelected ==
+                                          true
+                                      ? whiteColor
+                                      : sleepColor,
+                              color:
+                                  sleepViewModel.getSecondSleepButtonSelected ==
+                                          true
+                                      ? sleepColor
+                                      : whiteColor,
                               height: sleepViewModel.showBestSleepTime
                                   ? sizeV * 5
                                   : 0,
@@ -168,13 +183,22 @@ class BestTimeToSleep extends StatelessWidget {
                                     dateTime,
                                   );
                                 }
+                                sleepViewModel.thirdSleepButtonSelected =
+                                    !sleepViewModel.getThirdSleepButtonSelected;
+                                sleepViewModel.firstSleepButtonSelected = false;
+                                sleepViewModel.secondSleepButtonSelected =
+                                    false;
                               },
-                              textColor: sleepViewModel.selectedSleepButton == 2
-                                  ? whiteColor
-                                  : sleepColor,
-                              color: sleepViewModel.selectedSleepButton == 2
-                                  ? sleepColor
-                                  : whiteColor,
+                              textColor:
+                                  sleepViewModel.getThirdSleepButtonSelected ==
+                                          true
+                                      ? whiteColor
+                                      : sleepColor,
+                              color:
+                                  sleepViewModel.getThirdSleepButtonSelected ==
+                                          true
+                                      ? sleepColor
+                                      : whiteColor,
                               height: sleepViewModel.showBestSleepTime
                                   ? sizeV * 5
                                   : 0,
@@ -210,6 +234,14 @@ class BestTimeToSleep extends StatelessWidget {
                           if (!newValue) {
                             notificationViewModel.cancelNotification();
                             sleepViewModelNoListen.selectedSleepButton = -1;
+                          if (sleepViewModel.getFirstSleepButtonSelected ==
+                                  false ||
+                              sleepViewModel.getSecondSleepButtonSelected ==
+                                  false ||
+                              sleepViewModel.getThirdSleepButtonSelected ==
+                                  false) {
+                            Fluttertoast.showToast(
+                                msg: 'Please choose time to sleep!');
                           } else {
                             switch (
                                 sleepViewModelNoListen.selectedSleepButton) {

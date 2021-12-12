@@ -75,13 +75,19 @@ class ProfileInformationScreen extends StatelessWidget {
                       editProfileViewModel.heightController.clear();
                       editProfileViewModel.weightController.clear();
                     },
-                    child: const Text('Leave'),
+                    child: const Text(
+                      'Leave',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text('Stay'),
+                    child: const Text(
+                      'Stay',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               );

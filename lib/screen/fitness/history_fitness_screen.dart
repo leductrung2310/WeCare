@@ -119,206 +119,213 @@ class FitnessHistoryScreen extends StatelessWidget {
     }
 
     return SafeArea(
-      child: Scaffold(
-        appBar: customAppBar(
-            context, primaryColor, 'Workout', const SizedBox.shrink()),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: sizeV),
-              const TotalWorkout(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Weekly",
-                  style: oTitle,
+      child: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          appBar: customAppBar(
+              context, primaryColor, 'Workout', const SizedBox.shrink()),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: sizeV),
+                const TotalWorkout(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Weekly",
+                    style: oTitle,
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: ChangeNotifierProvider(
-                  create: (context) => WeeklyCalendarVM(),
-                  child: historyWorkoutViewModel.isLoadingChart
-                      ? spinkit
-                      : AnimatedChart(
-                          onPressed1: () {
-                            historyWorkoutViewModel.resetHistoryChart();
-                            historyWorkoutViewModel.changeCalendar(true);
-                            String subDocument =
-                                historyWorkoutViewModel.getSubDocument(context);
-                            historyWorkoutViewModel
-                                .getHistoryWorkoutsFromFirebase(
-                                    context, subDocument);
-                            historyWorkoutViewModel
-                                .getTotalWeeklyHistoryToFirestore(
-                                    context, subDocument);
-                            historyWorkoutViewModel
-                                .getHistoryWorkoutsChartFromFireStore(
-                                    context, subDocument);
-                          },
-                          onPressed2: () {
-                            historyWorkoutViewModel.resetHistoryChart();
-                            historyWorkoutViewModel.changeCalendar(false);
-                            String subDocument =
-                                historyWorkoutViewModel.getSubDocument(context);
-                            historyWorkoutViewModel
-                                .getHistoryWorkoutsFromFirebase(
-                                    context, subDocument);
-                            historyWorkoutViewModel
-                                .getTotalWeeklyHistoryToFirestore(
-                                    context, subDocument);
-                            historyWorkoutViewModel
-                                .getHistoryWorkoutsChartFromFireStore(
-                                    context, subDocument);
-                          },
-                          color: primaryColor,
-                          barWidth: sizeH * 4,
-                          width: sizeH * 90,
-                          height: sizeV * 45,
-                          barChartGroupData:
-                              FitnessBarData.fitnessBarChartList(context),
-                          flTitlesData: FlTitlesData(
-                            bottomTitles: FitnessBarTitles.getBottomTitles(),
-                            leftTitles: FitnessBarTitles.getSideTitles(),
-                            topTitles: SideTitles(showTitles: false),
-                            rightTitles: SideTitles(showTitles: false),
-                          ),
-                        ),
-                ),
-              ),
-              historyWorkoutViewModel.totalWeeklyWorkouts != 0
-                  ? Container(
-                      margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                      height: sizeV * 8,
-                      width: sizeH * 100,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                child: SizedBox(
-                                  width: sizeH * 58,
-                                  child: Text(
-                                    historyWorkoutViewModel.week,
-                                    style: TextStyle(
-                                      color: accentColor,
-                                      fontSize: sizeV * 2.5,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: sizeH * 30,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.timer_outlined,
-                                      size: sizeV * 2,
-                                      color: grey,
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    Text(
-                                      workoutViewModel.formatWorkoutTime(
-                                          historyWorkoutViewModel
-                                              .totalWeeklyMinutes),
-                                      style: TextStyle(
-                                        color: grey,
-                                        fontSize: sizeV * 2,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                child: SizedBox(
-                                  width: sizeH * 58,
-                                  child: Text(
-                                    "${historyWorkoutViewModel.totalWeeklyWorkouts} workouts",
-                                    style: TextStyle(
-                                      color: grey,
-                                      fontSize: sizeV * 2,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: sizeH * 30,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.bolt,
-                                      size: sizeV * 2,
-                                      color: grey,
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    Text(
-                                      '${historyWorkoutViewModel.totalWeeklyKcal.toStringAsFixed(2)} kcal',
-                                      style: TextStyle(
-                                        color: grey,
-                                        fontSize: sizeV * 2,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(height: 2, color: metalGreyColor),
-                        ],
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              Container(
-                margin:
-                    EdgeInsets.fromLTRB(sizeH * 6, sizeV, sizeH * 6, sizeV * 2),
-                padding: EdgeInsets.all(sizeV),
-                height: 250,
-                width: sizeH * 100,
-                child: historyWorkoutViewModel.isLoadingWorkouts
-                    ? spinkit
-                    : (historyWorkoutViewModel.listHistory == []
-                        ? const SizedBox(
-                            height: 20,
-                            child: Center(
-                              child: Text(
-                                "You haven't take any exercise",
-                                style: TextStyle(
-                                    fontSize: 24, color: Colors.black),
-                              ),
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount:
-                                historyWorkoutViewModel.listHistory.length,
-                            itemBuilder: (context, index) {
-                              HistoryWorkoutDay historyWorkoutDay =
-                                  historyWorkoutViewModel.listHistory[index];
-                              return historyWorkoutItem(historyWorkoutDay);
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ChangeNotifierProvider(
+                    create: (context) => WeeklyCalendarVM(),
+                    child: historyWorkoutViewModel.isLoadingChart
+                        ? spinkit
+                        : AnimatedChart(
+                            onPressed1: () {
+                              historyWorkoutViewModel.resetHistoryChart();
+                              historyWorkoutViewModel.changeCalendar(true);
+                              String subDocument = historyWorkoutViewModel
+                                  .getSubDocument(context);
+                              historyWorkoutViewModel
+                                  .getHistoryWorkoutsFromFirebase(
+                                      context, subDocument);
+                              historyWorkoutViewModel
+                                  .getTotalWeeklyHistoryToFirestore(
+                                      context, subDocument);
+                              historyWorkoutViewModel
+                                  .getHistoryWorkoutsChartFromFireStore(
+                                      context, subDocument);
                             },
-                          )),
-              )
-            ],
+                            onPressed2: () {
+                              historyWorkoutViewModel.resetHistoryChart();
+                              historyWorkoutViewModel.changeCalendar(false);
+                              String subDocument = historyWorkoutViewModel
+                                  .getSubDocument(context);
+                              historyWorkoutViewModel
+                                  .getHistoryWorkoutsFromFirebase(
+                                      context, subDocument);
+                              historyWorkoutViewModel
+                                  .getTotalWeeklyHistoryToFirestore(
+                                      context, subDocument);
+                              historyWorkoutViewModel
+                                  .getHistoryWorkoutsChartFromFireStore(
+                                      context, subDocument);
+                            },
+                            color: primaryColor,
+                            barWidth: sizeH * 4,
+                            width: sizeH * 90,
+                            height: sizeV * 45,
+                            barChartGroupData:
+                                FitnessBarData.fitnessBarChartList(context),
+                            flTitlesData: FlTitlesData(
+                              bottomTitles: FitnessBarTitles.getBottomTitles(),
+                              leftTitles: FitnessBarTitles.getSideTitles(),
+                              topTitles: SideTitles(showTitles: false),
+                              rightTitles: SideTitles(showTitles: false),
+                            ),
+                          ),
+                  ),
+                ),
+                historyWorkoutViewModel.totalWeeklyWorkouts != 0
+                    ? Container(
+                        margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        height: sizeV * 8,
+                        width: sizeH * 100,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                  child: SizedBox(
+                                    width: sizeH * 58,
+                                    child: Text(
+                                      historyWorkoutViewModel.week,
+                                      style: TextStyle(
+                                        color: accentColor,
+                                        fontSize: sizeV * 2.5,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: sizeH * 30,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.timer_outlined,
+                                        size: sizeV * 2,
+                                        color: grey,
+                                      ),
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                      Text(
+                                        workoutViewModel.formatWorkoutTime(
+                                            historyWorkoutViewModel
+                                                .totalWeeklyMinutes),
+                                        style: TextStyle(
+                                          color: grey,
+                                          fontSize: sizeV * 2,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                  child: SizedBox(
+                                    width: sizeH * 58,
+                                    child: Text(
+                                      "${historyWorkoutViewModel.totalWeeklyWorkouts} workouts",
+                                      style: TextStyle(
+                                        color: grey,
+                                        fontSize: sizeV * 2,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: sizeH * 30,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.bolt,
+                                        size: sizeV * 2,
+                                        color: grey,
+                                      ),
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                      Text(
+                                        '${historyWorkoutViewModel.totalWeeklyKcal.toStringAsFixed(2)} kcal',
+                                        style: TextStyle(
+                                          color: grey,
+                                          fontSize: sizeV * 2,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Container(height: 2, color: metalGreyColor),
+                          ],
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                Container(
+                  margin: EdgeInsets.fromLTRB(
+                      sizeH * 6, sizeV, sizeH * 6, sizeV * 2),
+                  padding: EdgeInsets.all(sizeV),
+                  height: 250,
+                  width: sizeH * 100,
+                  child: historyWorkoutViewModel.isLoadingWorkouts
+                      ? spinkit
+                      : (historyWorkoutViewModel.listHistory == []
+                          ? const SizedBox(
+                              height: 20,
+                              child: Center(
+                                child: Text(
+                                  "You haven't take any exercise",
+                                  style: TextStyle(
+                                      fontSize: 24, color: Colors.black),
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount:
+                                  historyWorkoutViewModel.listHistory.length,
+                              itemBuilder: (context, index) {
+                                HistoryWorkoutDay historyWorkoutDay =
+                                    historyWorkoutViewModel.listHistory[index];
+                                return historyWorkoutItem(historyWorkoutDay);
+                              },
+                            )),
+                )
+              ],
+            ),
           ),
         ),
       ),

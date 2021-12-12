@@ -38,7 +38,7 @@ class FitnessBarTitles {
 }
 
 class FitnessBarData {
-  static double interval = 150;
+  static double interval = 100;
 
   static List<FitnessStatisticData> fitnessBarData = [
     FitnessStatisticData(0, 'Mo', 0, primaryColor),

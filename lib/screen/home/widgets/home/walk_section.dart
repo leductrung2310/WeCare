@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../routes.dart';
 
 class StepCountPart extends StatelessWidget {
   const StepCountPart({Key? key}) : super(key: key);
@@ -11,6 +15,13 @@ class StepCountPart extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final historyWorkoutViewModel =
+        Provider.of<HistoryWorkoutViewModel>(context);
+    final historyWorkoutViewModel2 =
+        Provider.of<HistoryWorkoutViewModel>(context);
+
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
 
     return InkWell(
       splashColor: grey1,
@@ -26,33 +37,37 @@ class StepCountPart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const WalkItem(
+            WalkItem(
               assetName: 'assets/images/home/walk/step_icon.svg',
-              index: 7500,
-              name: 'Steps',
+              index: historyWorkoutViewModel.totalDailyWorkout.toString(),
+              name: 'Workouts',
               color: stepColor,
-              unit: '',
             ),
             SizedBox(width: sizeH * 1.5),
-            const WalkItem(
+            WalkItem(
               assetName: 'assets/images/home/walk/distance.svg',
-              index: 3500,
-              name: 'Distance',
+              index: workoutViewModel
+                  .formatWorkoutTime(historyWorkoutViewModel.totalDailyMinute),
+              name: 'Minutes',
               color: distanceColor,
-              unit: 'm',
             ),
             SizedBox(width: sizeH * 1.5),
-            const WalkItem(
+            WalkItem(
               assetName: 'assets/images/home/walk/flashspeed.svg',
-              index: 12,
-              name: 'Speed',
+              index: historyWorkoutViewModel.totalDailyKcal.toStringAsFixed(2),
+              name: 'Kcal',
               color: speedColor,
-              unit: 'm/s',
             ),
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(Routes.fitnessHistoryScreen);
+        historyWorkoutViewModel2.getHistoryWorkoutsFromFirebase(context, "");
+        historyWorkoutViewModel2.getTotalWeeklyHistoryToFirestore(context, "");
+        historyWorkoutViewModel2.getHistoryWorkoutsChartFromFireStore(
+            context, "");
+      },
     );
   }
 }
@@ -64,13 +79,11 @@ class WalkItem extends StatelessWidget {
     required this.index,
     required this.name,
     required this.color,
-    required this.unit,
   }) : super(key: key);
   final String assetName;
   final String name;
-  final double index;
+  final String index;
   final Color color;
-  final String unit;
 
   @override
   Widget build(BuildContext context) {
@@ -101,20 +114,7 @@ class WalkItem extends StatelessWidget {
                 color: lightBlack,
               ),
               children: [
-                TextSpan(
-                  text: index.toStringAsFixed(
-                    index.truncateToDouble() == index ? 0 : 2,
-                  ),
-                ),
-                TextSpan(
-                  text: unit,
-                  style: TextStyle(
-                    fontSize: sizeV * 2,
-                    fontFamily: 'Poppins',
-                    color: lightBlack1,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                TextSpan(text: index),
               ],
             ),
           ),

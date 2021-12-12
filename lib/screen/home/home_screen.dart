@@ -5,9 +5,9 @@ import 'package:wecare_flutter/screen/home/widgets/home/right_side.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/walk_section.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/view_model/edit_profile_view_model.dart';
 
 import '../../constants/constants.dart';
-import '../../view_model/home_vm/water_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -38,6 +38,13 @@ class HomeScreen extends StatelessWidget {
     } else if (currentUser!.displayName != null) {
       name = currentUser.displayName!;
     }
+
+    try {
+      // Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
+    } catch (e) {
+      //print(e.toString());  
+    }
+    Provider.of<EditProfileViewModel>(context).getInformationFromFirestore();
 
     return SafeArea(
       child: Scaffold(

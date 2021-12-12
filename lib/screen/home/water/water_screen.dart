@@ -155,8 +155,8 @@ class _WaterScreenState extends State<WaterScreen>
         Navigator.pushNamed(context, Routes.waterScreenStatistic);
         await waterViewModel.getQuerySnapshot(0);
         waterViewModel.calculateAverage(context);
-        await Provider.of<WaterViewModel>(context, listen: false).pushDataToFirestore2(context);
-        // waterViewModel.setIsLoading = false;
+        await Provider.of<WaterViewModel>(context, listen: false)
+            .pushDataToFirestore2(context);
       },
       icon: const Icon(
         Icons.timeline,
@@ -226,7 +226,7 @@ class _WaterScreenState extends State<WaterScreen>
                 ),
                 SizedBox(height: sizeV * 2),
                 Text(
-                  'Next reminder in: 3hrs',
+                  'You should drink at least: ${Provider.of<AuthenticService>(context).calculateDesiredAmount(context)}L',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
@@ -256,7 +256,6 @@ class _WaterScreenState extends State<WaterScreen>
                     waterViewModel.calculateDrinkTimes();
                     waterViewModel.pushDataToFirestore(context);
                     await waterViewModel.getQuerySnapshot(0);
-                    // waterViewModel.setIsLoading = false;
                   },
                   color: waterColor,
                   textColor: whiteColor,

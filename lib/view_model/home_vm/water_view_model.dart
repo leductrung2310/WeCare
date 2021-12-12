@@ -141,8 +141,8 @@ class WaterViewModel extends ChangeNotifier {
     AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
 
-    if (_waterData.waterIndex >= authenticService.getDesiredAmount + 0.5) {
-      _waterData.waterIndex = authenticService.getDesiredAmount + 0.5;
+    if (_waterData.waterIndex >= authenticService.getDesiredAmount + 1) {
+      _waterData.waterIndex = authenticService.getDesiredAmount + 1;
     }
 
     _waterData.id = DateTime.now().weekday;
@@ -203,29 +203,6 @@ class WaterViewModel extends ChangeNotifier {
     }).catchError((e) => Fluttertoast.showToast(msg: "Let's start to drink"));
     notifyListeners();
   }
-
-  // Future<void> getQuerySnapshot(int x) async {
-  //   String colPath =
-  //       '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
-  //   for (int i = 0; i < 7; i++) {
-  //     await FirebaseFirestore.instance
-  //         .collection(FireStoreConstants.pathWaterCollection)
-  //         .doc(_firebaseAuth.currentUser?.uid)
-  //         .collection(colPath)
-  //         .get()
-  //         .then((values) {
-  //       var docSnapshots = values.docs;
-  //       for (var j in docSnapshots) {
-  //         var doc = j.data();
-  //         if (_waterHistory.length >= docSnapshots.length) {
-  //           _waterHistory.clear();
-  //         }
-  //         _waterHistory.add(WaterData.fromMap(doc));
-  //       }
-  //     });
-  //   }
-  //   notifyListeners();
-  // }
 
   Future<void> getQuerySnapshot(int isLastWeek) async {
     _waterHistory = [];

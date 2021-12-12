@@ -3,11 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/screen/home/sleep/module/best_time_to_wakeup.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 import '../../../constants/constants.dart';
+import '../../../view_model/home_vm/sleep_view_model.dart';
 import 'module/best_time_to_sleep.dart';
-import 'module/history_sleep_time.dart';
 import 'module/select_wake_up_time.dart';
 
 class SleepScreen extends StatelessWidget {
@@ -35,7 +34,11 @@ class SleepScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: sizeV),
-              const HistorySleepTime(),
+              Image.asset(
+                'assets/images/home/sleep/dream.png',
+                height: sizeV * 35,
+                width: sizeH * 80,
+              ),
               const SelectWakeUpTime(),
               const BestTimeToSleep(),
               Divider(
@@ -62,7 +65,7 @@ class SleepScreen extends StatelessWidget {
                 name: "Calculate wake-up time",
                 textColor: whiteColor,
                 onPressed: () {
-                  sleepViewModel.calculateBestWakeupTime();
+                  sleepViewModel.calculateWakeupTime();
                   sleepViewModel.showBestWakeupTime = true;
                   sleepViewModel.showBestSleepTime = false;
                 },

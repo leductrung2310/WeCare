@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/routes.dart';
@@ -10,7 +9,7 @@ import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:wecare_flutter/screen/profile/change_password_screen.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 class AuthenticService extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -87,6 +86,7 @@ class AuthenticService extends ChangeNotifier {
         builder: (context) => const MainScreen(),
       ),
     );
+    //Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
   }
 
   void signInWithEmailAndPassword(
@@ -108,6 +108,7 @@ class AuthenticService extends ChangeNotifier {
       }
       isLoading = false;
     }
+    Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
   }
 
   String getMessageFromErrorCode(e) {

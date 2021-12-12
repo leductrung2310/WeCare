@@ -28,10 +28,12 @@ class ProfileInformationScreen extends StatelessWidget {
         Provider.of<BMIHistoryViewModel>(context);
 
     //! Null check operator
-    TimeOfDay currenSleepTime =
-        TimeOfDay.fromDateTime(authenticService.loggedInUser.sleepTime!);
-    TimeOfDay currenWakeupTime =
-        TimeOfDay.fromDateTime(authenticService.loggedInUser.wakeupTime!);
+    TimeOfDay currenSleepTime = TimeOfDay.fromDateTime(
+        authenticService.loggedInUser.sleepTime ?? DateTime(2021, 1, 1, 10, 0));
+    print(currenSleepTime);
+    TimeOfDay currenWakeupTime = TimeOfDay.fromDateTime(
+        authenticService.loggedInUser.wakeupTime ?? DateTime(2021, 1, 1, 7, 0));
+    print(currenWakeupTime);
 
     DateTime? birthday = authenticService.loggedInUser.birthDay;
     String? dateOfBirth =
@@ -346,8 +348,13 @@ class ProfileInformationScreen extends StatelessWidget {
                             await editProfileViewModel
                                 .updateUserDatatoFirestore(context);
                             editProfileViewModel.updateToLoggedInUser(context);
-                            await bmiHistoryViewModel
-                                .pushRatioToFirestore(context);
+                            if (editProfileViewModel
+                                    .heightController.text.isNotEmpty ||
+                                editProfileViewModel
+                                    .weightController.text.isNotEmpty) {
+                              await bmiHistoryViewModel
+                                  .pushRatioToFirestore(context);
+                            }
                             Navigator.pop(context);
                           }
                         },

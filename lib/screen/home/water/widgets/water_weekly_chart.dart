@@ -29,13 +29,6 @@ class WaterWeeklyChart extends StatelessWidget {
 
     double interval = authenticService.getDesiredAmount % 2 == 0 ? 0.4 : 0.5;
 
-    //? convert each item to a string by using JSON encoding
-    //final jsonList = waterHisListBarData.map((e) => jsonEncode(e)).toList();
-    //? using toSet - toList strategy
-    //final uniqueJsonList = jsonList.toSet().toList();
-    //? convert each item back to the original form using JSON decoding
-    //final result = uniqueJsonList.map((e) => jsonDecode(e)).toList();
-
     List<WaterStatisticData> waterBarData = [
       WaterStatisticData(id: 1, name: 'Mo'),
       WaterStatisticData(id: 2, name: 'Tu'),

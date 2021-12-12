@@ -88,7 +88,7 @@ class NotificationService extends ChangeNotifier {
       ),
     );
 
-    var platform = new NotificationDetails(android: android);
+    var platform = NotificationDetails(android: android);
 
     await _flutterLocalNotificationsPlugin.show(
         0, "Demo Stylish notification", "Tap to do something", platform);
@@ -120,10 +120,12 @@ class NotificationService extends ChangeNotifier {
     var platform = NotificationDetails(android: android, iOS: ios);
 
     DateTime datetime = DateTime.parse(
-        DateFormat("yyyy-MM-dd hh:mm:00.000").format(DateTime.now()));
-    print(datetime.toString());
+        DateFormat("yyyy-MM-dd hh:mm:00").format(DateTime.now()));
+    //print(datetime.toString());
     Duration duration = Duration(
-      hours: time.hour - datetime.hour,
+      hours: time.hour < datetime.hour
+          ? datetime.hour - time.hour
+          : time.hour - datetime.hour,
       minutes: time.minute - datetime.minute,
     );
     _flutterLocalNotificationsPlugin.zonedSchedule(

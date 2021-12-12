@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../view_model/home_vm/sleep_view_model.dart';
 
 class BestTimeToWakeup extends StatelessWidget {
   const BestTimeToWakeup({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class BestTimeToWakeup extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: AnimatedContainer(
         height: sleepViewModel.showBestWakeupTime ? sizeV * 20 : 0,
-        width: sizeH * 88,
+        width: sizeH * 90,
         alignment: sleepViewModel.showBestWakeupTime
             ? Alignment.center
             : AlignmentDirectional.topCenter,
@@ -56,19 +56,10 @@ class BestTimeToWakeup extends StatelessWidget {
                     ),
                     CustomBTN(
                       name:
-                          "${sleepViewModel.suggestedWakeupTime1.hour}:${sleepViewModel.suggestedWakeupTime1.minute} ${sleepViewModel.suggestedWakeupTime1.period} (Suggested)",
-                      onPressed: () {
-                        sleepViewModel.firstWakeupButtonSelected =
-                            !sleepViewModel.getFirstWakeupButtonSelected;
-                      },
-                      textColor:
-                          sleepViewModel.getFirstWakeupButtonSelected == true
-                              ? whiteColor
-                              : sleepColor,
-                      color: sleepViewModel.getFirstWakeupButtonSelected == true
-                          ? sleepColor
-                          : whiteColor,
+                          "${DateFormat.Hm().format(sleepViewModel.suggestedWakeupTime1)} (Suggested)",
+                      onPressed: () {},
                       height: sleepViewModel.showBestWakeupTime ? sizeV * 6 : 0,
+                      textColor: sleepColor,
                       width: sizeH * 65,
                       fontSize: sizeH * 5,
                     ),
@@ -78,18 +69,9 @@ class BestTimeToWakeup extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomBTN(
-                            name:
-                                '${sleepViewModel.suggestedWakeupTime2.hour}:${sleepViewModel.suggestedWakeupTime2.minute} ${sleepViewModel.suggestedWakeupTime2.period}',
-                            onPressed: () {
-                              sleepViewModel.secondWakeupButtonSelected =
-                                  !sleepViewModel.getSecondWakeupButtonSelected;
-                            },
-                            textColor: sleepViewModel.getSecondWakeupButtonSelected == true
-                                ? whiteColor
-                                : sleepColor,
-                            color: sleepViewModel.getSecondWakeupButtonSelected == true
-                                ? sleepColor
-                                : whiteColor,
+                            name: DateFormat.Hm()
+                                .format(sleepViewModel.suggestedWakeupTime2),
+                            onPressed: () {},
                             height: sleepViewModel.showBestWakeupTime
                                 ? sizeV * 5
                                 : 0,
@@ -97,18 +79,9 @@ class BestTimeToWakeup extends StatelessWidget {
                             fontSize: sizeH * 5,
                           ),
                           CustomBTN(
-                            name:
-                                "${sleepViewModel.suggestedWakeupTime3.hour}:${sleepViewModel.suggestedWakeupTime3.minute} ${sleepViewModel.suggestedWakeupTime3.period} ",
-                            onPressed: () {
-                              sleepViewModel.thirdWakeupButtonSelected =
-                            !sleepViewModel.getThirdWakeupButtonSelected;
-                            },
-                            textColor: sleepViewModel.getThirdWakeupButtonSelected == true
-                                ? whiteColor
-                                : sleepColor,
-                            color: sleepViewModel.getThirdWakeupButtonSelected == true
-                                ? sleepColor
-                                : whiteColor,
+                            name: DateFormat.Hm()
+                                .format(sleepViewModel.suggestedWakeupTime3),
+                            onPressed: () {},
                             height: sleepViewModel.showBestWakeupTime
                                 ? sizeV * 5
                                 : 0,
@@ -120,32 +93,20 @@ class BestTimeToWakeup extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       onPressed: () {
-                        Provider.of<SleepViewModel>(context, listen: false)
-                            .showBestWakeupTime = false;
+                        sleepViewModel.showBestWakeupTime = false;
                       },
                       icon: const Icon(
-                        Icons.keyboard_arrow_up,
+                        Icons.arrow_circle_up,
                         color: sleepColor,
+                        size: 35,
                       ),
                     ),
-                    Text(
-                      "Alarm",
-                      style: oBlackTitle,
-                    ),
-                    CupertinoSwitch(
-                      value: sleepViewModel.alarmWakeupTime,
-                      onChanged: (newValue) {
-                        Provider.of<SleepViewModel>(context, listen: false)
-                            .alarmWakeupTime = newValue;
-                      },
-                      activeColor: sleepColor,
-                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),

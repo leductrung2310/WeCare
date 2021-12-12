@@ -1,107 +1,53 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:wecare_flutter/model/statistic_data/sleep_statistic_data.dart';
-import 'package:wecare_flutter/model/time_model.dart';
+import 'dart:async';
 
-import '../../services/authentic_service.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 
 class SleepViewModel extends ChangeNotifier {
-  //! General
-  final _firebaseAuth = FirebaseAuth.instance;
-  double _averageSleep = 7.7;
-  bool _alarmValue = false;
+  DateTime _wakeupTime = DateTime.now();
 
-  SleepData _sleepData = SleepData(sleepHours: 0, idSleep: 0);
+  TimeOfDay firstCycle = const TimeOfDay(hour: 4, minute: 45);
+  TimeOfDay secondCycle = const TimeOfDay(hour: 6, minute: 15);
+  TimeOfDay thirdCycle = const TimeOfDay(hour: 7, minute: 45);
 
-  SleepData get sleepData => _sleepData;
+  set wakeupTime(newVal) {
+    _wakeupTime = newVal;
+    notifyListeners();
+  }
 
-  String _dropdownHourValue = "7";
-  String _dropdownMinuteValue = "00";
-  String _dropdownPeriodValue = "AM";
+  DateTime get wakeupTime => _wakeupTime;
 
-  //! for bed time part
-  bool _isBedTimeBtnClick = false; //* for the calculate bed time button
+  //! For bed time countdown
+  Timer? timer;
+  Duration duration = const Duration();
+
+  //! For bed time
+  bool _isBedTimeBtnClick = false;
   bool _showBestSleepTime = false;
-  bool _firstSleepButtonSelected = false;
-  bool _secondSleepButtonSelected = false;
-  bool _thirdSleepButtonSelected = false;
-  final Time _suggestedSleepTime1 = Time(hour: 0, minute: 0, period: "AM");
-  final Time _suggestedSleepTime2 = Time(hour: 0, minute: 0, period: "AM");
-  final Time _suggestedSleepTime3 = Time(hour: 0, minute: 0, period: "AM");
 
-  late TimeOfDay _now;
-  bool _showBestWakeupTime = false;
-  bool _firstWakeupButtonSelected = false;
-  bool _secondWakeupButtonSelected = false;
-  bool _thirdWakeupButtonSelected = false;
-  bool _isWakeupTimeBtnClick = false;
-  bool _alarmWakeupTime = false;
-  final Time _suggestedWakeupTime1 = Time(hour: 0, minute: 0, period: "AM");
-  final Time _suggestedWakeupTime2 = Time(hour: 0, minute: 0, period: "AM");
-  final Time _suggestedWakeupTime3 = Time(hour: 0, minute: 0, period: "AM");
+  // ignore: prefer_final_fields
+  DateTime _now = DateTime.now();
 
-  set dropdownHourValue(String? newValue) {
-    _dropdownHourValue = newValue!;
-    notifyListeners();
-  }
-  String get dropdownHourValue => _dropdownHourValue;
+  DateTime _suggestedSleepTime1 = DateTime(2021, 1, 1, 0, 0);
+  DateTime _suggestedSleepTime2 = DateTime(2021, 1, 1, 0, 0);
+  DateTime _suggestedSleepTime3 = DateTime(2021, 1, 1, 0, 0);
 
-  set dropdownMinuteValue(String? newValue) {
-    _dropdownMinuteValue = newValue!;
-    notifyListeners();
-  }
-  String get dropdownMinuteValue => _dropdownMinuteValue;
+  DateTime get suggestedSleepTime1 => _suggestedSleepTime1;
+  DateTime get suggestedSleepTime2 => _suggestedSleepTime2;
+  DateTime get suggestedSleepTime3 => _suggestedSleepTime3;
 
-  set dropdownValue(String? newValue) {
-    _dropdownPeriodValue = newValue!;
-    notifyListeners();
-  }
-  String get dropdownValue => _dropdownPeriodValue;
+  bool _isFirstSleepSuggestedClick = false;
+  bool _isSecondSleepSuggestedClick = false;
+  bool _isThirdSleepSuggestedClick = false;
 
+  //! Get set for bed time
   set bedTimeBtnSelected(newValue) {
     _isBedTimeBtnClick = newValue;
     notifyListeners();
   }
 
   get bedTimeBtnSelected => _isBedTimeBtnClick;
-
-  set averageSleep(newValue) {
-    _averageSleep = newValue;
-    notifyListeners();
-  }
-
-  double get averageSleep => _averageSleep;
-
-  set firstSleepButtonSelected(newValue) {
-    _firstSleepButtonSelected = newValue;
-    notifyListeners();
-  }
-
-  get getFirstSleepButtonSelected => _firstSleepButtonSelected;
-
-  set secondSleepButtonSelected(newValue) {
-    _secondSleepButtonSelected = newValue;
-    notifyListeners();
-  }
-
-  get getSecondSleepButtonSelected => _secondSleepButtonSelected;
-
-  set thirdSleepButtonSelected(newValue) {
-    _thirdSleepButtonSelected = newValue;
-    notifyListeners();
-  }
-
-  get getThirdSleepButtonSelected => _thirdSleepButtonSelected;
-
-  set alarmValue(newValue) {
-    _alarmValue = newValue;
-    notifyListeners();
-  }
-
-  get alarmValue => _alarmValue;
 
   set showBestSleepTime(newValue) {
     _showBestSleepTime = newValue;
@@ -110,130 +56,40 @@ class SleepViewModel extends ChangeNotifier {
 
   get showBestSleepTime => _showBestSleepTime;
 
-  void calculateSleepTime() {
-    //calculate first suggested sleep time
-    _suggestedSleepTime1.minute = int.parse(_dropdownMinuteValue) - 45;
-    if (_suggestedSleepTime1.minute < 0) {
-      _suggestedSleepTime1.minute = 60 + _suggestedSleepTime1.minute;
-      _suggestedSleepTime1.hour = int.parse(_dropdownHourValue) - 7 - 1;
-      if (_suggestedSleepTime1.hour < 0) {
-        _suggestedSleepTime1.hour = 12 + _suggestedSleepTime1.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime1.period = "PM";
-        } else {
-          _suggestedSleepTime1.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime1.period = _dropdownPeriodValue;
-      }
-    } else {
-      _suggestedSleepTime1.hour = int.parse(_dropdownHourValue) - 7;
-      if (_suggestedSleepTime1.hour < 0) {
-        _suggestedSleepTime1.hour = 12 + _suggestedSleepTime1.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime1.period = "PM";
-        } else {
-          _suggestedSleepTime1.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime1.period = _dropdownPeriodValue;
-      }
-    }
-
-    //calculate second suggested sleep time
-    _suggestedSleepTime2.minute = int.parse(_dropdownMinuteValue) - 15;
-    if (_suggestedSleepTime2.minute < 0) {
-      _suggestedSleepTime2.minute = 60 + _suggestedSleepTime2.minute;
-      _suggestedSleepTime2.hour = int.parse(_dropdownHourValue) - 6 - 1;
-      if (_suggestedSleepTime2.hour < 0) {
-        _suggestedSleepTime2.hour = 12 + _suggestedSleepTime2.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime2.period = "PM";
-        } else {
-          _suggestedSleepTime2.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime2.period = _dropdownPeriodValue;
-      }
-    } else {
-      _suggestedSleepTime2.hour = int.parse(_dropdownHourValue) - 6;
-      if (_suggestedSleepTime2.hour < 0) {
-        _suggestedSleepTime2.hour = 12 + _suggestedSleepTime2.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime2.period = "PM";
-        } else {
-          _suggestedSleepTime2.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime2.period = _dropdownPeriodValue;
-      }
-    }
-
-    //calculate third suggested sleep time
-    _suggestedSleepTime3.minute = int.parse(_dropdownMinuteValue) - 45;
-    if (_suggestedSleepTime3.minute < 0) {
-      _suggestedSleepTime3.minute = 60 + _suggestedSleepTime3.minute;
-      _suggestedSleepTime3.hour = int.parse(_dropdownHourValue) - 4 - 1;
-      if (_suggestedSleepTime3.hour < 0) {
-        _suggestedSleepTime3.hour = 12 + _suggestedSleepTime3.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime3.period = "PM";
-        } else {
-          _suggestedSleepTime3.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime3.period = _dropdownPeriodValue;
-      }
-    } else {
-      _suggestedSleepTime3.hour = int.parse(_dropdownHourValue) - 4;
-      if (_suggestedSleepTime3.hour < 0) {
-        _suggestedSleepTime3.hour = 12 + _suggestedSleepTime3.hour;
-        if (dropdownValue == "AM") {
-          _suggestedSleepTime3.period = "PM";
-        } else {
-          _suggestedSleepTime3.period = "AM";
-        }
-      } else {
-        _suggestedSleepTime3.period = _dropdownPeriodValue;
-      }
-    }
-
+  set isFirstSleepSuggestedClick(newVal) {
+    _isFirstSleepSuggestedClick = newVal;
     notifyListeners();
   }
 
-  Time get suggestedSleepTime1 => _suggestedSleepTime1;
-  Time get suggestedSleepTime2 => _suggestedSleepTime2;
-  Time get suggestedSleepTime3 => _suggestedSleepTime3;
+  bool get isFirstSleepSuggestedClick => _isFirstSleepSuggestedClick;
 
-  //* Best wake up time
-  set showBestWakeupTime(newValue) {
-    _showBestWakeupTime = newValue;
+  set isSecondSleepSuggestedClick(newVal) {
+    _isSecondSleepSuggestedClick = newVal;
     notifyListeners();
   }
 
-  get showBestWakeupTime => _showBestWakeupTime;
-  
-  set firstWakeupButtonSelected(newValue) {
-    _firstWakeupButtonSelected = newValue;
+  bool get isSecondSleepSuggestedClick => _isSecondSleepSuggestedClick;
+
+  set isThirdSleepSuggestedClick(newVal) {
+    _isThirdSleepSuggestedClick = newVal;
     notifyListeners();
   }
 
-  get getFirstWakeupButtonSelected => _firstWakeupButtonSelected;
+  bool get isThirdSleepSuggestedClick => _isThirdSleepSuggestedClick;
 
-  set secondWakeupButtonSelected(newValue) {
-    _secondWakeupButtonSelected = newValue;
-    notifyListeners();
-  }
+  //! For wakeup time
+  bool _isWakeupTimeBtnClick = false; //* for the calculate bed time button
+  bool _showBestWakeupTime = false;
 
-  get getSecondWakeupButtonSelected => _secondWakeupButtonSelected;
+  DateTime _suggestedWakeupTime1 = DateTime(2021, 1, 1, 0, 0);
+  DateTime _suggestedWakeupTime2 = DateTime(2021, 1, 1, 0, 0);
+  DateTime _suggestedWakeupTime3 = DateTime(2021, 1, 1, 0, 0);
 
-  set thirdWakeupButtonSelected(newValue) {
-    _thirdWakeupButtonSelected = newValue;
-    notifyListeners();
-  }
+  DateTime get suggestedWakeupTime1 => _suggestedWakeupTime1;
+  DateTime get suggestedWakeupTime2 => _suggestedWakeupTime2;
+  DateTime get suggestedWakeupTime3 => _suggestedWakeupTime3;
 
-  get getThirdWakeupButtonSelected => _thirdWakeupButtonSelected;
-
+  //! Get set for wakeup time
   set wakeupTimeBtnSelected(newValue) {
     _isWakeupTimeBtnClick = newValue;
     notifyListeners();
@@ -241,154 +97,103 @@ class SleepViewModel extends ChangeNotifier {
 
   get wakeupTimeBtnSelected => _isWakeupTimeBtnClick;
 
-  Time get suggestedWakeupTime1 => _suggestedWakeupTime1;
-  Time get suggestedWakeupTime2 => _suggestedWakeupTime2;
-  Time get suggestedWakeupTime3 => _suggestedWakeupTime3;
-
-  set alarmWakeupTime(newValue) {
-    _alarmWakeupTime = newValue;
+  set showBestWakeupTime(newValue) {
+    _showBestWakeupTime = newValue;
     notifyListeners();
   }
 
-  get alarmWakeupTime => _alarmWakeupTime;
+  get showBestWakeupTime => _showBestWakeupTime;
 
-  void calculateBestWakeupTime() {
-    _now = TimeOfDay.now();
-    int nowMinute = _now.minute;
-    int nowHour = _now.hourOfPeriod;
-    DayPeriod nowPeriod = _now.period;
+  //! Calculate bed time
+  void calculateSleepTime() {
+    _suggestedSleepTime1 = _wakeupTime.subtract(Duration(
+      hours: secondCycle.hour,
+      minutes: firstCycle.minute,
+    ));
 
-    //* Calculate the first wakeup time
-    _suggestedWakeupTime1.minute = nowMinute + 15;
-    if (_suggestedWakeupTime1.minute >= 60) {
-      _suggestedWakeupTime1.hour = nowHour + 1 + 6;
-      _suggestedWakeupTime1.minute = _suggestedWakeupTime1.minute - 60;
-    } else {
-      _suggestedWakeupTime1.hour = nowHour + 6;
-    }
-    if (_suggestedWakeupTime1.hour > 12) {
-      _suggestedWakeupTime1.hour = _suggestedWakeupTime1.hour - 12;
-      if (nowPeriod == DayPeriod.am) {
-        _suggestedWakeupTime1.period = 'PM';
-      } else {
-        _suggestedWakeupTime1.period = 'AM';
-      }
-    }
-    if (_suggestedWakeupTime1.hour == 12 && nowPeriod == DayPeriod.pm) {
-      _suggestedWakeupTime1.hour = 0;
-    }
+    _suggestedSleepTime2 = _wakeupTime.subtract(Duration(
+      hours: firstCycle.hour,
+      minutes: secondCycle.minute,
+    ));
 
-    //* Calculate the second wakeup time
-    _suggestedWakeupTime2.minute = nowMinute + 15 + 30;
-    if (_suggestedWakeupTime2.minute > 60) {
-      _suggestedWakeupTime2.hour = nowHour + 1 + 4;
-      _suggestedWakeupTime2.minute = _suggestedWakeupTime2.minute - 60;
-    } else {
-      _suggestedWakeupTime2.hour = nowHour + 4;
-    }
-    if (_suggestedWakeupTime2.hour > 12) {
-      _suggestedWakeupTime2.hour = _suggestedWakeupTime2.hour - 12;
-      if (nowPeriod == DayPeriod.am) {
-        _suggestedWakeupTime2.period = 'PM';
-      } else {
-        _suggestedWakeupTime2.period = 'AM';
-      }
-    }
-    if (_suggestedWakeupTime2.hour == 12 &&
-        _suggestedWakeupTime2.period == 'PM') {
-      _suggestedWakeupTime2.hour = 0;
-    }
-
-    //* Calculate the final wakeup time
-    _suggestedWakeupTime3.minute = nowMinute + 15 + 30;
-    if (_suggestedWakeupTime3.minute > 60) {
-      _suggestedWakeupTime3.hour = nowHour + 1 + 7;
-      _suggestedWakeupTime3.minute = _suggestedWakeupTime3.minute - 60;
-    } else {
-      _suggestedWakeupTime3.hour = nowHour + 4;
-    }
-    if (_suggestedWakeupTime3.hour > 12) {
-      _suggestedWakeupTime3.hour = _suggestedWakeupTime3.hour - 12;
-      if (nowPeriod == DayPeriod.am) {
-        _suggestedWakeupTime3.period = 'PM';
-      } else {
-        _suggestedWakeupTime3.period = 'AM';
-      }
-    }
-    if (_suggestedWakeupTime3.hour == 12 &&
-        _suggestedWakeupTime3.period == 'PM') {
-      _suggestedWakeupTime3.hour = 0;
-    }
-  }
-
-  late DateTime startOfWeek;
-  late DateTime endOfWeek;
-
-  DateTime currentTime = DateTime.now();
-
-  DateTime calculateStartOfWeek(DateTime dateTime) {
-    return startOfWeek =
-        dateTime.subtract(Duration(days: currentTime.weekday - 1));
-  }
-
-  DateTime calculateEndOfWeek(DateTime dateTime) {
-    return endOfWeek = dateTime
-        .add(Duration(days: DateTime.daysPerWeek - currentTime.weekday));
-  }
-
-  String formatDateTime(bool isCollection, DateTime dateTime) {
-    if (isCollection) {
-      return DateFormat('ddMMyyyy').format(dateTime);
-    } else {
-      return DateFormat('dd-MM').format(dateTime);
-    }
-  }
-
-  Future<void> pushDataToFirestore(BuildContext context) async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-
-    String colPath =
-        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
-    String docPath = formatDateTime(false, currentTime);
-
-    AuthenticService authenticService =
-        Provider.of<AuthenticService>(context, listen: false);
-
-    // await firebaseFirestore
-    //     .collection(FireStoreConstants.pathWaterCollection)
-    //     .doc(_firebaseAuth.currentUser?.uid) 
-    //     .collection(colPath)
-    //     .doc(docPath)
-    //     .set(waterData.toJson())
-    //     .catchError((e) {});
+    _suggestedSleepTime3 = _wakeupTime.subtract(Duration(
+      hours: thirdCycle.hour,
+      minutes: thirdCycle.minute,
+    ));
 
     notifyListeners();
   }
 
-  Future<void> pushDataToFirestore2(BuildContext context) async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  //! Calculate wakeup time
+  void calculateWakeupTime() {
+    _suggestedWakeupTime1 = _now.add(Duration(
+      hours: secondCycle.hour,
+      minutes: firstCycle.minute,
+    ));
 
-    String colPath =
-        '${formatDateTime(true, calculateStartOfWeek(currentTime))}-${formatDateTime(true, calculateEndOfWeek(currentTime))}';
+    _suggestedWakeupTime2 = _now.add(Duration(
+      hours: firstCycle.hour,
+      minutes: secondCycle.minute,
+    ));
 
-    AuthenticService authenticService =
-        Provider.of<AuthenticService>(context, listen: false);
+    _suggestedWakeupTime3 = _now.add(Duration(
+      hours: thirdCycle.hour,
+      minutes: thirdCycle.minute,
+    ));
 
-    for (int i = currentTime.weekday; i <= 7; i++) {
-      DateTime dateTime = startOfWeek.add(Duration(days: i - 1));
-      var secondeData = SleepData(sleepHours: 0, idSleep: 0);
-
-      // await firebaseFirestore
-      //     .collection(FireStoreConstants.pathWaterCollection)
-      //     .doc(_firebaseAuth.currentUser?.uid)
-      //     .collection(colPath)
-      //     .doc(formatDateTime(false, dateTime))
-      //     .set(formatDateTime(true, dateTime) ==
-      //             formatDateTime(true, currentTime)
-      //         ? _waterData.toJson()
-      //         : secondeData.toJson())
-      //     .catchError((e) {});
-    }
     notifyListeners();
+  }
+
+  void calculateRemindersLeft(BuildContext context) {
+    DateTime sleepTime =
+        Provider.of<AuthenticService>(context).loggedInUser.sleepTime ??
+            DateTime.now();
+    DateTime now = DateTime.now();
+
+    if (_isFirstSleepSuggestedClick) {
+      sleepTime = _suggestedSleepTime1;
+    }
+    if (_isSecondSleepSuggestedClick) {
+      sleepTime = _suggestedSleepTime2;
+    }
+    if (_isThirdSleepSuggestedClick) {
+      sleepTime = _suggestedSleepTime3;
+    }
+
+    duration = Duration(
+      hours: (sleepTime.hour == 0 ? 24 : sleepTime.hour) -
+                  (now.hour == 0 ? 24 : now.hour) <
+              0
+          ? now.hour - sleepTime.hour
+          : sleepTime.hour - now.hour,
+      minutes: sleepTime.minute - now.minute < 0
+          ? now.minute - sleepTime.minute
+          : sleepTime.minute - now.minute,
+    );
+
+    print(sleepTime.hour);
+    print(sleepTime.minute);
+    print(now.hour);
+    print(now.minute);
+
+    timer = Timer.periodic(
+      duration,
+      (timer) {
+        //const minusSecond = 1;
+        const minusMinute = 1;
+        final minutes = duration.inMinutes - minusMinute;
+        //final seconds = duration.inSeconds - minusSecond;
+        //duration = Duration(seconds: seconds);
+        duration = Duration(minutes: minutes);
+        print(duration);
+      },
+    );
+
+    notifyListeners();
+  }
+
+  void resetSleepInfo() {
+    _showBestSleepTime = false;
+    _showBestWakeupTime = false;
   }
 }

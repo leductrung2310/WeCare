@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
-import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../view_model/home_vm/sleep_view_model.dart';
 
 class BestTimeToSleep extends StatelessWidget {
   const BestTimeToSleep({Key? key}) : super(key: key);
@@ -19,16 +16,12 @@ class BestTimeToSleep extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final sleepViewModel = Provider.of<SleepViewModel>(context);
-    final sleepViewModelNoListen =
-        Provider.of<SleepViewModel>(context, listen: false);
-    final notificationViewModel =
-        Provider.of<NotificationService>(context, listen: false);
 
     return Padding(
       padding: const EdgeInsets.all(16),
       child: AnimatedContainer(
         height: sleepViewModel.showBestSleepTime ? sizeV * 20 : 0,
-        width: sizeH * 88,
+        width: sizeH * 90,
         alignment: sleepViewModel.showBestSleepTime
             ? Alignment.center
             : AlignmentDirectional.topCenter,
@@ -45,7 +38,7 @@ class BestTimeToSleep extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -70,43 +63,23 @@ class BestTimeToSleep extends StatelessWidget {
                       ),
                       CustomBTN(
                         name:
-                            "${sleepViewModel.suggestedSleepTime1.hour}:${sleepViewModel.suggestedSleepTime1.minute} ${sleepViewModel.suggestedSleepTime1.period} (Suggested)",
+                            "${DateFormat.Hm().format(sleepViewModel.suggestedSleepTime1)} (Suggested)",
                         onPressed: () {
-                                                    sleepViewModel.firstSleepButtonSelected =
-                              !sleepViewModel.getFirstSleepButtonSelected;
-                          sleepViewModel.secondSleepButtonSelected = false;
-                          sleepViewModel.thirdSleepButtonSelected = false;
-                          Provider.of<SleepViewModel>(context, listen: false)
-                              .selectedSleepButton = 0;
-                          if (sleepViewModelNoListen.alarmValue) {
-                            DateTime dateTime = DateTime(
-                              DateTime.now().year,
-                              DateTime.now().month,
-                              DateTime.now().day,
-                              sleepViewModel.suggestedSleepTime1.hour,
-                              sleepViewModel.suggestedSleepTime1.minute,
-                            );
-                            notificationViewModel.cancelNotification();
-                            notificationViewModel.sheduledNotification(
-                              1,
-                              'Sleep',
-                              'It is time to sleep',
-                              dateTime,
-                            );
-                          }
+                          sleepViewModel.isFirstSleepSuggestedClick =
+                              !sleepViewModel.isFirstSleepSuggestedClick;
+                          sleepViewModel.isSecondSleepSuggestedClick = false;
+                          sleepViewModel.isThirdSleepSuggestedClick = false;
                         },
-                        textColor:
-                            sleepViewModel.getFirstSleepButtonSelected == true
-                                ? whiteColor
-                                : sleepColor,
-                        color:
-                            sleepViewModel.getFirstSleepButtonSelected == true
-                                ? sleepColor
-                                : whiteColor,
                         height:
                             sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
                         width: sizeH * 65,
                         fontSize: sizeH * 5,
+                        textColor: sleepViewModel.isFirstSleepSuggestedClick
+                            ? whiteColor
+                            : sleepColor,
+                        color: sleepViewModel.isFirstSleepSuggestedClick
+                            ? sleepColor
+                            : whiteColor,
                       ),
                       SizedBox(
                         width: sizeH * 65,
@@ -114,95 +87,52 @@ class BestTimeToSleep extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomBTN(
-                              name:
-                                  "${sleepViewModel.suggestedSleepTime2.hour}:${sleepViewModel.suggestedSleepTime2.minute} ${sleepViewModel.suggestedSleepTime2.period}",
+                              name: DateFormat.Hm()
+                                  .format(sleepViewModel.suggestedSleepTime2),
                               onPressed: () {
-                                Provider.of<SleepViewModel>(context,
-                                        listen: false)
-                                    .selectedSleepButton = 1;
-                                notificationViewModel.cancelNotification();
-                                if (sleepViewModelNoListen.alarmValue) {
-                                  DateTime dateTime = DateTime(
-                                    DateTime.now().year,
-                                    DateTime.now().month,
-                                    DateTime.now().day,
-                                    sleepViewModel.suggestedSleepTime2.hour,
-                                    sleepViewModel.suggestedSleepTime2.minute,
-                                  );
-                                  notificationViewModel.cancelNotification();
-                                  notificationViewModel.sheduledNotification(
-                                    1,
-                                    'Sleep',
-                                    'It is time to sleep',
-                                    dateTime,
-                                  );
-                                }
-                                sleepViewModel.secondSleepButtonSelected =
-                                    !sleepViewModel
-                                        .getSecondSleepButtonSelected;
-                                sleepViewModel.firstSleepButtonSelected = false;
-                                sleepViewModel.thirdSleepButtonSelected = false;
+                                sleepViewModel.isSecondSleepSuggestedClick =
+                                    !sleepViewModel.isSecondSleepSuggestedClick;
+                                sleepViewModel.isFirstSleepSuggestedClick =
+                                    false;
+                                sleepViewModel.isThirdSleepSuggestedClick =
+                                    false;
                               },
-                              textColor:
-                                  sleepViewModel.getSecondSleepButtonSelected ==
-                                          true
-                                      ? whiteColor
-                                      : sleepColor,
-                              color:
-                                  sleepViewModel.getSecondSleepButtonSelected ==
-                                          true
-                                      ? sleepColor
-                                      : whiteColor,
                               height: sleepViewModel.showBestSleepTime
                                   ? sizeV * 5
                                   : 0,
                               width: sizeH * 30,
                               widthBorder: 1,
                               radius: 10,
+                              textColor:
+                                  sleepViewModel.isSecondSleepSuggestedClick
+                                      ? whiteColor
+                                      : lightBlack,
+                              color: sleepViewModel.isSecondSleepSuggestedClick
+                                  ? sleepColor
+                                  : whiteColor,
                             ),
                             CustomBTN(
-                              name:
-                                  "${sleepViewModel.suggestedSleepTime3.hour}:${sleepViewModel.suggestedSleepTime3.minute} ${sleepViewModel.suggestedSleepTime3.period} ",
+                              name: DateFormat.Hm()
+                                  .format(sleepViewModel.suggestedSleepTime3),
                               onPressed: () {
-                                Provider.of<SleepViewModel>(context,
-                                        listen: false)
-                                    .selectedSleepButton = 2;
-                                if (sleepViewModelNoListen.alarmValue) {
-                                  DateTime dateTime = DateTime(
-                                    DateTime.now().year,
-                                    DateTime.now().month,
-                                    DateTime.now().day,
-                                    sleepViewModel.suggestedSleepTime3.hour,
-                                    sleepViewModel.suggestedSleepTime3.minute,
-                                  );
-                                  notificationViewModel.cancelNotification();
-                                  notificationViewModel.sheduledNotification(
-                                    1,
-                                    'Sleep',
-                                    'It is time to sleep',
-                                    dateTime,
-                                  );
-                                }
-                                sleepViewModel.thirdSleepButtonSelected =
-                                    !sleepViewModel.getThirdSleepButtonSelected;
-                                sleepViewModel.firstSleepButtonSelected = false;
-                                sleepViewModel.secondSleepButtonSelected =
+                                sleepViewModel.isThirdSleepSuggestedClick =
+                                    !sleepViewModel.isThirdSleepSuggestedClick;
+                                sleepViewModel.isSecondSleepSuggestedClick =
+                                    false;
+                                sleepViewModel.isFirstSleepSuggestedClick =
                                     false;
                               },
-                              textColor:
-                                  sleepViewModel.getThirdSleepButtonSelected ==
-                                          true
-                                      ? whiteColor
-                                      : sleepColor,
-                              color:
-                                  sleepViewModel.getThirdSleepButtonSelected ==
-                                          true
-                                      ? sleepColor
-                                      : whiteColor,
                               height: sleepViewModel.showBestSleepTime
                                   ? sizeV * 5
                                   : 0,
                               width: sizeH * 30,
+                              textColor:
+                                  sleepViewModel.isThirdSleepSuggestedClick
+                                      ? whiteColor
+                                      : lightBlack,
+                              color: sleepViewModel.isThirdSleepSuggestedClick
+                                  ? sleepColor
+                                  : whiteColor,
                             ),
                           ],
                         ),
@@ -210,96 +140,20 @@ class BestTimeToSleep extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
                         onPressed: () {
-                          Provider.of<SleepViewModel>(context, listen: false)
-                              .showBestSleepTime = false;
+                          sleepViewModel.showBestSleepTime = false;
                         },
                         icon: const Icon(
-                          Icons.keyboard_arrow_up,
+                          Icons.arrow_circle_up,
                           color: sleepColor,
+                          size: 35,
                         ),
                       ),
-                      Text(
-                        "Alarm",
-                        style: oBlackTitle,
-                      ),
-                      CupertinoSwitch(
-                        value: sleepViewModel.alarmValue,
-                        onChanged: (newValue) {
-                          Provider.of<SleepViewModel>(context, listen: false)
-                              .alarmValue = newValue;
-                          if (!newValue) {
-                            notificationViewModel.cancelNotification();
-                            sleepViewModelNoListen.selectedSleepButton = -1;
-                          if (sleepViewModel.getFirstSleepButtonSelected ==
-                                  false ||
-                              sleepViewModel.getSecondSleepButtonSelected ==
-                                  false ||
-                              sleepViewModel.getThirdSleepButtonSelected ==
-                                  false) {
-                            Fluttertoast.showToast(
-                                msg: 'Please choose time to sleep!');
-                          } else {
-                            switch (
-                                sleepViewModelNoListen.selectedSleepButton) {
-                              case 0:
-                                DateTime dateTime = DateTime(
-                                  DateTime.now().year,
-                                  DateTime.now().month,
-                                  DateTime.now().day,
-                                  sleepViewModel.suggestedSleepTime1.hour,
-                                  sleepViewModel.suggestedSleepTime1.minute,
-                                );
-                                notificationViewModel.cancelNotification();
-                                notificationViewModel.sheduledNotification(
-                                  1,
-                                  'Sleep',
-                                  'It is time to sleep',
-                                  dateTime,
-                                );
-                                break;
-                              case 1:
-                                DateTime dateTime = DateTime(
-                                  DateTime.now().year,
-                                  DateTime.now().month,
-                                  DateTime.now().day,
-                                  sleepViewModel.suggestedSleepTime2.hour,
-                                  sleepViewModel.suggestedSleepTime2.minute,
-                                );
-                                notificationViewModel.cancelNotification();
-                                notificationViewModel.sheduledNotification(
-                                  1,
-                                  'Sleep',
-                                  'It is time to sleep',
-                                  dateTime,
-                                );
-                                break;
-                              case 2:
-                                DateTime dateTime = DateTime(
-                                  DateTime.now().year,
-                                  DateTime.now().month,
-                                  DateTime.now().day,
-                                  sleepViewModel.suggestedSleepTime3.hour,
-                                  sleepViewModel.suggestedSleepTime3.minute,
-                                );
-                                notificationViewModel.cancelNotification();
-                                notificationViewModel.sheduledNotification(
-                                  1,
-                                  'Sleep',
-                                  'It is time to sleep',
-                                  dateTime,
-                                );
-                                break;
-                            }
-                          }
-                        },
-                        activeColor: sleepColor,
-                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

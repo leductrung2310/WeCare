@@ -4,7 +4,7 @@ import 'package:svg_icon/svg_icon.dart';
 import '../../../../constants/constants.dart';
 
 class HomeItem extends StatelessWidget {
-  const HomeItem({
+  HomeItem({
     Key? key,
     required this.color,
     required this.name,
@@ -22,7 +22,7 @@ class HomeItem extends StatelessWidget {
   final String name;
   final Color color;
   final String assetIcon;
-  final double index;
+  final String index;
   final double coefficient;
   final String unit;
   final Widget child;
@@ -94,11 +94,7 @@ class HomeItem extends StatelessWidget {
                     color: lightBlack,
                   ),
                   children: [
-                    TextSpan(
-                      text: index.toStringAsFixed(
-                        index.truncateToDouble() == index ? 1 : 2,
-                      ),
-                    ),
+                    TextSpan(text: index),
                     TextSpan(
                       text: unit,
                       style: TextStyle(

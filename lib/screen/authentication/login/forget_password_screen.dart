@@ -3,8 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
-import 'package:wecare_flutter/screen/authentication/login/widget/login_input_text_field.dart';
-import 'package:wecare_flutter/screen/authentication/register/widget/register_input_infor_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_text_field.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/history_workouts_day.dart';
 import 'package:wecare_flutter/model/exercise/total_weekly_history.dart';
 import 'package:wecare_flutter/model/exercise/total_workout.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 
@@ -27,6 +28,8 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
   List<ChartData> _listData = [];
 
   double _totalDailyKcal = 0;
+  int _totalDailyMinute = 0;
+  int _totalDailyWorkout = 0;
 
   DateTime _currentTime = DateTime.now();
   late DateTime startOfWeek =
@@ -132,8 +135,22 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void plusTotalDailyWorkouts(double kcal) {
-    _totalDailyKcal += kcal;
+  int get totalDailyMinute => _totalDailyMinute;
+  set totalDailyMinute(newVal) {
+    _totalDailyMinute = newVal;
+    notifyListeners();
+  }
+
+  int get totalDailyWorkout => _totalDailyWorkout;
+  set totalDailyWorkout(newVal) {
+    _totalDailyWorkout = newVal;
+    notifyListeners();
+  }
+
+  void plusTotalDailyHistory(int workouts, int minute, double kcal) {
+    totalDailyWorkout += workouts;
+    totalDailyMinute += minute;
+    totalDailyKcal += kcal;
     notifyListeners();
   }
 
@@ -236,10 +253,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
       totalWorkoutsFromDB = TotalWorkouts.fromMap(value.data());
     });
 
-    print(totalWorkouts);
-    print(totalMinutes);
-    print(totalKcal);
-
     totalWorkouts = totalWorkoutsFromDB.totalWorkouts;
     totalMinutes = totalWorkoutsFromDB.totalMinutes;
     totalKcal = totalWorkoutsFromDB.totalKcal;
@@ -256,16 +269,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     totalWeeklyWorkouts = 0;
     listHistory = [];
     listDay = [];
-
-    print(totalWorkouts);
-    print(totalMinutes);
-    print(totalKcal);
-    print(week);
-    print(totalWeeklyKcal);
-    print(totalWeeklyMinutes);
-    print(totalWeeklyWorkouts);
-    print(listHistory);
-    print(listDay);
   }
 
   resetHistoryChart({int i = 1}) {
@@ -465,6 +468,7 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
       BuildContext context, String subDocument) async {
     String subDoc = getSubDocument(context);
     subDocument != "" ? subDocument = subDocument : subDocument = subDoc;
+    final auth = Provider.of<AuthenticService>(context);
 
     await FirebaseFirestore.instance
         .collection("workoutsHistory")
@@ -477,10 +481,17 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .then(
       (value) {
         if (value.data() == null) {
-          totalWeeklyKcal = 0.0;
+          totalDailyKcal = 0.0;
+          totalDailyWorkout = 0;
+          totalMinutes = 0;
         } else {
-          totalWeeklyKcal = ChartData.fromMap(value.data()).totalKcalDay;
+          totalDailyKcal = ChartData.fromMap(value.data()).totalKcalDay;
+          totalMinutes = ChartData.fromMap(value.data()).totalMinuteDay;
+          totalDailyWorkout = ChartData.fromMap(value.data()).totalWorkoutsDay;
         }
+        print(totalDailyKcal);
+        print(totalMinutes);
+        print(totalMinutes);
         notifyListeners();
       },
     );
@@ -491,6 +502,8 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
     final charData = ChartData();
 
     charData.totalKcalDay = totalDailyKcal;
+    charData.totalMinuteDay = totalDailyMinute;
+    charData.totalWorkoutsDay = totalDailyWorkout;
 
     await firebasefirestore
         .collection("workoutsHistory")
@@ -500,6 +513,5 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .collection("chart")
         .doc(getCurrentDay())
         .set(charData.toJson());
-    print(charData.totalKcalDay);
   }
 }

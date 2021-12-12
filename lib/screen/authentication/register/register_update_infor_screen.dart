@@ -27,7 +27,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: sizeH * 5, top: 0),
+                  padding: EdgeInsets.only(left: sizeH * 5, top: 8),
                   child: Text(
                     "Almost There\nLet's us know about you",
                     style: TextStyle(

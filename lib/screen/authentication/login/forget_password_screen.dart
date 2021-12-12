@@ -27,7 +27,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: sizeV * 2),
+              SizedBox(height: sizeV * 15),
               Image.asset(
                 'assets/images/authentication/forget_password.png',
               ),
@@ -49,7 +49,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   },
                   onFieldSubmitted: (value) {},
                   focusNode: emailFoucs),
-              SizedBox(height: sizeV * 2),
+              SizedBox(height: sizeV * 5),
               loginViewModel.isLoadingSendEmail
                   ? const CircularProgressIndicator()
                   : CustomTextBtn(

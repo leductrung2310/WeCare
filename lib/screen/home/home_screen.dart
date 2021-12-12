@@ -78,14 +78,14 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(width: sizeH * 7.5),
+                  SizedBox(width: sizeH * 3),
                   CircleAvatar(
                     backgroundImage: NetworkImage(Provider.of<AuthenticService>(
                                 context)
                             .loggedInUser
                             .avatarUrl ??
                         'https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e'),
-                    radius: sizeV * 2.8,
+                    radius: sizeV * 3.5,
                   ),
                 ],
               ),

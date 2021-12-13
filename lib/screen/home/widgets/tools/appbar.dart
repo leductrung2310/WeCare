@@ -20,6 +20,8 @@ AppBar customAppBar(
             .getTotalWeeklyHistoryToFirestore(context, "");
         Provider.of<WaterViewModel>(context, listen: false).resetChart();
         Provider.of<SleepViewModel>(context, listen: false).resetSleepInfo();
+        print(Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+            .isLoadingWorkouts);
       },
       icon: Icon(
         Icons.arrow_back_ios_new,

@@ -23,9 +23,9 @@ class BMIHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double calculateBMIratio(double? height, double? weight) {
+  double calculateBMIratio(double height, double weight) {
     return double.parse(
-        ((weight ?? 10) / ((height ?? 30) * 0.02)).toStringAsFixed(2));
+        (weight / ((height * height) * 0.0001)).toStringAsFixed(2));
   }
 
   void resetInfo() {
@@ -38,10 +38,8 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
-    double ratio = calculateBMIratio(authenticService.loggedInUser.height,
-        authenticService.loggedInUser.weight);
-
-    BMIRatio bmiRatio = BMIRatio();
+    double ratio = calculateBMIratio(authenticService.loggedInUser.height!,
+        authenticService.loggedInUser.weight!);
 
     DateTime now = DateTime.now();
 

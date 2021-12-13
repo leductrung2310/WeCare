@@ -9,6 +9,7 @@ import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
@@ -42,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
         .getTotalWeeklyHistoryToFirestore(context, "");
     Provider.of<FoodViewModel>(context, listen: false)
         .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
-    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getWeekGoal(context);
     Provider.of<BMIHistoryViewModel>(context, listen: false)
         .getDataFromFirestore();

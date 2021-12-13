@@ -31,6 +31,10 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
   int _totalDailyMinute = 0;
   int _totalDailyWorkout = 0;
 
+  bool _isLoadingWorkouts = false;
+  bool _isLoadingChart = false;
+  bool _isLoadingWorkoutHome = false;
+
   DateTime _currentTime = DateTime.now();
   late DateTime startOfWeek =
       _currentTime.subtract(Duration(days: currentTime.weekday - 1));
@@ -40,9 +44,6 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
   DateTime get getStartOfWeek => startOfWeek;
 
   DateTime get getEndOfWeek => endOfWeek;
-
-  bool _isLoadingWorkouts = false;
-  bool _isLoadingChart = false;
 
   int get totalWorkouts => _totalWorkouts;
   set totalWorkouts(newVal) {
@@ -120,6 +121,12 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
   bool get isLoadingChart => _isLoadingChart;
   set isLoadingChart(newVal) {
     _isLoadingChart = newVal;
+    notifyListeners();
+  }
+
+  bool get isLoadingWorkoutHome => _isLoadingWorkoutHome;
+  set isLoadingWorkoutHome(newVal) {
+    _isLoadingWorkoutHome = newVal;
     notifyListeners();
   }
 
@@ -466,10 +473,10 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
 
   Future<void> getTotalDailyWorkoutsFromFireStore(
       BuildContext context, String subDocument) async {
+    isLoadingWorkouts = true;
     String subDoc = getSubDocument(context);
     subDocument != "" ? subDocument = subDocument : subDocument = subDoc;
-    final auth = Provider.of<AuthenticService>(context);
-
+    print("trung");
     await FirebaseFirestore.instance
         .collection("workoutsHistory")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -483,15 +490,23 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         if (value.data() == null) {
           totalDailyKcal = 0.0;
           totalDailyWorkout = 0;
-          totalMinutes = 0;
+          totalDailyMinute = 0;
+
+          isLoadingWorkouts = false;
+          print("trung1");
         } else {
           totalDailyKcal = ChartData.fromMap(value.data()).totalKcalDay;
-          totalMinutes = ChartData.fromMap(value.data()).totalMinuteDay;
+          totalDailyMinute = ChartData.fromMap(value.data()).totalMinuteDay;
           totalDailyWorkout = ChartData.fromMap(value.data()).totalWorkoutsDay;
+
+          isLoadingWorkouts = false;
+          print("trung2");
         }
+        isLoadingWorkouts = false;
+        print("trung3");
         print(totalDailyKcal);
-        print(totalMinutes);
-        print(totalMinutes);
+        print(totalDailyMinute);
+        print(totalDailyWorkout);
         notifyListeners();
       },
     );

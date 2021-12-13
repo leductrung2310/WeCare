@@ -9,6 +9,7 @@ import 'package:wecare_flutter/model/exercise/exercise.dart';
 
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/model/food/recipes.dart';
+import 'package:wecare_flutter/screen/coming_soon.dart';
 import 'package:wecare_flutter/screen/fitness/history_fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/take_rest_screen.dart';
 
@@ -195,6 +196,8 @@ class WeCare extends StatelessWidget {
         return buildRoute(const WaterStatisticScreen(), settings: settings);
       case Routes.fitnessHistoryScreen:
         return buildRoute(const FitnessHistoryScreen(), settings: settings);
+      case Routes.comingSoonScreen:
+        return buildRoute(const ComingSoonScreen(), settings: settings);
 
       default:
         null;

@@ -23,4 +23,5 @@ class Routes {
   static const takerest = '/take_rest_screen';
   static const waterScreenStatistic = '/water_statistic_screen';
   static const fitnessHistoryScreen = '/history_fitness_screen';
+  static const comingSoonScreen = '/coming_soon';
 }

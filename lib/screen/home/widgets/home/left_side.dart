@@ -46,10 +46,10 @@ class LeftSection extends StatelessWidget {
         ),
         SizedBox(height: sizeH * 5),
         HomeItem(
-          color: caloriesColor,
-          name: 'Calories',
-          assetIcon: 'assets/images/home/calories/calories.svg',
-          index: '759',
+          color: primaryColor,
+          name: 'Doctor',
+          assetIcon: 'assets/images/home/walk/doctor.svg',
+          index: '',
           coefficient: 15,
           child: const SizedBox.shrink(),
           left: 5,
@@ -57,7 +57,9 @@ class LeftSection extends StatelessWidget {
           right: 5,
           bottom: 5,
           unit: '',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.comingSoonScreen);
+          },
         ),
       ],
     );

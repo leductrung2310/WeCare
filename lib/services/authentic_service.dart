@@ -108,7 +108,8 @@ class AuthenticService extends ChangeNotifier {
       }
       isLoading = false;
     }
-    Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
+    Provider.of<SleepViewModel>(context, listen: false)
+        .calculateRemindersLeft(context);
   }
 
   String getMessageFromErrorCode(e) {

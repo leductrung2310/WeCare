@@ -144,6 +144,10 @@ class _WaterScreenState extends State<WaterScreen>
             waterViewModel.waterData.waterIndex;
     AuthenticService authenticService = Provider.of<AuthenticService>(context);
 
+    String drink = Provider.of<AuthenticService>(context)
+        .calculateDesiredAmount(context)
+        .toStringAsFixed(2);
+
     if (remained < 0) {
       remained = 0;
     }
@@ -226,11 +230,11 @@ class _WaterScreenState extends State<WaterScreen>
                 ),
                 SizedBox(height: sizeV * 2),
                 Text(
-                  'You should drink at least: ${Provider.of<AuthenticService>(context).calculateDesiredAmount(context)}L',
+                  'You should drink at least: $drink L',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
-                    fontSize: sizeV * 2.5,
+                    fontSize: sizeV * 2.6,
                     color: lightBlack,
                   ),
                 ),

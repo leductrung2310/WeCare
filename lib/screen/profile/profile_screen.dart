@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
@@ -148,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFDDF5F4),
                 iconColor: const Color(0xFF03B0A9),
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.settingScreen);
+                  Navigator.pushNamed(context, Routes.comingSoonScreen);
                 },
               ),
               ProfileCard(
@@ -166,15 +165,7 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFFDBD2F6),
                 iconColor: const Color(0xFF9B81E5),
                 onTap: () {
-                  DateTime time =
-                      DateTime.now().add(const Duration(minutes: 1));
-                  Provider.of<NotificationService>(context, listen: false)
-                      .sheduledNotification(
-                    1,
-                    "Remind",
-                    "Duc Trung đi ngủ",
-                    time,
-                  );
+                  Navigator.pushNamed(context, Routes.comingSoonScreen);
                 },
               ),
               ProfileCardLogout(
@@ -207,10 +198,6 @@ class ProfileScreen extends StatelessWidget {
                   'assets/images/logos/logo.png',
                   scale: sizeH / 2.5,
                 ),
-              ),
-              IconButton(
-                onPressed: () async {},
-                icon: const Icon(Icons.access_alarm),
               ),
             ],
           ),

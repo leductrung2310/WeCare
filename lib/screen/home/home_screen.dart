@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
     try {
       // Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
     } catch (e) {
-      //print(e.toString());  
+      //print(e.toString());
     }
     Provider.of<EditProfileViewModel>(context).getInformationFromFirestore();
 
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: sizeV * 4),
+              SizedBox(height: sizeV * 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

@@ -24,7 +24,6 @@ class LoginScreen extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    final _firebaseAuth = FirebaseAuth.instance;
     final passwordFocus = FocusNode();
     final loginViewModel = Provider.of<LoginViewModel>(context);
     final authService = Provider.of<AuthenticService>(context);

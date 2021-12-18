@@ -83,8 +83,6 @@ void main() async {
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
   uid = prefs.getString('uid') ?? 'null';
 
-  print(uid);
-
   runApp(const WeCare()); 
   configLoading();
 }

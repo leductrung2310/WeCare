@@ -72,10 +72,8 @@ class AuthenticService extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? uid = prefs.getString('uid');
-    print('outside');
 
     if (uid == 'null') {
-      print('is null');
       await FirebaseFirestore.instance
           .collection("users")
           .doc(_firebaseAuth.currentUser?.uid)
@@ -87,7 +85,6 @@ class AuthenticService extends ChangeNotifier {
         notifyListeners();
       });
     } else {
-      print('is not null');
       await FirebaseFirestore.instance
           .collection("users")
           .doc(uid)

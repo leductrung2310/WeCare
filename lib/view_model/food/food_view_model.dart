@@ -62,31 +62,46 @@ class FoodViewModel extends ChangeNotifier {
       },
     );
     _listNutritionHistoryLocal.clear();
-    if (_listNutritionHistory.nutrition1! == '') {
+    if (_listNutritionHistory.nutrition1 == '') {
     } else {
-      if (_listNutritionHistory.nutrition2! == '') {
-        _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition1!);
+      if (_listNutritionHistory.nutrition2 == '') {
+        _listNutritionHistoryLocal
+            .add(_listNutritionHistory.nutrition1 ?? 'No data');
       } else {
-        if (_listNutritionHistory.nutrition3! == '') {
-          _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition1!);
-          _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition2!);
+        if (_listNutritionHistory.nutrition3 == '') {
+          _listNutritionHistoryLocal
+              .add(_listNutritionHistory.nutrition1 ?? 'No data');
+          _listNutritionHistoryLocal
+              .add(_listNutritionHistory.nutrition2 ?? '');
         } else {
-          if (_listNutritionHistory.nutrition4! == '') {
-            _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition1!);
-            _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition2!);
-            _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition3!);
+          if (_listNutritionHistory.nutrition4 == '') {
+            _listNutritionHistoryLocal
+                .add(_listNutritionHistory.nutrition1 ?? '');
+            _listNutritionHistoryLocal
+                .add(_listNutritionHistory.nutrition2 ?? 'No data');
+            _listNutritionHistoryLocal
+                .add(_listNutritionHistory.nutrition3 ?? 'No data');
           } else {
-            if (_listNutritionHistory.nutrition5! == '') {
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition1!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition2!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition3!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition4!);
+            if (_listNutritionHistory.nutrition5 == '') {
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition1 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition2 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition3 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition4 ?? 'No data');
             } else {
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition1!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition2!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition3!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition4!);
-              _listNutritionHistoryLocal.add(_listNutritionHistory.nutrition5!);
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition1 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition2 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition3 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition4 ?? 'No data');
+              _listNutritionHistoryLocal
+                  .add(_listNutritionHistory.nutrition5 ?? 'No data');
             }
           }
         }
@@ -142,7 +157,7 @@ class FoodViewModel extends ChangeNotifier {
               },
             );
           } else {
-            if (_listNutritionHistory.nutrition5! == '') {
+            if (_listNutritionHistory.nutrition5 == '') {
               await FirebaseFirestore.instance
                   .collection('foodHistory')
                   .doc(uid)
@@ -173,20 +188,6 @@ class FoodViewModel extends ChangeNotifier {
         }
       }
     }
-    // if (_listNutritionHistoryLocal.length == 5) {
-    //   await FirebaseFirestore.instance
-    //       .collection('foodHistory')
-    //       .doc(uid)
-    //       .update(
-    //     {
-    //       '1': nutrition,
-    //       '2': listNutritionHistoryLocal[0],
-    //       '3': listNutritionHistoryLocal[1],
-    //       '4': listNutritionHistoryLocal[2],
-    //       '5': listNutritionHistoryLocal[3],
-    //     },
-    //   );
-    // } else {}
   }
 
   get stringSearch => _search;
@@ -206,15 +207,6 @@ class FoodViewModel extends ChangeNotifier {
     _listRecipesDessert = value;
     notifyListeners();
   }
-
-  // List<String> searchNutrition(String query) {
-  //   List<String> _result = [];
-  //   if (query.isEmpty) {
-  //     return _listNutritionHistoryLocal;
-  //   } else {
-  //     return _result;
-  //   }
-  // }
 
   List<String> runFilter() {
     List<String> results = [];
@@ -239,6 +231,9 @@ class FoodViewModel extends ChangeNotifier {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<Food>((json) => Food.fromJson(json)).toList();
   }
+
+  //71b9c284964f4d749ee3efbab13fad1d
+  //71b9c284964f4d749ee3efbab13fad1d
 
   Future<List<Food>> getFoodNutrition(value) async {
     List<Food> list = [];
@@ -265,7 +260,7 @@ class FoodViewModel extends ChangeNotifier {
     ListRecipes listRecipes = ListRecipes(recipes: list);
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/random?number=2&tags=vegetarian,diets&apiKey=11447f4c188241fe8f71e29a79aae712'),
+          'https://api.spoonacular.com/recipes/random?number=2&tags=vegetarian,diets&apiKey=71b9c284964f4d749ee3efbab13fad1d'),
     );
     if (response.statusCode == 200) {
       return parseRecipes(response.body);
@@ -273,8 +268,6 @@ class FoodViewModel extends ChangeNotifier {
       return listRecipes;
     }
   }
-  //11447f4c188241fe8f71e29a79aae712
-  //71b9c284964f4d749ee3efbab13fad1d
 
   void setListRecipes() async {
     listRecipes = await getFoodRecommendDiet();
@@ -287,7 +280,7 @@ class FoodViewModel extends ChangeNotifier {
     ListRecipes listRecipes = ListRecipes(recipes: list);
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/random?number=2&tags=dessert&apiKey=11447f4c188241fe8f71e29a79aae712'),
+          'https://api.spoonacular.com/recipes/random?number=2&tags=dessert&apiKey=71b9c284964f4d749ee3efbab13fad1d'),
     );
     if (response.statusCode == 200) {
       return parseRecipes(response.body);
@@ -312,7 +305,7 @@ class FoodViewModel extends ChangeNotifier {
     RecipeNutrition? recipeNutrition;
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/$value/nutritionWidget.json?apiKey=11447f4c188241fe8f71e29a79aae712'),
+          'https://api.spoonacular.com/recipes/$value/nutritionWidget.json?apiKey=71b9c284964f4d749ee3efbab13fad1d'),
     );
     if (response.statusCode == 200) {
       return parseRecipeNutrition(response.body);

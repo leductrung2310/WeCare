@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
@@ -16,6 +17,8 @@ class AuthenticService extends ChangeNotifier {
   bool _isLoading = false;
 
   int _loginType = 0;
+
+  late SharedPreferences prefs;
 
   WeCareUser _loggedInUser = WeCareUser();
 
@@ -66,16 +69,36 @@ class AuthenticService extends ChangeNotifier {
   }
 
   Future<void> getDataFromFirebase() async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(_firebaseAuth.currentUser?.uid)
-        .get()
-        .then((value) {
-      _loggedInUser = WeCareUser.fromMap(value.data());
-      _isLoginHome = true;
-      _desiredAmount = ((_loggedInUser.weight ?? 10) * 0.03);
-      notifyListeners();
-    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? uid = prefs.getString('uid');
+    print('outside');
+
+    if (uid == 'null') {
+      print('is null');
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser?.uid)
+          .get()
+          .then((value) {
+        _loggedInUser = WeCareUser.fromMap(value.data());
+        _isLoginHome = true;
+        _desiredAmount = ((_loggedInUser.weight ?? 10) * 0.03);
+        notifyListeners();
+      });
+    } else {
+      print('is not null');
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .get()
+          .then((value) {
+        _loggedInUser = WeCareUser.fromMap(value.data());
+        _isLoginHome = true;
+        _desiredAmount = ((_loggedInUser.weight ?? 10) * 0.03);
+        notifyListeners();
+      });
+    }
   }
 
   void whenCompleteSignIn(BuildContext context) {
@@ -86,7 +109,7 @@ class AuthenticService extends ChangeNotifier {
         builder: (context) => const MainScreen(),
       ),
     );
-    //Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
+    Provider.of<SleepViewModel>(context, listen: false).calculateRemindersLeft(context);
   }
 
   void signInWithEmailAndPassword(
@@ -95,7 +118,12 @@ class AuthenticService extends ChangeNotifier {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) async => {loginType = 1, whenCompleteSignIn(context)});
+          .then((uid) async => {
+                loginType = 1,
+                whenCompleteSignIn(context),
+                prefs = await SharedPreferences.getInstance(),
+                prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null')
+              });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         Fluttertoast.showToast(msg: 'Invalid Email');
@@ -148,6 +176,8 @@ class AuthenticService extends ChangeNotifier {
   Future<void> signOut(BuildContext context) async {
     isLoading = false;
     loggedInUser = WeCareUser();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('uid');
     await FirebaseAuth.instance.signOut();
     FacebookAuth.instance.logOut();
     resetEmailAndPasswordController(context);
@@ -200,27 +230,6 @@ class AuthenticService extends ChangeNotifier {
           );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        String email = e.email!;
-        AuthCredential pendingCredential = e.credential!;
-
-        List<String> userSignInMethods =
-            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
-        // if (userSignInMethods.first == 'facebook.com') {
-        //   // Create a new Facebook credential
-        //   String accessToken = await GoogleSignInAuthentication;
-        //   var facebookAuthCredential =
-        //       FacebookAuthProvider.credential(accessToken);
-
-        //   // Sign the user in with the credential
-        //   UserCredential userCredential =
-        //       await auth.signInWithCredential(facebookAuthCredential);
-
-        //   // Link the pending credential with the existing account
-        //   await userCredential.user.linkWithCredential(pendingCredential);
-
-        //   // Success! Go back to your application flow
-        //   return goToApplication();
-        // }
         Fluttertoast.showToast(msg: e.code);
       } else if (e.code == 'invalid-credential') {
         Fluttertoast.showToast(msg: e.code);

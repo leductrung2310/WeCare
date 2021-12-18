@@ -491,22 +491,15 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
           totalDailyKcal = 0.0;
           totalDailyWorkout = 0;
           totalDailyMinute = 0;
-
           isLoadingWorkouts = false;
-          print("trung1");
         } else {
           totalDailyKcal = ChartData.fromMap(value.data()).totalKcalDay;
           totalDailyMinute = ChartData.fromMap(value.data()).totalMinuteDay;
           totalDailyWorkout = ChartData.fromMap(value.data()).totalWorkoutsDay;
 
           isLoadingWorkouts = false;
-          print("trung2");
         }
         isLoadingWorkouts = false;
-        print("trung3");
-        print(totalDailyKcal);
-        print(totalDailyMinute);
-        print(totalDailyWorkout);
         notifyListeners();
       },
     );

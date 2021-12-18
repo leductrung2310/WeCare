@@ -83,16 +83,6 @@ class WaterViewModel extends ChangeNotifier {
 
   get getAverageDrinkTimes => _averageDrinkTimes;
 
-  int _reminderTimes = 0;
-
-  get getreminderTimes => _reminderTimes;
-
-  void calculateReminderNumber(BuildContext context) {
-    double desiredAmount =
-        Provider.of<AuthenticService>(context).getDesiredAmount;
-    _reminderTimes = desiredAmount ~/ _drinkAmount;
-  }
-
   bool _isLoadingStatisticInfo = true;
 
   set setIsLoading(newVal) {

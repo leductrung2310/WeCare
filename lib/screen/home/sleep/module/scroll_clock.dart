@@ -16,7 +16,6 @@ class ScrollClock extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     AuthenticService authenticService = Provider.of<AuthenticService>(context);
-    SleepViewModel sleepViewModel = Provider.of<SleepViewModel>(context);
 
     DateTime userWakeupTime = authenticService.loggedInUser.wakeupTime ?? DateTime.now();
     var wakeupTime = DateTime.parse(userWakeupTime.toString());
@@ -41,7 +40,6 @@ class ScrollClock extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TimePickerSpinner(
-        //is24HourMode: false,
         normalTextStyle: TextStyle(
           fontFamily: 'poppins',
           fontSize: sizeH * 5,
@@ -58,7 +56,7 @@ class ScrollClock extends StatelessWidget {
         spacing: sizeH * 12,
         time: dateTime,
         onTimeChange: (time) {
-          sleepViewModel.wakeupTime = time;
+          Provider.of<SleepViewModel>(context, listen: false).wakeupTime = time;
           authenticService.loggedInUser.wakeupTime = time;
         },
       ),

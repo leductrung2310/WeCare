@@ -38,12 +38,7 @@ class HomeScreen extends StatelessWidget {
     } else if (currentUser!.displayName != null) {
       name = currentUser.displayName!;
     }
-
-    try {
-      // Provider.of<SleepViewModel>(context).calculateRemindersLeft(context);
-    } catch (e) {
-      //print(e.toString());
-    }
+    
     Provider.of<EditProfileViewModel>(context).getInformationFromFirestore();
 
     return SafeArea(

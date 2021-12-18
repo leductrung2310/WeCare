@@ -15,7 +15,141 @@ class BestTimeToSleep extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    final sleepViewModel = Provider.of<SleepViewModel>(context);
+    final sleepViewModel = Provider.of<SleepViewModel>(context, listen: false);
+
+    Widget firstBtn = CustomBTN(
+      name:
+          "${DateFormat.Hm().format(sleepViewModel.suggestedSleepTime1)} (Suggested)",
+      onPressed: () {
+        DateTime now = DateTime.now();
+        DateTime firstSleepTime = sleepViewModel.suggestedSleepTime1;
+        if (now.day == firstSleepTime.day) {
+          if (now.hour == firstSleepTime.hour) {
+            if (now.minute > firstSleepTime.minute) {
+              sleepViewModel.isFirstSleepSuggestedClick = false;
+            } else {
+              sleepViewModel.isFirstSleepSuggestedClick =
+                  !sleepViewModel.isFirstSleepSuggestedClick;
+              sleepViewModel.isSecondSleepSuggestedClick = false;
+              sleepViewModel.isThirdSleepSuggestedClick = false;
+            }
+          }
+          if (now.hour > firstSleepTime.hour) {
+            sleepViewModel.isFirstSleepSuggestedClick = false;
+          }
+          if (now.hour < firstSleepTime.hour) {
+            sleepViewModel.isFirstSleepSuggestedClick =
+                !sleepViewModel.isFirstSleepSuggestedClick;
+            sleepViewModel.isSecondSleepSuggestedClick = false;
+            sleepViewModel.isThirdSleepSuggestedClick = false;
+          }
+        }
+        if (now.day > firstSleepTime.day) {
+          sleepViewModel.isFirstSleepSuggestedClick = false;
+        }
+        if (now.day < firstSleepTime.day) {
+          sleepViewModel.isFirstSleepSuggestedClick =
+              !sleepViewModel.isFirstSleepSuggestedClick;
+          sleepViewModel.isSecondSleepSuggestedClick = false;
+          sleepViewModel.isThirdSleepSuggestedClick = false;
+        }
+      },
+      height: sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
+      width: sizeH * 65,
+      fontSize: sizeH * 5,
+      textColor:
+          sleepViewModel.isFirstSleepSuggestedClick ? whiteColor : sleepColor,
+      color:
+          sleepViewModel.isFirstSleepSuggestedClick ? sleepColor : whiteColor,
+    );
+
+    Widget secondBtn = CustomBTN(
+      name: DateFormat.Hm().format(sleepViewModel.suggestedSleepTime2),
+      onPressed: () {
+        DateTime now = DateTime.now();
+        DateTime secondSleepTime = sleepViewModel.suggestedSleepTime2;
+        if (now.day == secondSleepTime.day) {
+          if (now.hour == secondSleepTime.hour) {
+            if (now.minute > secondSleepTime.minute) {
+              sleepViewModel.isSecondSleepSuggestedClick = false;
+            } else {
+              sleepViewModel.isSecondSleepSuggestedClick =
+                  !sleepViewModel.isSecondSleepSuggestedClick;
+              sleepViewModel.isFirstSleepSuggestedClick = false;
+              sleepViewModel.isThirdSleepSuggestedClick = false;
+            }
+          }
+          if (now.hour > secondSleepTime.hour) {
+            sleepViewModel.isSecondSleepSuggestedClick = false;
+          }
+          if (now.hour < secondSleepTime.hour) {
+            sleepViewModel.isSecondSleepSuggestedClick =
+                !sleepViewModel.isSecondSleepSuggestedClick;
+            sleepViewModel.isFirstSleepSuggestedClick = false;
+            sleepViewModel.isThirdSleepSuggestedClick = false;
+          }
+        }
+        if (now.day > secondSleepTime.day) {
+          sleepViewModel.isSecondSleepSuggestedClick = false;
+        }
+        if (now.day < secondSleepTime.day) {
+          sleepViewModel.isSecondSleepSuggestedClick =
+              !sleepViewModel.isSecondSleepSuggestedClick;
+          sleepViewModel.isFirstSleepSuggestedClick = false;
+          sleepViewModel.isThirdSleepSuggestedClick = false;
+        }
+      },
+      height: sleepViewModel.showBestSleepTime ? sizeV * 5 : 0,
+      width: sizeH * 30,
+      textColor:
+          sleepViewModel.isSecondSleepSuggestedClick ? whiteColor : lightBlack,
+      color:
+          sleepViewModel.isSecondSleepSuggestedClick ? sleepColor : whiteColor,
+    );
+
+    Widget thirdBtn = CustomBTN(
+      name: DateFormat.Hm().format(sleepViewModel.suggestedSleepTime3),
+      onPressed: () {
+        DateTime now = DateTime.now();
+        DateTime thirdSleepTime = sleepViewModel.suggestedSleepTime3;
+        if (now.day == thirdSleepTime.day) {
+          if (now.hour == thirdSleepTime.hour) {
+            if (now.minute > thirdSleepTime.minute) {
+              sleepViewModel.isThirdSleepSuggestedClick = false;
+            } else {
+              sleepViewModel.isThirdSleepSuggestedClick =
+                  !sleepViewModel.isThirdSleepSuggestedClick;
+              sleepViewModel.isFirstSleepSuggestedClick = false;
+              sleepViewModel.isSecondSleepSuggestedClick = false;
+            }
+          }
+          if (now.hour > thirdSleepTime.hour) {
+            sleepViewModel.isSecondSleepSuggestedClick = false;
+          }
+          if (now.hour < thirdSleepTime.hour) {
+            sleepViewModel.isThirdSleepSuggestedClick =
+                !sleepViewModel.isThirdSleepSuggestedClick;
+            sleepViewModel.isFirstSleepSuggestedClick = false;
+            sleepViewModel.isSecondSleepSuggestedClick = false;
+          }
+        }
+        if (now.day > thirdSleepTime.day) {
+          sleepViewModel.isThirdSleepSuggestedClick = false;
+        }
+        if (now.day < thirdSleepTime.day) {
+          sleepViewModel.isThirdSleepSuggestedClick =
+              !sleepViewModel.isThirdSleepSuggestedClick;
+          sleepViewModel.isFirstSleepSuggestedClick = false;
+          sleepViewModel.isSecondSleepSuggestedClick = false;
+        }
+      },
+      height: sleepViewModel.showBestSleepTime ? sizeV * 5 : 0,
+      width: sizeH * 30,
+      textColor:
+          sleepViewModel.isThirdSleepSuggestedClick ? whiteColor : lightBlack,
+      color:
+          sleepViewModel.isThirdSleepSuggestedClick ? sleepColor : whiteColor,
+    );
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -61,79 +195,14 @@ class BestTimeToSleep extends StatelessWidget {
                           ),
                         ],
                       ),
-                      CustomBTN(
-                        name:
-                            "${DateFormat.Hm().format(sleepViewModel.suggestedSleepTime1)} (Suggested)",
-                        onPressed: () {
-                          sleepViewModel.isFirstSleepSuggestedClick =
-                              !sleepViewModel.isFirstSleepSuggestedClick;
-                          sleepViewModel.isSecondSleepSuggestedClick = false;
-                          sleepViewModel.isThirdSleepSuggestedClick = false;
-                        },
-                        height:
-                            sleepViewModel.showBestSleepTime ? sizeV * 6 : 0,
-                        width: sizeH * 65,
-                        fontSize: sizeH * 5,
-                        textColor: sleepViewModel.isFirstSleepSuggestedClick
-                            ? whiteColor
-                            : sleepColor,
-                        color: sleepViewModel.isFirstSleepSuggestedClick
-                            ? sleepColor
-                            : whiteColor,
-                      ),
+                      firstBtn,
                       SizedBox(
                         width: sizeH * 65,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomBTN(
-                              name: DateFormat.Hm()
-                                  .format(sleepViewModel.suggestedSleepTime2),
-                              onPressed: () {
-                                sleepViewModel.isSecondSleepSuggestedClick =
-                                    !sleepViewModel.isSecondSleepSuggestedClick;
-                                sleepViewModel.isFirstSleepSuggestedClick =
-                                    false;
-                                sleepViewModel.isThirdSleepSuggestedClick =
-                                    false;
-                              },
-                              height: sleepViewModel.showBestSleepTime
-                                  ? sizeV * 5
-                                  : 0,
-                              width: sizeH * 30,
-                              widthBorder: 1,
-                              radius: 10,
-                              textColor:
-                                  sleepViewModel.isSecondSleepSuggestedClick
-                                      ? whiteColor
-                                      : lightBlack,
-                              color: sleepViewModel.isSecondSleepSuggestedClick
-                                  ? sleepColor
-                                  : whiteColor,
-                            ),
-                            CustomBTN(
-                              name: DateFormat.Hm()
-                                  .format(sleepViewModel.suggestedSleepTime3),
-                              onPressed: () {
-                                sleepViewModel.isThirdSleepSuggestedClick =
-                                    !sleepViewModel.isThirdSleepSuggestedClick;
-                                sleepViewModel.isSecondSleepSuggestedClick =
-                                    false;
-                                sleepViewModel.isFirstSleepSuggestedClick =
-                                    false;
-                              },
-                              height: sleepViewModel.showBestSleepTime
-                                  ? sizeV * 5
-                                  : 0,
-                              width: sizeH * 30,
-                              textColor:
-                                  sleepViewModel.isThirdSleepSuggestedClick
-                                      ? whiteColor
-                                      : lightBlack,
-                              color: sleepViewModel.isThirdSleepSuggestedClick
-                                  ? sleepColor
-                                  : whiteColor,
-                            ),
+                            secondBtn,
+                            thirdBtn,
                           ],
                         ),
                       ),

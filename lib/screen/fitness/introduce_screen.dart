@@ -64,9 +64,13 @@ class IntroWorkouts extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    arguments.listExercise[index].name,
-                                    style: oBlackTitle,
+                                  SizedBox(
+                                    width: sizeH * 50,
+                                    child: Text(
+                                      arguments.listExercise[index].name,
+                                      style: oBlackTitle,
+                                      maxLines: 2,
+                                    ),
                                   ),
                                   Text(
                                     arguments.listExercise[index].reps,

@@ -23,7 +23,7 @@ class BMIHistorySection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                width: sizeH * 16,
+                width: sizeH * 18,
                 child: Text(
                   bmiRatio.ratio.toString(),
                   style: TextStyle(
@@ -43,7 +43,7 @@ class BMIHistorySection extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: sizeH * 25,
+                width: sizeH * 28,
                 child: Text(
                   DateFormat('dd-MM-yyyy')
                       .format(bmiRatio.updatedDate ?? DateTime.now()),

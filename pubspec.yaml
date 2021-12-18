@@ -99,6 +99,7 @@ flutter:
     - assets/images/exercises/banner/
     - assets/images/exercises/intro/
     - assets/images/exercises/gif_exercises/
+    - assets/images/exercises/gif_exercises/female/
     - assets/images/home/water/
     - assets/images/home/walk/
     - assets/images/home/sleep/

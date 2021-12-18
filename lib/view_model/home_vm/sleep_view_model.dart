@@ -145,9 +145,10 @@ class SleepViewModel extends ChangeNotifier {
   }
 
   void calculateRemindersLeft(BuildContext context) {
-    DateTime sleepTime =
-        Provider.of<AuthenticService>(context).loggedInUser.sleepTime ??
-            DateTime.now();
+    DateTime sleepTime = Provider.of<AuthenticService>(context, listen: false)
+            .loggedInUser
+            .sleepTime ??
+        DateTime.now();
     DateTime now = DateTime.now();
 
     if (_isFirstSleepSuggestedClick) {
@@ -171,11 +172,6 @@ class SleepViewModel extends ChangeNotifier {
           : sleepTime.minute - now.minute,
     );
 
-    print(sleepTime.hour);
-    print(sleepTime.minute);
-    print(now.hour);
-    print(now.minute);
-
     timer = Timer.periodic(
       duration,
       (timer) {
@@ -185,7 +181,6 @@ class SleepViewModel extends ChangeNotifier {
         //final seconds = duration.inSeconds - minusSecond;
         //duration = Duration(seconds: seconds);
         duration = Duration(minutes: minutes);
-        print(duration);
       },
     );
 

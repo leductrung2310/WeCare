@@ -34,7 +34,7 @@ class StepCountPart extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: lightBlack1, width: 2),
         ),
-        child: historyWorkoutViewModel.isLoadingWorkouts == true ? spinkit : Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

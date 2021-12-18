@@ -90,50 +90,6 @@ class FoodScreen extends StatelessWidget {
                                       child: spinkit,
                                     ),
                             ),
-                            // FoodRecommendPopular(
-                            //   nameRecipe: foodViewModel
-                            //       .listRecipesDessert.recipes[0].title,
-                            //   descriptionRecipe:
-                            //       '${foodViewModel.listRecipesDessert.recipes[0].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[0].servings.toString()} serves',
-                            //   image: foodViewModel
-                            //       .listRecipesDessert.recipes[0].image,
-                            //   onTapp: () async {
-                            //     EasyLoading.show(status: 'Loading...');
-                            //     await getRecipeNutrition(
-                            //         foodViewModel,
-                            //         foodViewModel
-                            //             .listRecipesDessert.recipes[0].id);
-                            //     final recipe =
-                            //         foodViewModel.listRecipesDessert.recipes[0];
-
-                            //     Navigator.pushNamed(
-                            //         context, Routes.foodDetailScreen,
-                            //         arguments: recipe);
-                            //     EasyLoading.dismiss();
-                            //   },
-                            // ),
-                            // FoodRecommendPopular(
-                            //   nameRecipe: foodViewModel
-                            //       .listRecipesDessert.recipes[1].title,
-                            //   descriptionRecipe:
-                            //       '${foodViewModel.listRecipesDessert.recipes[1].readyInMinutes.toString()} mins | ${foodViewModel.listRecipesDessert.recipes[1].servings.toString()} serves',
-                            //   image: foodViewModel
-                            //       .listRecipesDessert.recipes[1].image,
-                            //   onTapp: () async {
-                            //     EasyLoading.show(status: 'Loading...');
-                            //     await getRecipeNutrition(
-                            //         foodViewModel,
-                            //         foodViewModel
-                            //             .listRecipesDessert.recipes[1].id);
-                            //     final recipe =
-                            //         foodViewModel.listRecipesDessert.recipes[1];
-
-                            //     Navigator.pushNamed(
-                            //         context, Routes.foodDetailScreen,
-                            //         arguments: recipe);
-                            //     EasyLoading.dismiss();
-                            //   },
-                            // ),
                           ],
                         ),
                       ),
@@ -254,5 +210,5 @@ const custom = EasyLoadingMaskType.custom;
 
 SpinKitPulse spinkit = SpinKitPulse(
   color: primaryColor,
-  size: SizeConfig.blockSizeV! * 10,
+  size: (SizeConfig.blockSizeV ?? 5) * 10,
 );

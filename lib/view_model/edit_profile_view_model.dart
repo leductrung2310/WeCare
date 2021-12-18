@@ -12,12 +12,13 @@ class EditProfileViewModel extends ChangeNotifier {
 
   var _weCareUser = WeCareUser();
 
+  WeCareUser get weCareUser => _weCareUser;
+
   var nameController = TextEditingController();
   var weightController = TextEditingController();
   var heightController = TextEditingController();
   var wakeupTimeController = TextEditingController();
   var sleepTimeController = TextEditingController();
-
 
   bool _isValidName = true;
   bool _isValidWeight = true;
@@ -140,7 +141,7 @@ class EditProfileViewModel extends ChangeNotifier {
     var now = DateTime.now();
     DateTime dateTimeSleep = DateTime(now.year, now.month, now.day,
         selectedSleepTime.hour, selectedSleepTime.minute);
-    
+
     DateTime dateTimeWakeup = DateTime(now.year, now.month, now.day,
         selectedWakeupTime.hour, selectedWakeupTime.minute);
 
@@ -155,12 +156,16 @@ class EditProfileViewModel extends ChangeNotifier {
         "height": double.tryParse(heightController.text.isEmpty
             ? authenticService.loggedInUser.height.toString()
             : heightController.text),
-        "sleepTime": dateTimeSleep,
-        "wakeupTime": dateTimeWakeup,
+        "sleepTime": sleepTimeController.text.isEmpty
+            ? authenticService.loggedInUser.sleepTime
+            : dateTimeSleep,
+        "wakeupTime": wakeupTimeController.text.isEmpty
+            ? authenticService.loggedInUser.wakeupTime
+            : dateTimeWakeup,
       };
     }
 
-    await firebaseFirestore 
+    await firebaseFirestore
         .collection(FireStoreConstants.pathUserCollection)
         .doc(authenticService.loggedInUser.uid)
         .set(

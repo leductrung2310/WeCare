@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIStatistic extends StatelessWidget {
@@ -16,15 +15,12 @@ class BMIStatistic extends StatelessWidget {
 
     final BMIHistoryViewModel bmiHistoryViewModel =
         Provider.of<BMIHistoryViewModel>(context);
-    final AuthenticService authenticService =
-        Provider.of<AuthenticService>(context, listen: false);
 
     DateTime? date = bmiHistoryViewModel.bmiRatio.updatedDate;
     String? formattedDate =
         DateFormat('dd - MM - yyyy').format(date ?? DateTime.now());
-    double ratio = bmiHistoryViewModel.calculateBMIratio(
-        authenticService.loggedInUser.height!,
-        authenticService.loggedInUser.weight!);
+
+    double ratio = bmiHistoryViewModel.bmiRatio.ratio ?? 0;
 
     Color calculateStatus() {
       if (ratio >= 16 && ratio <= 18.5) {

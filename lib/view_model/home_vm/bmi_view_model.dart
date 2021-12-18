@@ -16,7 +16,6 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
   DateTime now = DateTime.now();
 
-  //App needed to restart to update
   BMIHistoryViewModel(BuildContext context) {
     getDataFromFirestore();
     getQuerySnapshot();
@@ -38,12 +37,9 @@ class BMIHistoryViewModel extends ChangeNotifier {
 
     final AuthenticService authenticService =
         Provider.of<AuthenticService>(context, listen: false);
-    double ratio = calculateBMIratio(authenticService.loggedInUser.height!,
+
+    bmiRatio.ratio = calculateBMIratio(authenticService.loggedInUser.height!,
         authenticService.loggedInUser.weight!);
-
-    DateTime now = DateTime.now();
-
-    bmiRatio.ratio = ratio;
     bmiRatio.updatedDate = now;
 
     String formattedNow = DateFormat('dd-MM-yyyy-hh-mm').format(now);

@@ -22,7 +22,6 @@ class LeftSection extends StatelessWidget {
 
     final hours = twoDigits(sleepViewModel.duration.inHours.remainder(24));
     final minutes = twoDigits(sleepViewModel.duration.inMinutes.remainder(60));
-    final seconds = twoDigits(sleepViewModel.duration.inSeconds.remainder(60));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +38,9 @@ class LeftSection extends StatelessWidget {
           right: sizeH * 2,
           bottom: sizeV * 7,
           unit: '',
-          index: '$hours : $minutes : $seconds',
+          index: '$hours : $minutes',
           onPressed: () {
+            sleepViewModel.calculateSleepTime();
             Navigator.pushNamed(context, Routes.sleepScreen);
           },
         ),

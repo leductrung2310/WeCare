@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/profile_card_logout.dart';
@@ -13,7 +14,6 @@ import 'package:wecare_flutter/services/google_service.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
-import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
@@ -184,6 +184,10 @@ class ProfileScreen extends StatelessWidget {
                   if (authService.loginType == 1) {
                     await authService.signOut(context);
                   } else {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.remove('uid');
+                    Navigator.pushReplacementNamed(context, Routes.login);
                     await Provider.of<GoogleSignInProvider>(context,
                             listen: false)
                         .logOutGoogle(context);

@@ -20,6 +20,7 @@ class SleepViewModel extends ChangeNotifier {
 
   //! For bed time countdown
   Timer? timer;
+
   Duration duration = const Duration();
 
   //! For bed time
@@ -29,9 +30,9 @@ class SleepViewModel extends ChangeNotifier {
   // ignore: prefer_final_fields
   DateTime _now = DateTime.now();
 
-  DateTime _suggestedSleepTime1 = DateTime(2021, 1, 1, 0, 0);
-  DateTime _suggestedSleepTime2 = DateTime(2021, 1, 1, 0, 0);
-  DateTime _suggestedSleepTime3 = DateTime(2021, 1, 1, 0, 0);
+  DateTime _suggestedSleepTime1 = DateTime(0, 0, 0, 0, 0);
+  DateTime _suggestedSleepTime2 = DateTime(0, 0, 0, 0, 0);
+  DateTime _suggestedSleepTime3 = DateTime(0, 0, 0, 0, 0);
 
   DateTime get suggestedSleepTime1 => _suggestedSleepTime1;
   DateTime get suggestedSleepTime2 => _suggestedSleepTime2;
@@ -106,14 +107,23 @@ class SleepViewModel extends ChangeNotifier {
 
   //! Calculate bed time
   void calculateSleepTime() {
+    _suggestedSleepTime1 = DateTime(_now.year, _now.month, _now.day);
+    _suggestedSleepTime2 = DateTime(_now.year, _now.month, _now.day);
+    _suggestedSleepTime3 = DateTime(_now.year, _now.month, _now.day);
+
+    if (DateTime.now().day == _wakeupTime.day &&
+        DateTime.now().hour >= _wakeupTime.hour) {
+      _wakeupTime = _wakeupTime.add(const Duration(days: 1));
+    }
+
     _suggestedSleepTime1 = _wakeupTime.subtract(Duration(
       hours: secondCycle.hour,
-      minutes: firstCycle.minute,
+      minutes: secondCycle.minute,
     ));
 
     _suggestedSleepTime2 = _wakeupTime.subtract(Duration(
       hours: firstCycle.hour,
-      minutes: secondCycle.minute,
+      minutes: firstCycle.minute,
     ));
 
     _suggestedSleepTime3 = _wakeupTime.subtract(Duration(
@@ -145,11 +155,14 @@ class SleepViewModel extends ChangeNotifier {
   }
 
   void calculateRemindersLeft(BuildContext context) {
+    DateTime now = DateTime.now();
     DateTime sleepTime = Provider.of<AuthenticService>(context, listen: false)
             .loggedInUser
             .sleepTime ??
-        DateTime.now();
-    DateTime now = DateTime.now();
+        now;
+
+    int durationHours = 0;
+    int durationMinutes = 0;
 
     if (_isFirstSleepSuggestedClick) {
       sleepTime = _suggestedSleepTime1;
@@ -161,29 +174,41 @@ class SleepViewModel extends ChangeNotifier {
       sleepTime = _suggestedSleepTime3;
     }
 
+    if (sleepTime.day > DateTime.now().day) {
+      durationHours = sleepTime.hour + (24 - now.hour);
+    } else {
+      durationHours =
+          sleepTime.hour - now.hour < 0 ? 0 : sleepTime.hour - now.hour;
+    }
+
+    if (durationHours > 0) {
+      if (sleepTime.minute - now.minute < 0) {
+        durationMinutes = sleepTime.minute - now.minute;
+        //durationHours--;
+      } else {
+        durationMinutes = sleepTime.minute - now.minute;
+      }
+    } else {
+      if (sleepTime.minute - now.minute < 0) {
+        durationMinutes = 0;
+      } else {
+        durationMinutes = sleepTime.minute - now.minute;
+      }
+    }
+
     duration = Duration(
-      hours: (sleepTime.hour == 0 ? 24 : sleepTime.hour) -
-                  (now.hour == 0 ? 24 : now.hour) <
-              0
-          ? now.hour - sleepTime.hour
-          : sleepTime.hour - now.hour,
-      minutes: sleepTime.minute - now.minute < 0
-          ? now.minute - sleepTime.minute
-          : sleepTime.minute - now.minute,
+      hours: durationHours,
+      minutes: durationMinutes,
     );
 
     timer = Timer.periodic(
-      duration,
-      (timer) {
-        //const minusSecond = 1;
+      const Duration(minutes: 1),
+      (_) {
         const minusMinute = 1;
-        final minutes = duration.inMinutes - minusMinute;
-        //final seconds = duration.inSeconds - minusSecond;
-        //duration = Duration(seconds: seconds);
-        duration = Duration(minutes: minutes);
+        final minutes = duration.inSeconds - minusMinute;
+        duration = Duration(seconds: minutes);
       },
     );
-
     notifyListeners();
   }
 

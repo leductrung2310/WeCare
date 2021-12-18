@@ -68,6 +68,7 @@ import 'package:wecare_flutter/screen/profile/profile_screen.dart';
 import 'package:wecare_flutter/screen/profile/setting_screen.dart';
 
 bool? seenOnboard;
+String? uid;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +81,9 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
-  runApp(const WeCare());
+  uid = prefs.getString('uid') ?? 'null';
+
+  runApp(const WeCare()); 
   configLoading();
 }
 
@@ -137,7 +140,14 @@ class WeCare extends StatelessWidget {
   }
 
   String getInitalRoute() {
-    return seenOnboard == true ? Routes.login : Routes.onboarding;
+    if (seenOnboard == true) {
+      if (uid == 'null') {
+        return Routes.login;
+      } else {
+        return Routes.main;
+      }
+    }
+    return Routes.onboarding;
   }
 
   Route? getRoute(RouteSettings settings) {
@@ -209,21 +219,6 @@ class WeCare extends StatelessWidget {
     return MaterialPageRoute(
         settings: settings, builder: (BuildContext context) => child);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return ChangeNotifierProvider(
-  //     create: (context) => LoginViewModel(),
-  //     child: MaterialApp(
-  //       theme: ThemeData(
-  //         fontFamily: "Poppins",
-  //         primaryColor: Color(0xFF91c788),
-  //       ),
-  //       debugShowCheckedModeBanner: false,
-  //       home: LoginScreen(),
-  //     ),
-  //   );
-  // }
 }
 
 void configLoading() {

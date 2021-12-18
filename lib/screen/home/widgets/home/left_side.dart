@@ -20,8 +20,12 @@ class LeftSection extends StatelessWidget {
 
     final SleepViewModel sleepViewModel = Provider.of<SleepViewModel>(context);
 
-    final hours = twoDigits(sleepViewModel.duration.inHours.remainder(24));
-    final minutes = twoDigits(sleepViewModel.duration.inMinutes.remainder(60));
+    final hours = twoDigits(sleepViewModel.duration.inHours.remainder(24) < 0
+        ? 0
+        : sleepViewModel.duration.inHours.remainder(24));
+    final minutes = twoDigits(sleepViewModel.duration.inMinutes.remainder(60)< 0
+        ? 0
+        : sleepViewModel.duration.inMinutes.remainder(60));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

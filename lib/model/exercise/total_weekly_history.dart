@@ -20,11 +20,12 @@ class TotalWeekly {
     return value;
   }
 
-  TotalWeekly.fromMap(map) {
-    week = map['week'];
-    totalWorkouts = map['totalWorkouts'];
-    totalMinutes = map['totalMinutes'];
-    totalKcal = checkDouble(map['totalKcal']);
+  factory TotalWeekly.fromMap(map) {
+    return TotalWeekly(
+        week: map['week'].toString(),
+        totalWorkouts: map['totalWorkouts'],
+        totalMinutes: map['totalMinutes'],
+        totalKcal: checkDouble(map['totalKcal']));
   }
 
   Map<String, dynamic> toMap() {

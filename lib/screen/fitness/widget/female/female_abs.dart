@@ -17,13 +17,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_begin",
+          tag: "female_abs_begin",
           srcImage: 'assets/images/exercises/banner/female_abs1.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_begin",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmBeginner);
+                tag: "female_abs_begin",
+                banner: "assets/images/exercises/intro/female_abs_begin.png",
+                listExercise: listAbsFemaleBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -35,13 +35,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_intermediate",
+          tag: "female_abs_intern",
           srcImage: 'assets/images/exercises/banner/female_abs2.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_intermediate",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmInter);
+                tag: "female_abs_intern",
+                banner: "assets/images/exercises/intro/female_abs_intern.png",
+                listExercise: listAbsFemaleInter);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -53,13 +53,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_advanced",
+          tag: "female_abs_advanced",
           srcImage: 'assets/images/exercises/banner/female_abs3.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_advanced",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmAdvanced);
+                tag: "female_abs_advanced",
+                banner: "assets/images/exercises/intro/female_abs_advanced.png",
+                listExercise: listAbsFemaleAdvanced);
             Navigator.pushNamed(
               context,
               Routes.introworkout,

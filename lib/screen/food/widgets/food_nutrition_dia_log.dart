@@ -133,7 +133,7 @@ class FoodNutritionDiaLog extends StatelessWidget {
                       flex: 4,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          left: sizeH * 10,
+                          left: sizeH * 6,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

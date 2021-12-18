@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
         .getTotalWeeklyHistoryToFirestore(context, "");
     Provider.of<FoodViewModel>(context, listen: false)
         .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
-     Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
         .getWeekGoal(context);
     Provider.of<BMIHistoryViewModel>(context, listen: false)
         .getDataFromFirestore();
@@ -56,7 +56,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Provider.of<AuthenticService>(context).isLoginHome
+      body: Provider.of<AuthenticService>(context).isLoginHome &&
+              Provider.of<HistoryWorkoutViewModel>(context).isLoadingWorkoutHome
           ? screens[currenIndex]
           : Center(
               child: spinkit,

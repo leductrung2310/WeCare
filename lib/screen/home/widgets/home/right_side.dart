@@ -45,10 +45,10 @@ class RightSection extends StatelessWidget {
           index: waterIndex,
           coefficient: 22.5,
           child: const CustomProgressIndicator(),
-          left: sizeV * 5.5,
-          top: sizeV * 6,
-          right: sizeV * 5.5,
-          bottom: sizeV * 6,
+          left: sizeV * 5,
+          top: sizeV * 5.5,
+          right: sizeV * 5,
+          bottom: sizeV * 5.5,
           unit: 'L',
           onPressed: () {
             Navigator.pushNamed(context, Routes.waterScreen);

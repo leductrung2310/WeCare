@@ -79,9 +79,9 @@ class SearchBarCustom extends StatelessWidget {
                 return GestureDetector(
                   // focusColor: Colors.amber,
                   // highlightColor: greenLightProfile,
-                  // onTap: () {
-                  //   get(foodViewModel, e, context);
-                  // },
+                  onTap: () {
+                    get(foodViewModel, e, context);
+                  },
                   // hoverColor: greenLightProfile,
                   // overlayColor:
                   //     MaterialStateProperty.all<Color>(greenLightProfile),

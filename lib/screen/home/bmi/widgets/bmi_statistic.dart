@@ -192,7 +192,7 @@ class BMIRatioBar extends StatelessWidget {
         ),
         Container(
           height: sizeV,
-          width: sizeV * 12.8,
+          width: sizeV * 12,
           color: color,
         ),
       ],

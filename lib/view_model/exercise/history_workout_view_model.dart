@@ -12,7 +12,8 @@ import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart
 
 class HistoryWorkoutViewModel extends ChangeNotifier {
   TotalWorkouts totalWorkoutsFromDB = TotalWorkouts();
-  TotalWeekly totalWeekly = TotalWeekly();
+  TotalWeekly totalWeekly =
+      TotalWeekly(week: "", totalKcal: 0.0, totalMinutes: 0, totalWorkouts: 0);
 
   int _totalWorkouts = 0;
   int _totalMinutes = 0;
@@ -394,8 +395,10 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .doc(subDocument)
         .get()
         .then((value) {
-      totalWeekly = TotalWeekly.fromMap(value.data());
-      totalWeekly.totalKcal;
+      if (value.data() == null) {
+      } else {
+        totalWeekly = TotalWeekly.fromMap(value.data());
+      }
       isLoadingWorkouts = false;
     });
 
@@ -473,10 +476,8 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
 
   Future<void> getTotalDailyWorkoutsFromFireStore(
       BuildContext context, String subDocument) async {
-    isLoadingWorkouts = true;
     String subDoc = getSubDocument(context);
     subDocument != "" ? subDocument = subDocument : subDocument = subDoc;
-    print("trung");
     await FirebaseFirestore.instance
         .collection("workoutsHistory")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -491,15 +492,12 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
           totalDailyKcal = 0.0;
           totalDailyWorkout = 0;
           totalDailyMinute = 0;
-          isLoadingWorkouts = false;
         } else {
           totalDailyKcal = ChartData.fromMap(value.data()).totalKcalDay;
           totalDailyMinute = ChartData.fromMap(value.data()).totalMinuteDay;
           totalDailyWorkout = ChartData.fromMap(value.data()).totalWorkoutsDay;
-
-          isLoadingWorkouts = false;
         }
-        isLoadingWorkouts = false;
+        _isLoadingWorkoutHome = true;
         notifyListeners();
       },
     );

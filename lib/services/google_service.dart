@@ -49,7 +49,7 @@ class GoogleSignInProvider extends ChangeNotifier {
         isSigningIn = false;
 
         prefs = await SharedPreferences.getInstance();
-        prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null');
+        prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'nulluser');
         notifyListeners();
       }
     } catch (e) {

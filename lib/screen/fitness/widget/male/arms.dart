@@ -42,7 +42,7 @@ class ArmsWorkout extends StatelessWidget {
             final args = ExerciseArguments(
                 tag: "arm_intermediate",
                 banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmInter);
+                listExercise: listArmBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -60,7 +60,7 @@ class ArmsWorkout extends StatelessWidget {
             final args = ExerciseArguments(
                 tag: "arm_advanced",
                 banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmAdvanced);
+                listExercise: listArmBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/chest.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/legs.dart';
+import 'package:wecare_flutter/screen/fitness/widget/male/shoulder.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 import '../workouts_tab.dart';
 
@@ -118,10 +122,10 @@ class WorkoutChoice extends StatelessWidget {
                       .pageController,
               children: const [
                 ArmsWorkout(),
-                FemaleAbs(),
-                ArmsWorkout(),
-                ArmsWorkout(),
-                ArmsWorkout(),
+                AbsWorkout(),
+                ShoulderWorkout(),
+                ChestWorkout(),
+                LegsWorkout(),
               ],
             ),
           ),

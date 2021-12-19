@@ -71,10 +71,8 @@ class AuthenticService extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? uid = prefs.getString('uid');
-    print('$uid hello');
 
-    if (uid == 'null') {
-      print("trung");
+    if (uid == null) {
       await FirebaseFirestore.instance
           .collection("users")
           .doc(_firebaseAuth.currentUser?.uid)
@@ -119,7 +117,8 @@ class AuthenticService extends ChangeNotifier {
                 loginType = 1,
                 whenCompleteSignIn(context),
                 prefs = await SharedPreferences.getInstance(),
-                prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null')
+                prefs.setString(
+                    'uid', _firebaseAuth.currentUser?.uid ?? 'nulluser')
               });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
@@ -222,7 +221,8 @@ class AuthenticService extends ChangeNotifier {
             (uid) async => {
               checkExistUser(uid.user?.uid, context),
               prefs = await SharedPreferences.getInstance(),
-              prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null')
+              prefs.setString(
+                  'uid', _firebaseAuth.currentUser?.uid ?? 'nulluser')
             },
           );
     } on FirebaseAuthException catch (e) {

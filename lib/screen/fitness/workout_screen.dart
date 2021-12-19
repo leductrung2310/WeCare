@@ -38,13 +38,16 @@ class Workouting extends StatelessWidget {
                 height: sizeV * 60,
                 width: sizeH * 100,
               ),
-              Text(
-                arguments[workoutViewModel.indexWorkout].name,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: SizeConfig.blockSizeH! * 8,
-                  color: Colors.black.withOpacity(0.85),
-                  fontWeight: FontWeight.w600,
+              Center(
+                child: Text(
+                  arguments[workoutViewModel.indexWorkout].name,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: SizeConfig.blockSizeH! * 8,
+                    color: Colors.black.withOpacity(0.85),
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               Text(
@@ -193,6 +196,8 @@ Dialog pauseDialog(BuildContext context, double height, double width) {
             radius: 12,
             onPressed: () {
               Navigator.pushReplacementNamed(context, Routes.main);
+              Provider.of<WorkoutViewModel>(context, listen: false)
+                  .indexWorkout = 0;
             },
           ),
           const SizedBox(

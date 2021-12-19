@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/constants/firestore_constants.dart';
 import 'package:wecare_flutter/model/statistic_data/bmi_ratio_data.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
+import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
 
@@ -105,7 +107,6 @@ class RegisterViewModel extends ChangeNotifier {
 
   Future<void> pushUserToFireStore(BuildContext context) async {
     String? name = nameController.text.trim();
-    final auth = Provider.of<AuthenticService>(context, listen: false);
     isLoading = true;
     User? user = FirebaseAuth.instance.currentUser;
     WeCareUser weCareUser = WeCareUser();
@@ -135,7 +136,6 @@ class RegisterViewModel extends ChangeNotifier {
     weCareUser.sleepTime = sleepDateTime;
     weCareUser.wakeupTime = wakeupDateTime;
 
-    auth.loggedInUser = weCareUser;
     await firebasefirestor
         .collection("users")
         .doc(user!.uid)
@@ -176,12 +176,11 @@ class RegisterViewModel extends ChangeNotifier {
     await pushRatioToFirestore(context);
     await pushFoodHistoryToFireStore();
     isLoading = false;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const MainScreen(),
-      ),
-    );
+    Navigator.of(context).pushReplacementNamed(Routes.main);
     Fluttertoast.showToast(msg: "Account successfully created! Enjoy!");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(
+        'uid', FirebaseAuth.instance.currentUser?.uid ?? 'nulluser');
   }
 
   pushFoodHistoryToFireStore() async {

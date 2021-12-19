@@ -81,9 +81,9 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   seenOnboard = prefs.getBool('seenOnboard') ?? false;
-  uid = prefs.getString('uid') ?? 'null';
+  uid = prefs.getString('uid') ?? 'nulluser';
 
-  runApp(const WeCare()); 
+  runApp(const WeCare());
   configLoading();
 }
 

@@ -51,7 +51,7 @@ class WorkoutViewModel extends ChangeNotifier {
 
   set countWorkoutTime(newValue) {
     Future.delayed(
-        const Duration(microseconds: 1000), () => _countWorkoutTime = newValue);
+        const Duration(microseconds: 700), () => _countWorkoutTime = newValue);
     notifyListeners();
   }
 
@@ -77,6 +77,6 @@ class WorkoutViewModel extends ChangeNotifier {
   void reset() {
     Future.delayed(const Duration(seconds: 1), () => indexWorkout = 0);
 
-    Future.delayed(const Duration(seconds: 1), () => countWorkoutTime = 0);
+    Future.delayed(const Duration(seconds: 1), () => _countWorkoutTime = 0);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
@@ -44,7 +43,7 @@ class IntroWorkouts extends StatelessWidget {
                   height: sizeV * 50,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: arguments.listExercise.length,
+                    itemCount: arguments.listExercise.length - 1,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -93,7 +92,7 @@ class IntroWorkouts extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sizeV * 6,
+                height: sizeV * 9,
               ),
             ],
           ),

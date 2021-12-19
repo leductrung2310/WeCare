@@ -260,7 +260,7 @@ class FoodViewModel extends ChangeNotifier {
     ListRecipes listRecipes = ListRecipes(recipes: list);
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/random?number=2&tags=vegetarian,diets&apiKey=71b9c284964f4d749ee3efbab13fad1d'),
+          'https://api.spoonacular.com/recipes/random?number=2&tags=vegetarian,diets&apiKey=11447f4c188241fe8f71e29a79aae712'),
     );
     if (response.statusCode == 200) {
       return parseRecipes(response.body);
@@ -280,7 +280,7 @@ class FoodViewModel extends ChangeNotifier {
     ListRecipes listRecipes = ListRecipes(recipes: list);
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/random?number=2&tags=dessert&apiKey=71b9c284964f4d749ee3efbab13fad1d'),
+          'https://api.spoonacular.com/recipes/random?number=2&tags=dessert&apiKey=11447f4c188241fe8f71e29a79aae712'),
     );
     if (response.statusCode == 200) {
       return parseRecipes(response.body);
@@ -305,7 +305,7 @@ class FoodViewModel extends ChangeNotifier {
     RecipeNutrition? recipeNutrition;
     final response = await http.get(
       Uri.parse(
-          'https://api.spoonacular.com/recipes/$value/nutritionWidget.json?apiKey=71b9c284964f4d749ee3efbab13fad1d'),
+          'https://api.spoonacular.com/recipes/$value/nutritionWidget.json?apiKey=11447f4c188241fe8f71e29a79aae712'),
     );
     if (response.statusCode == 200) {
       return parseRecipeNutrition(response.body);

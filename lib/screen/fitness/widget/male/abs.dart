@@ -1,73 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/screen/fitness/widget/workouts_tab.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
+import 'package:wecare_flutter/screen/fitness/widget/workout.dart';
 
-class ABSWorkout extends StatelessWidget {
-  const ABSWorkout({Key? key}) : super(key: key);
+class AbsWorkout extends StatelessWidget {
+  const AbsWorkout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  text: "Dog",
-                ),
-                Tab(
-                  text: "Dog",
-                ),
-                Tab(
-                  text: "Bird",
-                ),
-                Tab(
-                  text: "Trung",
-                ),
-                Tab(
-                  text: "Thảo",
-                ),
-              ],
-            ),
-          ),
-          body: const TabBarView(
-            children: [
-              Center(
-                child: Text(
-                  "1",
-                  style: TextStyle(fontSize: 52),
-                ),
-              ),
-              Center(
-                child: Text(
-                  "2",
-                  style: TextStyle(fontSize: 52),
-                ),
-              ),
-              Center(
-                child: Text(
-                  "3",
-                  style: TextStyle(fontSize: 52),
-                ),
-              ),
-              Center(
-                child: Text(
-                  "4",
-                  style: TextStyle(fontSize: 52),
-                ),
-              ),
-              Center(
-                child: Text(
-                  "5",
-                  style: TextStyle(fontSize: 52),
-                ),
-              ),
-            ],
-          ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const SizedBox(
+          height: 6,
         ),
-      ),
+        BannerWorkouts(
+          tag: "arm_begin",
+          srcImage: 'assets/images/exercises/banner/male/abs_beginner.png',
+          press: () {
+            final args = ExerciseArguments(
+              tag: "arm_begin",
+              banner: "assets/images/exercises/intro/arm_begin.png",
+              listExercise: listArmBeginner,
+            );
+            Navigator.pushNamed(
+              context,
+              Routes.introworkout,
+              arguments: args,
+            );
+          },
+        ),
+        const SizedBox(
+          height: 6,
+        ),
+        BannerWorkouts(
+          tag: "arm_intermediate",
+          srcImage: 'assets/images/exercises/banner/male/abs_intermediate.png',
+          press: () {
+            final args = ExerciseArguments(
+                tag: "arm_intermediate",
+                banner: "assets/images/exercises/intro/arm_begin.png",
+                listExercise: listArmBeginner);
+            Navigator.pushNamed(
+              context,
+              Routes.introworkout,
+              arguments: args,
+            );
+          },
+        ),
+        const SizedBox(
+          height: 6,
+        ),
+        BannerWorkouts(
+          tag: "arm_advanced",
+          srcImage: 'assets/images/exercises/banner/male/abs_advanced.png',
+          press: () {
+            final args = ExerciseArguments(
+                tag: "arm_advanced",
+                banner: "assets/images/exercises/intro/arm_begin.png",
+                listExercise: listArmBeginner);
+            Navigator.pushNamed(
+              context,
+              Routes.introworkout,
+              arguments: args,
+            );
+          },
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
 class BMIStatistic extends StatelessWidget {
   const BMIStatistic({Key? key}) : super(key: key);
@@ -9,6 +12,28 @@ class BMIStatistic extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final BMIHistoryViewModel bmiHistoryViewModel =
+        Provider.of<BMIHistoryViewModel>(context);
+
+    DateTime? date = bmiHistoryViewModel.bmiRatio.updatedDate;
+    String? formattedDate =
+        DateFormat('dd - MM - yyyy').format(date ?? DateTime.now());
+
+    double ratio = bmiHistoryViewModel.bmiRatio.ratio ?? 0;
+
+    Color calculateStatus() {
+      if (ratio >= 16 && ratio <= 18.5) {
+        return const Color(0xFF82B6E7);
+      }
+      if (ratio >= 18.6 && ratio <= 25) {
+        return primaryColor;
+      }
+      if (ratio >= 25.1 && ratio <= 40) {
+        return const Color(0xFFE06D53);
+      }
+      return metalGreyColor;
+    }
 
     return Container(
       padding: EdgeInsets.fromLTRB(sizeH * 4, sizeH * 2, sizeH * 4, sizeH * 4),
@@ -33,9 +58,9 @@ class BMIStatistic extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '22.49',
+                ratio.toString(),
                 style: TextStyle(
-                    color: primaryColor,
+                    color: calculateStatus(),
                     fontSize: sizeV * 4,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins'),
@@ -117,9 +142,18 @@ class BMIStatistic extends StatelessWidget {
               Text(
                 'Last update on: ',
                 style: TextStyle(
-                    color: metalGreyColor,
+                  color: metalGreyColor,
+                  fontSize: sizeV * 2.5,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+              Text(
+                formattedDate,
+                style: TextStyle(
+                    color: lightBlack1,
                     fontSize: sizeV * 2.5,
-                    fontWeight: FontWeight.normal,
+                    fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins'),
               ),
             ],
@@ -158,7 +192,7 @@ class BMIRatioBar extends StatelessWidget {
         ),
         Container(
           height: sizeV,
-          width: sizeV * 12.8,
+          width: sizeV * 12,
           color: color,
         ),
       ],

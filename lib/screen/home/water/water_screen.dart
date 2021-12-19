@@ -1,9 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/routes.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/screen/home/water/widgets/water_painter.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 class WaterScreen extends StatefulWidget {
   const WaterScreen({Key? key}) : super(key: key);
@@ -133,80 +138,85 @@ class _WaterScreenState extends State<WaterScreen>
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    WaterViewModel waterViewModel = Provider.of<WaterViewModel>(context);
+    double remained =
+        Provider.of<AuthenticService>(context).calculateDesiredAmount(context) -
+            waterViewModel.waterData.waterIndex;
+    AuthenticService authenticService = Provider.of<AuthenticService>(context);
+
+    String drink = Provider.of<AuthenticService>(context)
+        .calculateDesiredAmount(context)
+        .toStringAsFixed(2);
+
+    if (remained < 0) {
+      remained = 0;
+    }
+    String index =
+        (waterViewModel.waterData.waterIndex * 1000).toStringAsFixed(0);
+
+    IconButton iconButton = IconButton(
+      onPressed: () async {
+        Navigator.pushNamed(context, Routes.waterScreenStatistic);
+        await waterViewModel.getQuerySnapshot(0);
+        waterViewModel.calculateAverage(context);
+        await Provider.of<WaterViewModel>(context, listen: false)
+            .pushDataToFirestore2(context);
+      },
+      icon: const Icon(
+        Icons.timeline,
+        color: waterColor,
+      ),
+    );
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
+        appBar: customAppBar(
+          context,
+          waterColor,
+          'Water',
+          iconButton,
+        ),
         body: Stack(
+          fit: StackFit.expand,
           children: [
-            Positioned.fill(
-              top: sizeV * 10,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  '1290 ml',
+            Positioned(
+              bottom: 0,
+              child: CustomPaint(
+                painter: WaterPainter(
+                  firstAnimation.value,
+                  secondAnimation.value,
+                  thirdAnimation.value,
+                  fourthAnimation.value,
+                ),
+                child: AnimatedContainer(
+                  duration: const Duration(seconds: 2),
+                  height: waterViewModel.getCurrentIndex >=
+                          authenticService.getDesiredAmount
+                      ? sizeV * 160
+                      : sizeV *
+                          (waterViewModel.getCurrentIndex /
+                              authenticService.getDesiredAmount) *
+                          150,
+                  width: sizeH * 100,
+                ),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '$index ml',
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: sizeV * 8,
+                    fontSize: sizeV * 7,
                     fontWeight: FontWeight.w600,
                     color: lightBlack,
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              top: sizeV * 21,
-              child: Image.asset(
-                'assets/images/home/water/drink.png',
-                height: sizeV * 48,
-              ),
-            ),
-            CustomPaint(
-              painter: WaterPainter(
-                firstAnimation.value,
-                secondAnimation.value,
-                thirdAnimation.value,
-                fourthAnimation.value,
-              ),
-              child: SizedBox(
-                height: sizeV * 100,
-                width: sizeH * 100,
-              ),
-            ),
-            Positioned.fill(
-              top: sizeV * 2,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                    ),
-                    Text(
-                      'Water',
-                      style: TextStyle(
-                          color: waterColor,
-                          fontSize: sizeH * 6,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins'),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.timeline),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned.fill(
-              top: sizeV * 20,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'Remaining: 610ml',
+                Text(
+                  'Remaining: ${(remained * 1000).toStringAsFixed(0)} ml',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: sizeV * 2.5,
@@ -214,34 +224,47 @@ class _WaterScreenState extends State<WaterScreen>
                     color: waterColor,
                   ),
                 ),
-              ),
-            ),
-            Positioned.fill(
-              bottom: sizeV * 17,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'Next reminder in: 3hrs',
+                Image.asset(
+                  'assets/images/home/water/drink.png',
+                  height: sizeV * 40,
+                ),
+                SizedBox(height: sizeV * 2),
+                Text(
+                  'You should drink at least: $drink L',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
-                    fontSize: sizeV * 2.5,
+                    fontSize: sizeV * 2.6,
                     color: lightBlack,
                   ),
                 ),
-              ),
-            ),
-            Positioned.fill(
-              bottom: 0,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomTextBtn(
-                  name: 'Drink now (350ml)',
-                  onPressed: () {},
+                SizedBox(height: sizeV * 1.5),
+                Slider(
+                    min: 0,
+                    max: 0.6,
+                    divisions: 6,
+                    activeColor: waterColor,
+                    label:
+                        '${((waterViewModel.getDrinkAmount) * 1000).round()} ml',
+                    value: waterViewModel.getDrinkAmount,
+                    onChanged: (double value) {
+                      waterViewModel.setDrinkAmount = value;
+                    }),
+                SizedBox(height: sizeV * 2),
+                CustomTextBtn(
+                  name:
+                      'Drink now (${((waterViewModel.getDrinkAmount) * 1000).round()}ml)',
+                  onPressed: () async {
+                    waterViewModel
+                        .calculateCurrentIndex(waterViewModel.getDrinkAmount);
+                    waterViewModel.calculateDrinkTimes();
+                    waterViewModel.pushDataToFirestore(context);
+                    await waterViewModel.getQuerySnapshot(0);
+                  },
                   color: waterColor,
                   textColor: whiteColor,
                 ),
-              ),
+              ],
             ),
           ],
         ),

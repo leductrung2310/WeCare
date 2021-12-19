@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/profile/widgets/setting_card.dart';
 import 'package:wecare_flutter/screen/profile/widgets/setting_card_switch.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
@@ -36,13 +36,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //     left: sizeH * 4,
-              //     top: sizeV * 5,
-              //   ),
-              //   child:
-              // ),
               const SettingCard(
                 preText: "Language",
                 sufText: "English",

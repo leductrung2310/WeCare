@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 
 class LoginInputTextField extends StatelessWidget {
@@ -14,6 +14,7 @@ class LoginInputTextField extends StatelessWidget {
     required this.validator,
     required this.onFieldSubmitted,
     required this.inputType,
+    required this.controller,
   }) : super(key: key);
 
   final String hintText;
@@ -24,6 +25,7 @@ class LoginInputTextField extends StatelessWidget {
   final String? Function(String? value) validator;
   final Function(String? value) onFieldSubmitted;
   final TextInputType inputType;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class LoginInputTextField extends StatelessWidget {
         horizontal: sizeH * 5,
       ),
       child: TextFormField(
+        controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onFieldSubmitted: (value) => onFieldSubmitted(value),
         keyboardType: inputType,
@@ -54,10 +57,7 @@ class LoginInputTextField extends StatelessWidget {
           focusedBorder: inputFocusedBorderStyle,
           focusedErrorBorder: inputFocusedBorderStyle,
           errorBorder: inputErrorBorderStyle,
-          prefixIcon: Icon(
-            prefixIconData,
-            color: primaryColor
-          ),
+          prefixIcon: Icon(prefixIconData, color: primaryColor),
           suffixIcon: GestureDetector(
             onTap: () {
               if (hintText == "Password") {

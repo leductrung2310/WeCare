@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class SettingSwitchCard extends StatelessWidget {
   const SettingSwitchCard({
@@ -29,20 +29,27 @@ class SettingSwitchCard extends StatelessWidget {
     return Padding(
       padding:
           EdgeInsets.symmetric(vertical: sizeH * 2.8, horizontal: sizeH * 5),
-      child: Container(
+      child: SizedBox(
         width: sizeV * 56.22,
         height: sizeV * 6.4,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(sizeH * 3)),
-          color: Colors.white,
-        ),
-        child: InkWell(
-          onTap: () {},
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(sizeH * 3),
+              ),
+            ),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                EdgeInsets.symmetric(horizontal: sizeH * 2)),
+            backgroundColor: MaterialStateProperty.all<Color>(whiteColor),
+            elevation: MaterialStateProperty.all<double>(0.15),
+            //overlayColor: MaterialStateProperty.all<Color>(primaryColor),
+          ),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                    top: sizeH * 1.3, bottom: sizeH * 1.3, left: sizeV),
+                padding: EdgeInsets.only(top: sizeH * 1.3, bottom: sizeH * 1.3),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(sizeH * 10),
@@ -81,8 +88,7 @@ class SettingSwitchCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
-                    top: sizeH * 1.3, bottom: sizeH * 1.3, right: sizeV),
+                padding: EdgeInsets.only(top: sizeH * 1.3, bottom: sizeH * 1.3),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(sizeH * 2.75),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 
 class ChangePasswordInputPasswordTextField extends StatelessWidget {
@@ -32,9 +32,7 @@ class ChangePasswordInputPasswordTextField extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     return Padding(
-      padding: EdgeInsets.only(
-        top: sizeH / 2,
-      ),
+      padding: EdgeInsets.symmetric(vertical: sizeV / 2, horizontal: sizeH * 5),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onFieldSubmitted: (value) => onFieldSubmitted(value),

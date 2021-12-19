@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/exercise.dart';
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/workout.dart';
 
 class FemaleAbs extends StatelessWidget {
@@ -17,13 +16,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_begin",
-          srcImage: 'assets/images/exercises/banner/female_abs1.png',
+          tag: "female_abs_begin",
+          srcImage: 'assets/images/exercises/banner/female/female_abs1.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_begin",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmBeginner);
+                tag: "female_abs_begin",
+                banner: "assets/images/exercises/intro/female_abs_begin.png",
+                listExercise: listAbsFemaleBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -35,13 +34,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_intermediate",
-          srcImage: 'assets/images/exercises/banner/female_abs2.png',
+          tag: "female_abs_intern",
+          srcImage: 'assets/images/exercises/banner/female/female_abs2.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_intermediate",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmInter);
+                tag: "female_abs_intern",
+                banner: "assets/images/exercises/intro/female_abs_intern.png",
+                listExercise: listAbsFemaleInter);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -53,13 +52,13 @@ class FemaleAbs extends StatelessWidget {
           height: 6,
         ),
         BannerWorkouts(
-          tag: "arm_advanced",
-          srcImage: 'assets/images/exercises/banner/female_abs3.png',
+          tag: "female_abs_advanced",
+          srcImage: 'assets/images/exercises/banner/female/female_abs3.png',
           press: () {
             final args = ExerciseArguments(
-                tag: "arm_advanced",
-                banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmAdvanced);
+                tag: "female_abs_advanced",
+                banner: "assets/images/exercises/intro/female_abs_advanced.png",
+                listExercise: listAbsFemaleAdvanced);
             Navigator.pushNamed(
               context,
               Routes.introworkout,

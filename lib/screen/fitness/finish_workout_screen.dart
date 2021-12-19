@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/screen/fitness/widget/confetti_widget.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 
 import '../../routes.dart';
 
@@ -12,6 +15,10 @@ class FinishWorkout extends StatelessWidget {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
+
+    final workoutViewModel = Provider.of<WorkoutViewModel>(context);
+    final historyWorkoutViewModel =
+        Provider.of<HistoryWorkoutViewModel>(context, listen: false);
 
     return Scaffold(
       body: Column(
@@ -25,10 +32,12 @@ class FinishWorkout extends StatelessWidget {
             "You did it ",
             style: oTitle,
           ),
-          Image.asset(
-            "assets/images/exercises/finish_workout.png",
-            height: sizeV * 40,
-            fit: BoxFit.contain,
+          AllConfettiWidget(
+            child: Image.asset(
+              "assets/images/exercises/finish_workout.png",
+              height: sizeV * 40,
+              fit: BoxFit.contain,
+            ),
           ),
           SizedBox(
             height: sizeV * 5,
@@ -54,8 +63,8 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "10",
-                      style: oTitle,
+                      '${workoutViewModel.indexWorkout + 1}',
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Workouts",
@@ -69,8 +78,9 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "23",
-                      style: oTitle,
+                      workoutViewModel
+                          .formatWorkoutTime(workoutViewModel.countWorkoutTime),
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Minutes",
@@ -84,8 +94,9 @@ class FinishWorkout extends StatelessWidget {
                       height: sizeV,
                     ),
                     Text(
-                      "231.0",
-                      style: oTitle,
+                      (workoutViewModel.countWorkoutTime * 0.308)
+                          .toStringAsFixed(2),
+                      style: oWhiteTitle,
                     ),
                     Text(
                       "Kcal",
@@ -103,10 +114,34 @@ class FinishWorkout extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
                   Routes.main,
+                  ModalRoute.withName('/'),
                 );
+                historyWorkoutViewModel.plusTotal(
+                    workoutViewModel.indexWorkout + 1,
+                    workoutViewModel.countWorkoutTime,
+                    workoutViewModel.countWorkoutTime * 0.308);
+                historyWorkoutViewModel.plusTotalWeekly(
+                    context,
+                    workoutViewModel.indexWorkout + 1,
+                    workoutViewModel.countWorkoutTime,
+                    workoutViewModel.countWorkoutTime * 0.308);
+                historyWorkoutViewModel.pushTotalHistorytoFireStore();
+                historyWorkoutViewModel.pushHistoryToFireStore(context);
+                String subDocument =
+                    historyWorkoutViewModel.getSubDocument(context);
+                historyWorkoutViewModel.pushTotalWeeklyHistoryToFirestore(
+                    context, subDocument);
+                historyWorkoutViewModel.plusTotalDailyHistory(
+                    workoutViewModel.indexWorkout + 1,
+                    workoutViewModel.countWorkoutTime,
+                    workoutViewModel.countWorkoutTime * 0.308);
+                historyWorkoutViewModel
+                    .pushTotalDailyWorkoutsToFireStore(context);
+                Provider.of<WorkoutViewModel>(context, listen: false).reset();
+                historyWorkoutViewModel.pushWeekGoal(context);
               },
               child: Container(
                 height: sizeV * 6,

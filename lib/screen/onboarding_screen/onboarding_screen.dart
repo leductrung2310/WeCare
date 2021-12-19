@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/main.dart';
 import "package:wecare_flutter/model/onboard_data.dart";
 import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
-import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/custom_button.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_button.dart';
 import 'package:wecare_flutter/screen/onboarding_screen/widgets/nav_textbutton.dart';
@@ -112,7 +111,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   ? CustomTextBtn(
                       name: 'Get started',
                       onPressed: () {
-                        //Navigator.pushNamed(context, '/signup_screen');
                         Navigator.push(
                           context,
                           MaterialPageRoute(

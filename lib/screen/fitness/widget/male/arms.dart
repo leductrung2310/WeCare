@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/exercise.dart';
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:wecare_flutter/model/exercise/exercise.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/workout.dart';
@@ -18,7 +18,7 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_begin",
-          srcImage: 'assets/images/exercises/banner/arm_beginner.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_beginner.png',
           press: () {
             final args = ExerciseArguments(
               tag: "arm_begin",
@@ -37,12 +37,12 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_intermediate",
-          srcImage: 'assets/images/exercises/banner/arm_intermediate.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_intermediate.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "arm_intermediate",
                 banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmInter);
+                listExercise: listArmBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,
@@ -55,12 +55,12 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_advanced",
-          srcImage: 'assets/images/exercises/banner/arm_advanced.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_advanced.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "arm_advanced",
                 banner: "assets/images/exercises/intro/arm_begin.png",
-                listExercise: listArmAdvanced);
+                listExercise: listArmBeginner);
             Navigator.pushNamed(
               context,
               Routes.introworkout,

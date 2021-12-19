@@ -1,70 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_history.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_statistic.dart';
 import 'package:wecare_flutter/screen/home/bmi/widgets/bmi_information.dart';
+import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
 
-class BMIRatioScreen extends StatefulWidget {
-  const BMIRatioScreen({Key? key}) : super(key: key);
+class BMIRatioScreen extends StatelessWidget {
+  const BMIRatioScreen({ Key? key }) : super(key: key);
 
-  @override
-  _BMIRatioScreenState createState() => _BMIRatioScreenState();
-}
-
-class _BMIRatioScreenState extends State<BMIRatioScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: sizeV * 2),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new),
-                  ),
-                  Text(
-                    'BMI ratio',
-                    style: TextStyle(
-                        color: bmiColor,
-                        fontSize: sizeH * 6,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins'),
-                  ),
-                ],
-              ),
-              SizedBox(height: sizeV * 2),
-              const PersonalInformation(),
-              SizedBox(height: sizeV * 4),
-              const BMIStatistic(),
-              SizedBox(height: sizeV * 3),
-              Divider(
-                height: 2,
-                thickness: 1.5,
-                indent: sizeH * 10,
-                endIndent: sizeH * 10,
-                color: metalGreyColor,
-              ),
-              Text(
-                'History',
-                style: TextStyle(
-                    color: lightBlack,
-                    fontSize: sizeV * 4,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins'),
-              ),
-              const BMIHistorySection(),
-            ],
+        appBar: customAppBar(
+          context,
+          bmiColor,
+          'BMI Ratio',
+          const Text(''),
+        ),
+        body: ChangeNotifierProvider(
+          create: (context) => BMIHistoryViewModel(context),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const PersonalInformation(),
+                SizedBox(height: sizeV * 4),
+                const BMIStatistic(),
+                SizedBox(height: sizeV * 3),
+                const BMIHistorySection(),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 
 class BannerWorkouts extends StatelessWidget {
   final String srcImage;
@@ -18,7 +18,7 @@ class BannerWorkouts extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    return Container(
+    return SizedBox(
       height: sizeV * 17,
       child: Hero(
         tag: tag,

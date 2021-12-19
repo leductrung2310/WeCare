@@ -1,8 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecare_flutter/assets/custom_icons/custom_icon.dart';
-import 'package:wecare_flutter/constants.dart';
 import 'package:wecare_flutter/screen/home/home_screen.dart';
 import 'package:wecare_flutter/screen/profile/profile_screen.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/constants/constants.dart';
+import 'package:wecare_flutter/view_model/food/food_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
+import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'fitness/fitness_screen.dart';
 import 'food/food_screen.dart';
 
@@ -15,7 +23,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currenIndex = 0;
-
   final screens = const [
     HomeScreen(),
     FitnessScreen(),
@@ -24,9 +31,37 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
+  void initState() {
+    Provider.of<AuthenticService>(context, listen: false).getDataFromFirebase();
+    Provider.of<FoodViewModel>(context, listen: false).setListRecipes();
+    Provider.of<FoodViewModel>(context, listen: false).setListRecipesPopular();
+    Provider.of<NotificationService>(context, listen: false).initialize();
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+        .getTotalWorkoutFromFirebase();
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+        .getTotalWeeklyHistoryToFirestore(context, "");
+    Provider.of<FoodViewModel>(context, listen: false)
+        .getNutritionHistoryList(FirebaseAuth.instance.currentUser!.uid);
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+        .getWeekGoal(context);
+    Provider.of<BMIHistoryViewModel>(context, listen: false)
+        .getDataFromFirestore();
+    Provider.of<HistoryWorkoutViewModel>(context, listen: false)
+        .getTotalDailyWorkoutsFromFireStore(context, "");
+    Provider.of<WaterViewModel>(context, listen: false).getDataFromFirestore();
+    Provider.of<WaterViewModel>(context, listen: false).getQuerySnapshot(0);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[currenIndex],
+      body: Provider.of<AuthenticService>(context).isLoginHome &&
+              Provider.of<HistoryWorkoutViewModel>(context).isLoadingWorkoutHome
+          ? screens[currenIndex]
+          : Center(
+              child: spinkit,
+            ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
             backgroundColor: whiteColor,

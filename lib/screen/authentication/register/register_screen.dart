@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_button.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_text_field.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -20,6 +21,8 @@ class RegisterScreen extends StatelessWidget {
     final passwordFocus = FocusNode();
     final confirmPasswordFocus = FocusNode();
     final registerViewModel = Provider.of<RegisterViewModel>(context);
+
+    final authService = Provider.of<AuthenticService>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -137,12 +140,24 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(
                           height: sizeH * 5,
                         ),
-                        RegisterButton(
-                          text: "Sign up",
-                          onTap: () {
-                            if (registerViewModel.onNextClick()) {}
-                          },
-                        ),
+                        // authService.isLoading
+                        //     ? const CircularProgressIndicator() :
+                        authService.isLoading
+                            ? const CircularProgressIndicator()
+                            : RegisterButton(
+                                text: "Sign up",
+                                onTap: () async {
+                                  if (registerViewModel.onNextClick()) {
+                                    authService.createUserWithEmailAndPassword(
+                                      context,
+                                      registerViewModel.emailController.text,
+                                      registerViewModel.passwordController.text,
+                                    );
+                                  }
+                                },
+                                textColor: Colors.white,
+                                color: primaryColor,
+                              ),
                         SizedBox(
                           height: sizeH * 3.63,
                         ),

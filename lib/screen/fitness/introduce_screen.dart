@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wecare_flutter/model/exercise.dart';
-import 'package:wecare_flutter/model/exercise_arguments.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
+import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
+import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 import '../../routes.dart';
 
 class IntroWorkouts extends StatelessWidget {
@@ -41,7 +43,7 @@ class IntroWorkouts extends StatelessWidget {
                   height: sizeV * 50,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: arguments.listExercise.length,
+                    itemCount: arguments.listExercise.length - 1,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -61,9 +63,13 @@ class IntroWorkouts extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    arguments.listExercise[index].name,
-                                    style: oBlackTitle,
+                                  SizedBox(
+                                    width: sizeH * 50,
+                                    child: Text(
+                                      arguments.listExercise[index].name,
+                                      style: oBlackTitle,
+                                      maxLines: 2,
+                                    ),
                                   ),
                                   Text(
                                     arguments.listExercise[index].reps,
@@ -86,7 +92,7 @@ class IntroWorkouts extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sizeV * 6,
+                height: sizeV * 9,
               ),
             ],
           ),
@@ -94,34 +100,22 @@ class IntroWorkouts extends StatelessWidget {
             bottom: sizeV * 4,
             right: sizeH * 10,
             left: sizeH * 10,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Routes.workouting,
-                  );
-                },
-                child: Container(
-                  height: sizeV * 6,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Let's Go",
-                      style: TextStyle(
-                        fontSize: sizeV * 2.8,
-                        fontFamily: "poppins",
-                        color: whiteColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            child: CustomBTN(
+              name: "Let's Go",
+              color: primaryColor,
+              textColor: whiteColor,
+              height: sizeV * 6,
+              fontSize: 24,
+              onPressed: () {
+                final arg = arguments.listExercise;
+                Navigator.pushNamed(
+                  context,
+                  Routes.workouting,
+                  arguments: arg,
+                );
+                Provider.of<WorkoutViewModel>(context, listen: false)
+                    .startTime();
+              },
             ),
           ),
           Positioned(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_button.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_input_infor_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/register/widget/register_sizebox.dart';
@@ -16,6 +16,8 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     //double sizeV = SizeConfig.blockSizeV!;
 
+    final registerViewModel = Provider.of<RegisterViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -25,7 +27,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: sizeH * 5, top: 0),
+                  padding: EdgeInsets.only(left: sizeH * 5, top: 8),
                   child: Text(
                     "Almost There\nLet's us know about you",
                     style: TextStyle(
@@ -37,6 +39,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                 ),
                 const RegisterSizebox(text: "Date of Birth"),
                 RegisterInputInfoTextField(
+                  controller: registerViewModel.dateOfBirthController,
                   hintText: "dd/mm/yyyy",
                   prefixIconData: Icons.date_range,
                   suffixIconData: Icons.clear,
@@ -45,6 +48,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                 ),
                 const RegisterSizebox(text: "Height (cm)"),
                 RegisterInputInfoTextField(
+                  controller: registerViewModel.heightController,
                   hintText: "Height",
                   prefixIconData: Icons.emoji_people,
                   suffixIconData: Icons.clear,
@@ -53,6 +57,7 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                 ),
                 const RegisterSizebox(text: "Weight (kg)"),
                 RegisterInputInfoTextField(
+                  controller: registerViewModel.weightController,
                   hintText: "Weight",
                   prefixIconData: Icons.emoji_people,
                   suffixIconData: Icons.clear,
@@ -110,10 +115,16 @@ class RegisterUpdateInfoScreen extends StatelessWidget {
                   height: sizeH * 2.75,
                 ),
                 Center(
-                  child: RegisterButton(
-                    text: "Let's go",
-                    onTap: (value) {},
-                  ),
+                  child: registerViewModel.isLoading == true
+                      ? const CircularProgressIndicator()
+                      : RegisterButton(
+                          text: "Let's go",
+                          onTap: () {
+                            registerViewModel.completeRegister(context);
+                          },
+                          textColor: Colors.white,
+                          color: primaryColor,
+                        ),
                 ),
               ],
             ),

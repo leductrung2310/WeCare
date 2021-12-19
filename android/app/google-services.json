@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "162191856283",
+    "project_id": "wecare-da049",
+    "storage_bucket": "wecare-da049.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162191856283:android:64ca37048e8e93edb42c3e",
+        "android_client_info": {
+          "package_name": "com.example.wecare_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162191856283-1cmm5p8jcf0c6keatc1efru4qpbjabo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wecare_flutter",
+            "certificate_hash": "19e0961050ebd7c47f06f07e183ce9ab56cf8a91"
+          }
+        },
+        {
+          "client_id": "162191856283-cbioptcv0jla9t5hjphgf8shclv01hhq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wecare_flutter",
+            "certificate_hash": "f85e6341b749ec12b7b3f52834f8332181527ef8"
+          }
+        },
+        {
+          "client_id": "162191856283-cn5f8ti8kfmfku84jef3aqk0ks5p8a2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wecare_flutter",
+            "certificate_hash": "9fc45d8a44927f2ffd35b8bb05bd7bf933155673"
+          }
+        },
+        {
+          "client_id": "162191856283-vgfmq6k60peoer88dbk4ed4u3j4kbfpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFRcAAuVlAa5wDeGKni3hM9p3GLSIZdm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162191856283-vgfmq6k60peoer88dbk4ed4u3j4kbfpf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

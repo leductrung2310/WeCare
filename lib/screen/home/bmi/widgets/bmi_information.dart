@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
 
-import '../../../../constants.dart';
+import '../../../../constants/constants.dart';
 
 class PersonalInformation extends StatelessWidget {
   const PersonalInformation({Key? key}) : super(key: key);
@@ -11,18 +13,32 @@ class PersonalInformation extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
+    final AuthenticService authenticService =
+        Provider.of<AuthenticService>(context);
+
+    String getInfoImageAsset(bool? boy) {
+      if (boy!) {
+        return 'assets/images/home/bmi/boy_standing.png';
+      } else if (boy == false) {
+        return 'assets/images/home/bmi/girl_standing.png';
+      } else {
+        return 'assets/images/home/bmi/boy_standing.png';
+      }
+    }
+
     return Column(
       children: [
+        SizedBox(height: sizeV),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
                 Text(
-                  '170',
+                  '${authenticService.loggedInUser.height}',
                   style: TextStyle(
                       color: bmiColor,
-                      fontSize: sizeH * 10,
+                      fontSize: sizeH * 8,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins'),
                 ),
@@ -30,16 +46,16 @@ class PersonalInformation extends StatelessWidget {
                   'Centimeters',
                   style: TextStyle(
                       color: lightBlack,
-                      fontSize: sizeH * 4.5,
+                      fontSize: sizeH * 4,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Poppins'),
                 ),
                 SizedBox(height: sizeV * 2),
                 Text(
-                  '65',
+                  '${authenticService.loggedInUser.weight}',
                   style: TextStyle(
                       color: bmiColor,
-                      fontSize: sizeH * 10,
+                      fontSize: sizeH * 8,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins'),
                 ),
@@ -47,16 +63,16 @@ class PersonalInformation extends StatelessWidget {
                   'Kilograms',
                   style: TextStyle(
                       color: lightBlack,
-                      fontSize: sizeH * 4.5,
+                      fontSize: sizeH * 4,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Poppins'),
                 ),
               ],
             ),
             Image.asset(
-              'assets/images/home/bmi/boy_standing.png',
-              height: sizeH * 70,
-              width: sizeV * 25,
+              getInfoImageAsset(authenticService.loggedInUser.gender ?? true),
+              height: sizeV * 30,
+              width: sizeH * 45,
             ),
           ],
         ),

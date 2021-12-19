@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
+import 'package:wecare_flutter/screen/fitness/widget/female/female_arm.dart';
+import 'package:wecare_flutter/screen/fitness/widget/female/female_butt.dart';
+import 'package:wecare_flutter/screen/fitness/widget/female/female_thigh.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
-import 'package:wecare_flutter/view_model/workout_tab_view_model.dart';
+import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 import '../workouts_tab.dart';
 
 class FemaleChoices extends StatelessWidget {
@@ -20,7 +23,7 @@ class FemaleChoices extends StatelessWidget {
       height: sizeV * 68,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             child: ListView.builder(
               itemCount: 1,
@@ -35,9 +38,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "ABS",
                         svgIcon: "assets/icons/abs_female.svg",
                         pageNumber: 0,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -54,9 +54,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Thigh",
                         svgIcon: "assets/icons/thigh_female.svg",
                         pageNumber: 1,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -73,9 +70,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Butt",
                         svgIcon: "assets/icons/butt_female.svg",
                         pageNumber: 2,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -92,9 +86,6 @@ class FemaleChoices extends StatelessWidget {
                         title: "Arm",
                         svgIcon: "assets/icons/arm_female.svg",
                         pageNumber: 3,
-                        selectedPage: Provider.of<WorkoutTabViewModel>(context,
-                                listen: false)
-                            .selectedPage,
                         onPressed: () {
                           Provider.of<WorkoutTabViewModel>(context,
                                   listen: false)
@@ -115,20 +106,19 @@ class FemaleChoices extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
-              onPageChanged: (int page) =>
-                  Provider.of<WorkoutTabViewModel>(context, listen: false)
-                      .selectedPage = page,
+              physics: const NeverScrollableScrollPhysics(),
               controller:
                   Provider.of<WorkoutTabViewModel>(context, listen: false)
                       .pageController,
               children: const [
                 FemaleAbs(),
-                ArmsWorkout(),
-                ArmsWorkout(),
-                ArmsWorkout(),
+                FemaleThigh(),
+                FemaleButt(),
+                FemaleArm(),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

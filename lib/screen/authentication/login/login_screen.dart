@@ -1,14 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecare_flutter/constants.dart';
+import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_button.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_input_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_password_text_field.dart';
 import 'package:wecare_flutter/screen/authentication/login/widget/login_with_button.dart';
+import 'package:wecare_flutter/services/authentic_service.dart';
+import 'package:wecare_flutter/services/google_service.dart';
+import 'package:wecare_flutter/view_model/register_view_model.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,6 +26,9 @@ class LoginScreen extends StatelessWidget {
 
     final passwordFocus = FocusNode();
     final loginViewModel = Provider.of<LoginViewModel>(context);
+    final authService = Provider.of<AuthenticService>(context);
+    final googleProvider =
+        Provider.of<GoogleSignInProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
@@ -62,6 +70,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             LoginInputTextField(
+                              controller: loginViewModel.emailController,
                               hintText: "Email",
                               prefixIconData: Icons.email,
                               suffixIconData: loginViewModel.isValid
@@ -80,6 +89,7 @@ class LoginScreen extends StatelessWidget {
                               },
                             ),
                             LoginInputPasswordTextField(
+                              controller: loginViewModel.passwordController,
                               hintText: "Password",
                               prefixIconData: Icons.lock,
                               suffixIconData: loginViewModel.isVisible
@@ -90,7 +100,9 @@ class LoginScreen extends StatelessWidget {
                               onChanged: (value) {},
                               validator: (value) {},
                               inputType: TextInputType.visiblePassword,
-                              onFieldSubmitted: (value) {},
+                              onFieldSubmitted: (value) {
+                                return;
+                              },
                               focusNode: passwordFocus,
                             ),
                             GestureDetector(
@@ -114,18 +126,19 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: sizeV * 2.5,
                         ),
-                        LoginButton(
-                          text: "Login ",
-                          onTap: () {
-                            Provider.of<LoginViewModel>(context, listen: false)
-                                .circular = !Provider.of<LoginViewModel>(
-                                    context,
-                                    listen: false)
-                                .circular;
-
-                            Navigator.pushNamed(context, Routes.main);
-                          },
-                        ),
+                        authService.isLoading
+                            ? const CircularProgressIndicator()
+                            : LoginButton(
+                                text: "Login ",
+                                onTap: () async {
+                                  authService.signInWithEmailAndPassword(
+                                      context,
+                                      loginViewModel.emailController.text,
+                                      loginViewModel.passwordController.text);
+                                },
+                                textColor: Colors.white,
+                                color: primaryColor,
+                              ),
                         SizedBox(
                           height: sizeV * 3.3,
                         ),
@@ -143,6 +156,9 @@ class LoginScreen extends StatelessWidget {
                               .center, //Center Row contents vertically,
                           children: <Widget>[
                             LoginWithButton(
+                              onPress: () {
+                                authService.signInWithFacebook(context);
+                              },
                               icon: FontAwesomeIcons.facebook,
                               size: sizeV * 9,
                             ),
@@ -150,6 +166,8 @@ class LoginScreen extends StatelessWidget {
                               width: sizeH * 14.6,
                             ),
                             LoginWithButton(
+                              onPress: () =>
+                                  googleProvider.logInWithGoogle(context),
                               icon: FontAwesomeIcons.google,
                               size: sizeV * 9,
                             ),
@@ -168,6 +186,9 @@ class LoginScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Navigator.pushNamed(context, Routes.register);
+                                Provider.of<RegisterViewModel>(context,
+                                        listen: false)
+                                    .reset();
                               },
                               child: Text(
                                 "SignUp",

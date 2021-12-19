@@ -1,11 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/workout_choices_female.dart';
-import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
 import 'package:wecare_flutter/screen/fitness/widget/week_goal.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/workout_choices.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
@@ -18,7 +15,6 @@ class FitnessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -26,10 +22,10 @@ class FitnessScreen extends StatelessWidget {
     final auth = Provider.of<AuthenticService>(context);
 
     String name = "Unknow User";
-    if (currentUser!.displayName != null) {
-      name = currentUser.displayName!;
-    } else if (auth.loggedInUser.name != null) {
+    if (auth.loggedInUser.name != null) {
       name = auth.loggedInUser.name!;
+    } else if (currentUser!.displayName != null) {
+      name = currentUser.displayName!;
     }
 
     return Scaffold(

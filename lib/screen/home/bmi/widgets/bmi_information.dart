@@ -70,7 +70,7 @@ class PersonalInformation extends StatelessWidget {
               ],
             ),
             Image.asset(
-              getInfoImageAsset(authenticService.loggedInUser.gender!),
+              getInfoImageAsset(authenticService.loggedInUser.gender ?? true),
               height: sizeV * 30,
               width: sizeH * 45,
             ),

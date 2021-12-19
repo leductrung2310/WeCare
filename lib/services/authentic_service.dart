@@ -106,7 +106,6 @@ class AuthenticService extends ChangeNotifier {
         builder: (context) => const MainScreen(),
       ),
     );
-    Provider.of<SleepViewModel>(context, listen: false).calculateRemindersLeft(context);
   }
 
   void signInWithEmailAndPassword(

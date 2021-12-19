@@ -10,7 +10,6 @@ import 'package:wecare_flutter/screen/authentication/login/home_view_mode.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 
 class AuthenticService extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -172,7 +171,7 @@ class AuthenticService extends ChangeNotifier {
   Future<void> signOut(BuildContext context) async {
     isLoading = false;
     loggedInUser = WeCareUser();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     prefs.remove('uid');
     await FirebaseAuth.instance.signOut();
     FacebookAuth.instance.logOut();
@@ -220,8 +219,10 @@ class AuthenticService extends ChangeNotifier {
   Future signInFirebase(AuthCredential credential, BuildContext context) async {
     try {
       await FirebaseAuth.instance.signInWithCredential(credential).then(
-            (uid) => {
+            (uid) async => {
               checkExistUser(uid.user?.uid, context),
+              prefs = await SharedPreferences.getInstance(),
+              prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null')
             },
           );
     } on FirebaseAuthException catch (e) {

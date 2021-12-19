@@ -186,6 +186,7 @@ class ProfileScreen extends StatelessWidget {
                   Provider.of<SleepViewModel>(context, listen: false).duration =
                       const Duration();
                   Provider.of<WaterViewModel>(context, listen: false).reset();
+                  Provider.of<SleepViewModel>(context, listen: false).resetSleepInfo();
                   if (authService.loginType == 1) {
                     await authService.signOut(context);
                   } else {

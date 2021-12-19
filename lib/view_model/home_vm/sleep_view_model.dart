@@ -218,5 +218,8 @@ class SleepViewModel extends ChangeNotifier {
 
   void resetSleepInfo() {
     duration = const Duration();
+    _isFirstSleepSuggestedClick = false;
+    _isSecondSleepSuggestedClick = false;
+    _isThirdSleepSuggestedClick = false;
   }
 }

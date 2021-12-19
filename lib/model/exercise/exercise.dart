@@ -275,6 +275,12 @@ List<Exercise> listAbsFemaleBeginner = [
     reps: "30s",
     restTime: 30,
   ),
+  Exercise(
+    name: "Abs Beginner",
+    gif: "",
+    reps: "",
+    restTime: 0,
+  ),
 ];
 
 List<Exercise> listAbsFemaleInter = [
@@ -386,6 +392,12 @@ List<Exercise> listAbsFemaleInter = [
     reps: "30s",
     restTime: 30,
   ),
+  Exercise(
+    name: "Abs Intermediate",
+    gif: "",
+    reps: "",
+    restTime: 0,
+  ),
 ];
 
 List<Exercise> listAbsFemaleAdvanced = [
@@ -431,10 +443,9 @@ List<Exercise> listAbsFemaleAdvanced = [
     reps: "x16",
     restTime: 25,
   ),
-  //right
   Exercise(
     name: "Side crunches right",
-    gif: "assets/images/exercises/gif_exercises/female/side_crunches_left.gif",
+    gif: "assets/images/exercises/gif_exercises/female/side_crunches_right.gif",
     reps: "x16",
     restTime: 25,
   ),
@@ -486,10 +497,9 @@ List<Exercise> listAbsFemaleAdvanced = [
     reps: "x14",
     restTime: 35,
   ),
-  //right
   Exercise(
     name: "Side crunches right",
-    gif: "assets/images/exercises/gif_exercises/female/side_crunches_left.gif",
+    gif: "assets/images/exercises/gif_exercises/female/side_crunches_right.gif",
     reps: "x14",
     restTime: 35,
   ),
@@ -522,5 +532,11 @@ List<Exercise> listAbsFemaleAdvanced = [
     gif: "assets/images/exercises/gif_exercises/female/glute_stretch.gif",
     reps: "30s",
     restTime: 30,
+  ),
+  Exercise(
+    name: "Abs Advanced",
+    gif: "",
+    reps: "",
+    restTime: 0,
   ),
 ];

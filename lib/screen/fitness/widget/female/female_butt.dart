@@ -4,8 +4,8 @@ import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/fitness/widget/workout.dart';
 
-class FemaleAbs extends StatelessWidget {
-  const FemaleAbs({Key? key}) : super(key: key);
+class FemaleButt extends StatelessWidget {
+  const FemaleButt({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class FemaleAbs extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "female_abs_begin",
-          srcImage: 'assets/images/exercises/banner/female/female_abs1.png',
+          srcImage: 'assets/images/exercises/banner/female/butt_beginer.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "female_abs_begin",
@@ -35,7 +35,8 @@ class FemaleAbs extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "female_abs_intern",
-          srcImage: 'assets/images/exercises/banner/female/female_abs2.png',
+          srcImage:
+              'assets/images/exercises/banner/female/butt_intermediate.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "female_abs_intern",
@@ -53,7 +54,7 @@ class FemaleAbs extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "female_abs_advanced",
-          srcImage: 'assets/images/exercises/banner/female/female_abs3.png',
+          srcImage: 'assets/images/exercises/banner/female/butt_advanced.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "female_abs_advanced",

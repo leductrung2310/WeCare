@@ -97,6 +97,8 @@ flutter:
     - assets/images/authentication/
     - assets/images/home/bmi/
     - assets/images/exercises/banner/
+    - assets/images/exercises/banner/female/
+    - assets/images/exercises/banner/male/
     - assets/images/exercises/intro/
     - assets/images/exercises/gif_exercises/
     - assets/images/exercises/gif_exercises/female/

@@ -72,8 +72,10 @@ class AuthenticService extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? uid = prefs.getString('uid');
+    print('$uid hello');
 
     if (uid == 'null') {
+      print("trung");
       await FirebaseFirestore.instance
           .collection("users")
           .doc(_firebaseAuth.currentUser?.uid)
@@ -132,8 +134,6 @@ class AuthenticService extends ChangeNotifier {
       }
       isLoading = false;
     }
-    Provider.of<SleepViewModel>(context, listen: false)
-        .calculateRemindersLeft(context);
   }
 
   String getMessageFromErrorCode(e) {

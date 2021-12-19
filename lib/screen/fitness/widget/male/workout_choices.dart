@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:svg_icon/svg_icon.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/fitness/widget/female/female_abs.dart';
 import 'package:wecare_flutter/screen/fitness/widget/male/arms.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
-import '../workouts_tab.dart';
 import '../workouts_tab.dart';
 
 class WorkoutChoice extends StatelessWidget {
@@ -14,7 +12,6 @@ class WorkoutChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     return SizedBox(

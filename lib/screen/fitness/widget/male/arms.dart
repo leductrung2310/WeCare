@@ -18,7 +18,7 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_begin",
-          srcImage: 'assets/images/exercises/banner/arm_beginner.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_beginner.png',
           press: () {
             final args = ExerciseArguments(
               tag: "arm_begin",
@@ -37,7 +37,7 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_intermediate",
-          srcImage: 'assets/images/exercises/banner/arm_intermediate.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_intermediate.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "arm_intermediate",
@@ -55,7 +55,7 @@ class ArmsWorkout extends StatelessWidget {
         ),
         BannerWorkouts(
           tag: "arm_advanced",
-          srcImage: 'assets/images/exercises/banner/arm_advanced.png',
+          srcImage: 'assets/images/exercises/banner/male/arm_advanced.png',
           press: () {
             final args = ExerciseArguments(
                 tag: "arm_advanced",

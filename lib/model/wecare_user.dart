@@ -37,7 +37,7 @@ class WeCareUser {
   //data from server
   factory WeCareUser.fromMap(map) {
     Timestamp timestamp = map['birthDay'];
-    DateTime? dateTime = timestamp.toDate();
+    DateTime? birthDay = timestamp.toDate();
 
     Timestamp sleepTimestamp = map['sleepTime'];
     DateTime sleepDateTime = sleepTimestamp.toDate();
@@ -49,7 +49,7 @@ class WeCareUser {
       uid: map['uid'],
       name: map['name'],
       age: map['age'],
-      birthDay: dateTime,
+      birthDay: birthDay,
       gender: map['gender'],
       height: checkDouble(map['height']),
       weight: checkDouble(map['weight']),

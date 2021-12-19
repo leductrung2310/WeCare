@@ -211,8 +211,12 @@ class SleepViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetSleepInfo() {
+  void closeCalculation() {
     _showBestSleepTime = false;
     _showBestWakeupTime = false;
+  }
+
+  void resetSleepInfo() {
+    duration = const Duration();
   }
 }

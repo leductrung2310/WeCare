@@ -258,12 +258,18 @@ class HistoryWorkoutViewModel extends ChangeNotifier {
         .doc(user?.uid)
         .get()
         .then((value) {
-      totalWorkoutsFromDB = TotalWorkouts.fromMap(value.data());
-    });
+          if(value.data() == null){
+            totalWorkouts = 0;
+            totalMinutes = 0;
+            totalKcal = 0.0;
+          } else {
+            totalWorkoutsFromDB = TotalWorkouts.fromMap(value.data());
 
-    totalWorkouts = totalWorkoutsFromDB.totalWorkouts;
-    totalMinutes = totalWorkoutsFromDB.totalMinutes;
-    totalKcal = totalWorkoutsFromDB.totalKcal;
+            totalWorkouts = totalWorkoutsFromDB.totalWorkouts;
+            totalMinutes = totalWorkoutsFromDB.totalMinutes;
+            totalKcal = totalWorkoutsFromDB.totalKcal;
+          }
+    });
   }
 
   reset() {

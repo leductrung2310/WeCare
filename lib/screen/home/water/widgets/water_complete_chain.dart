@@ -136,7 +136,6 @@ class WaterCompletedChain extends StatelessWidget {
                 height: sizeV * 10,
                 width: sizeH * 86,
                 child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                   itemCount: waterCompleteChainList.length,
                   scrollDirection: Axis.horizontal,

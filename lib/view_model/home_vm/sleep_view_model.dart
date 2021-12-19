@@ -184,7 +184,6 @@ class SleepViewModel extends ChangeNotifier {
     if (durationHours > 0) {
       if (sleepTime.minute - now.minute < 0) {
         durationMinutes = sleepTime.minute - now.minute;
-        //durationHours--;
       } else {
         durationMinutes = sleepTime.minute - now.minute;
       }
@@ -206,7 +205,7 @@ class SleepViewModel extends ChangeNotifier {
       (_) {
         const minusMinute = 1;
         final minutes = duration.inSeconds - minusMinute;
-        duration = Duration(seconds: minutes);
+        duration = Duration(minutes: minutes);
       },
     );
     notifyListeners();

@@ -15,7 +15,7 @@ class BestTimeToSleep extends StatelessWidget {
     double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
-    final sleepViewModel = Provider.of<SleepViewModel>(context, listen: false);
+    final sleepViewModel = Provider.of<SleepViewModel>(context);
 
     Widget firstBtn = CustomBTN(
       name:

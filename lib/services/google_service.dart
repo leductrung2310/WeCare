@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/main_screen.dart';
 import 'package:wecare_flutter/services/authentic_service.dart';
@@ -11,6 +12,8 @@ class GoogleSignInProvider extends ChangeNotifier {
   final googleSingIn = GoogleSignIn();
   late bool _isSigningIn;
   final authService = AuthenticService();
+  final _firebaseAuth = FirebaseAuth.instance;
+  late SharedPreferences prefs;
 
   GoogleSignInProvider() {
     _isSigningIn = false;
@@ -43,6 +46,9 @@ class GoogleSignInProvider extends ChangeNotifier {
         await signInFirebase(credential, context);
 
         isSigningIn = false;
+
+        prefs = await SharedPreferences.getInstance();
+        prefs.setString('uid', _firebaseAuth.currentUser?.uid ?? 'null');
         notifyListeners();
       }
     } catch (e) {
@@ -92,5 +98,6 @@ class GoogleSignInProvider extends ChangeNotifier {
   Future logOutGoogle(BuildContext context) async {
     await googleSingIn.disconnect();
     await FirebaseAuth.instance.signOut();
+    await prefs.remove('uid');
   }
 }

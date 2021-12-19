@@ -14,6 +14,7 @@ import 'package:wecare_flutter/services/google_service.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
+import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 
@@ -181,6 +182,7 @@ class ProfileScreen extends StatelessWidget {
                   Provider.of<BMIHistoryViewModel>(context, listen: false)
                       .resetInfo();
                   Provider.of<WaterViewModel>(context, listen: false).reset();
+                  Provider.of<SleepViewModel>(context, listen: false).resetSleepInfo();
                   if (authService.loginType == 1) {
                     await authService.signOut(context);
                   } else {

@@ -20,7 +20,7 @@ AppBar customAppBar(
             .getTotalWeeklyHistoryToFirestore(context, "");
         Provider.of<WaterViewModel>(context, listen: false).resetChart();
         Provider.of<SleepViewModel>(context, listen: false).calculateRemindersLeft(context);
-        Provider.of<SleepViewModel>(context, listen: false).resetSleepInfo();
+        Provider.of<SleepViewModel>(context, listen: false).closeCalculation();
       },
       icon: Icon(
         Icons.arrow_back_ios_new,

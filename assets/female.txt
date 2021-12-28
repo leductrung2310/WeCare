@@ -1,0 +1,85 @@
+women arm 
+- push up: 6
+- dip: 8
+- side plank: 15s each side
+- superman: 8
+- inchworm: 8
+- plank tap: 14
+- decline: 6
+
+women abs
+- jumping jack: 20
+- run: 30s
+- crunch: 8
+- reverse crunch: 6
+- standing side: 10, 5 each side
+- bicycle crunch: 6
+- inchworm: 6
+- back: 10
+- plank: 30s
+- crunch: 7
+- reverse crunch: 5
+- standing side: 8, 5 each side
+- bicycle crunch: 6
+- inchworm: 5
+- back: 10
+- plank: 20s
+- cobra: 30s
+
+women intern
+- jumping jack: 25
+- run: 30s
+- mountain climber: 14
+- reverse crunch: 16
+- leg raises: 14
+- heel touch: 18
+- bird dogs: 14
+- heel to the heavens: 10
+- plank: 30s
+- mountain climber: 12
+- reverse crunch: 14
+- leg raises: 12
+- heel touch: 16
+- bird dogs: 12
+- heel to the heavens: 10
+- plank: 30s
+- ab stretch: 30s
+
+women advanced
+- jumping jack: 30
+- run: 30s
+- spiderman plank: 26
+- bicycle crunch: 18
+- heel touch: 22
+- glute bridge: 20
+- side crunches left: 16
+- side crunches right: 16
+- heel to the heavens: 18
+- v ups: 16
+- plank: 30s
+- spiderman plank: 22
+- bicycle crunch: 16
+- heel touch: 18
+- glute bridge: 18
+- side crunches left: 14
+- side crunches right: 4
+- heel to the heavens: 16
+- v ups: 14
+- plank: 30s
+- ab stretch: 30s
+- glute stretch: 30s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

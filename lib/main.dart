@@ -51,9 +51,6 @@ import 'package:wecare_flutter/screen/authentication/login/verify_email_screen.d
 
 import 'package:wecare_flutter/screen/fitness/fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
-import 'package:wecare_flutter/screen/fitness/widget/male/abs.dart';
-import 'package:wecare_flutter/screen/fitness/widget/week_goal.dart';
-import 'package:wecare_flutter/screen/fitness/widget/male/workout_choices.dart';
 
 import 'package:wecare_flutter/screen/food/food_screen.dart';
 

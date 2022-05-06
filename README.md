@@ -1,16 +1,26 @@
-# wecare_flutter
+# Health Care Mobile Application
 
-A new Flutter project.
+## Introduce: 
 
-## Getting Started
+Project Name: WeCare
 
-This project is a starting point for a Flutter application.
+![alt](https://github.com/leductrung2310/WeCare/blob/main/assets/images/logos/logo.png?raw=true)
 
-A few resources to get you started if this is your first Flutter project:
+Team Member:
+  - Le Duc Trung - 19522422
+  - Ho Huu Thinh - 19522275
+  - Nguyen Duc Thanh Phat - 19521995
+ 
+## Description: 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Screen Flow: 
+![alt](https://github.com/leductrung2310/WeCare/blob/main/assets/screen_flow.png?raw=true)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Use cases:
+![alt](https://github.com/leductrung2310/WeCare/blob/main/assets/use_cases.png?raw=true)
+
+## Development enviroment:
+  - Operating system: Windows 10
+  - Database management system: Firebase
+  - Technology and framework: Flutter & Dart
+  - IDE: Visual Studio Code

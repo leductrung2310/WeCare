@@ -30,7 +30,6 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   void selectImageSource(ImageSource imageSource, context) async {
-
     final pickedImage = await _picker.pickImage(source: imageSource);
 
     if (pickedImage == null) {
@@ -56,8 +55,8 @@ class ProfileViewModel extends ChangeNotifier {
         updateUserAvatar(_image);
         setAvatar(_image, context);
       }
-    } on FirebaseException catch (e) {
-      print("h" + e.toString());
+    } on FirebaseException {
+      return null;
     }
   }
 
@@ -71,9 +70,8 @@ class ProfileViewModel extends ChangeNotifier {
           .child('Users/${FirebaseAuth.instance.currentUser!.uid}/')
           .child('avatar')
           .getDownloadURL();
-    } on FirebaseException catch (e) {
-      print("h" + e.toString());
-    }
+      // ignore: empty_catches
+    } on FirebaseException {}
     return url;
   }
 

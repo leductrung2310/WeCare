@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log.dart';
 import 'package:wecare_flutter/screen/food/widgets/food_nutrition_dia_log_no_result.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/food/food_view_model.dart';
 
 class SearchBarCustom extends StatelessWidget {
@@ -19,7 +18,6 @@ class SearchBarCustom extends StatelessWidget {
     double sizeV = SizeConfig.blockSizeV!;
 
     final foodViewModel = Provider.of<FoodViewModel>(context, listen: false);
-    final authentic = Provider.of<AuthenticService>(context, listen: false);
 
     settingEasyLoading();
 
@@ -149,7 +147,7 @@ class SearchBarCustom extends StatelessWidget {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return FoodNoResult();
+            return const FoodNoResult();
           });
     }
   }

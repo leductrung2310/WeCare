@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 
 class ProfileInfoTextField extends StatelessWidget {
-  ProfileInfoTextField({
+  const ProfileInfoTextField({
     Key? key,
     this.list,
     this.suffixIconData,
@@ -19,16 +19,16 @@ class ProfileInfoTextField extends StatelessWidget {
   }) : super(key: key);
 
   final List<TextInputFormatter>? list;
-  IconData? suffixIconData;
-  TextEditingController? textController;
-  VoidCallback? onTap;
-  int? maxlength;
-  VoidCallback? onChanged;
-  VoidCallback? onPressed;
+  final IconData? suffixIconData;
+  final TextEditingController? textController;
+  final VoidCallback? onTap;
+  final int? maxlength;
+  final VoidCallback? onChanged;
+  final VoidCallback? onPressed;
   final String? Function(String? value) validator;
   final String hintText;
   final TextInputType textInputType;
-  final bool readOnly; 
+  final bool readOnly;
   @override
   Widget build(BuildContext context) {
     return Form(

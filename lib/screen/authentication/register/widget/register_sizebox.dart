@@ -13,7 +13,6 @@ class RegisterSizebox extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
-    double sizeV = SizeConfig.blockSizeV!;
 
     return Column(
       children: <Widget>[

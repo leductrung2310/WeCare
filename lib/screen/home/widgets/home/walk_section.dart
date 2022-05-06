@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
-import 'package:wecare_flutter/screen/food/food_screen.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 

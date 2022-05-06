@@ -30,10 +30,8 @@ class ProfileInformationScreen extends StatelessWidget {
     //! Null check operator
     TimeOfDay currenSleepTime = TimeOfDay.fromDateTime(
         authenticService.loggedInUser.sleepTime ?? DateTime(2021, 1, 1, 10, 0));
-    print(currenSleepTime);
     TimeOfDay currenWakeupTime = TimeOfDay.fromDateTime(
         authenticService.loggedInUser.wakeupTime ?? DateTime(2021, 1, 1, 7, 0));
-    print(currenWakeupTime);
 
     DateTime? birthday = authenticService.loggedInUser.birthDay;
     String? dateOfBirth =

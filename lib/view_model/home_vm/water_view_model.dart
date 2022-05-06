@@ -190,6 +190,7 @@ class WaterViewModel extends ChangeNotifier {
         .then((value) {
       _waterData = WaterData.fromDocument(value);
       //todo: Catch errors
+      // ignore: invalid_return_type_for_catch_error
     }).catchError((e) => Fluttertoast.showToast(msg: "Let's start to drink"));
     notifyListeners();
   }

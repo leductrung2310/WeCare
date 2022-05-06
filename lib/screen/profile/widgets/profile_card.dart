@@ -69,13 +69,11 @@ class ProfileCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Container(
-                child: Center(
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: sizeH * 5.5,
-                    color: Colors.black,
-                  ),
+              Center(
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  size: sizeH * 5.5,
+                  color: Colors.black,
                 ),
               )
             ],

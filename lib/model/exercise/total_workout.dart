@@ -1,5 +1,3 @@
-import 'package:wecare_flutter/screen/fitness/widget/total_history.dart';
-
 class TotalWorkouts {
   int? totalWorkouts;
   int? totalMinutes;

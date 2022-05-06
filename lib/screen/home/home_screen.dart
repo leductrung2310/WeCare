@@ -24,13 +24,8 @@ class HomeScreen extends StatelessWidget {
 
     final auth = Provider.of<AuthenticService>(context);
 
-    String photoUrl =
-        "https://firebasestorage.googleapis.com/v0/b/wecare-da049.appspot.com/o/default_avatar.png?alt=media&token=2c3cb547-e2d2-4e14-a6da-ee15b04ccb6e";
     if (auth.loggedInUser.avatarUrl != null) {
-      photoUrl = auth.loggedInUser.avatarUrl!;
-    } else if (currentUser!.photoURL != null) {
-      photoUrl = currentUser.photoURL!;
-    }
+    } else if (currentUser!.photoURL != null) {}
 
     String name = "Unknow User";
     if (auth.loggedInUser.name != null) {
@@ -38,7 +33,7 @@ class HomeScreen extends StatelessWidget {
     } else if (currentUser!.displayName != null) {
       name = currentUser.displayName!;
     }
-    
+
     Provider.of<EditProfileViewModel>(context).getInformationFromFirestore();
 
     return SafeArea(

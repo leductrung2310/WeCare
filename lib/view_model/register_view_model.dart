@@ -3,14 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecare_flutter/constants/firestore_constants.dart';
 import 'package:wecare_flutter/model/statistic_data/bmi_ratio_data.dart';
 import 'package:wecare_flutter/model/wecare_user.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/main_screen.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   var nameController = TextEditingController();

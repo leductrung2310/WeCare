@@ -93,7 +93,7 @@ class WaterCompletedChain extends StatelessWidget {
             dayOfWeek: 'Sun'),
       ]);
     } catch (e) {
-      print(e.toString());
+      return const SizedBox();
     }
 
     return Container(

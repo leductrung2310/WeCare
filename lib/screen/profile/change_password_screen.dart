@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/constants/custom_dia_log.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/authentication/login/widget/login_button.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/appbar.dart';
 import 'package:wecare_flutter/screen/profile/widgets/button.dart';
 import 'package:wecare_flutter/screen/profile/widgets/change_password_text_field_password.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -17,7 +14,6 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
     double sizeV = SizeConfig.blockSizeV!;
 
     final oldPasswordFocus = FocusNode();
@@ -26,11 +22,10 @@ class ChangePasswordScreen extends StatelessWidget {
     final changePasswordViewModel =
         Provider.of<ChangePasswordViewModel>(context);
 
-    final AuthenticService authenticService =
-        Provider.of<AuthenticService>(context, listen: false);
     return SafeArea(
       child: Scaffold(
-        appBar: customAppBar(context, Colors.black, '', SizedBox.shrink()),
+        appBar:
+            customAppBar(context, Colors.black, '', const SizedBox.shrink()),
         body: SingleChildScrollView(
           child: Column(
             children: [

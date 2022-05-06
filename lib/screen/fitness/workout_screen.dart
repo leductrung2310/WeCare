@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/fitness/widget/custom_btn.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
-import 'package:wecare_flutter/view_model/exercise/history_workout_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import '../../constants/constants.dart';

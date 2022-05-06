@@ -4,7 +4,7 @@ import 'package:svg_icon/svg_icon.dart';
 import '../../../../constants/constants.dart';
 
 class HomeItem extends StatelessWidget {
-  HomeItem({
+  const HomeItem({
     Key? key,
     required this.color,
     required this.name,

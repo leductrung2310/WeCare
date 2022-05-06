@@ -120,5 +120,3 @@ class FoodNoResult extends StatelessWidget {
     );
   }
 }
-
-final text = TextStyle(fontSize: 20, fontWeight: FontWeight.w600);

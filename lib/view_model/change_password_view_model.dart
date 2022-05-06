@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 
 class ChangePasswordViewModel extends ChangeNotifier {
   var oldPasswordController = TextEditingController();

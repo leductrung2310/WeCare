@@ -28,8 +28,6 @@ class FitnessScreen extends StatelessWidget {
       name = currentUser.displayName!;
     }
 
-    print(auth.loggedInUser.gender);
-
     return Scaffold(
       backgroundColor: grey1,
       body: SingleChildScrollView(

@@ -5,7 +5,6 @@ import 'package:wecare_flutter/routes.dart';
 import 'package:wecare_flutter/screen/home/widgets/home/home_item.dart';
 import 'package:wecare_flutter/screen/home/widgets/tools/circle_progress.dart';
 import 'package:wecare_flutter/view_model/home_vm/bmi_view_model.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/water_view_model.dart';
 
 import '../../../../constants/constants.dart';

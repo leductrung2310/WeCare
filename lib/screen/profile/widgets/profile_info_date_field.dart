@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class ProfileInfoDateField extends StatelessWidget {
@@ -7,6 +5,6 @@ class ProfileInfoDateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("");
+    return const Text("");
   }
 }

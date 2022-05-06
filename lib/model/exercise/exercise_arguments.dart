@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 
 class ExerciseArguments {

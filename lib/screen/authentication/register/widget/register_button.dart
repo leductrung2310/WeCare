@@ -33,16 +33,14 @@ class RegisterButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(color),
         ),
         child: Center(
-          child: false
-              ? const CircularProgressIndicator(color: whiteColor)
-              : Text(
-                  text,
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontSize: sizeV * 2.5,
-                    fontFamily: "Poppins",
-                  ),
-                ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: whiteColor,
+              fontSize: sizeV * 2.5,
+              fontFamily: "Poppins",
+            ),
+          ),
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wecare_flutter/model/exercise/exercise.dart';
 import 'package:wecare_flutter/model/exercise/exercise_arguments.dart';
 import 'package:wecare_flutter/routes.dart';
-import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
 import 'package:wecare_flutter/screen/fitness/widget/workout.dart';
 
 class ArmsWorkout extends StatelessWidget {

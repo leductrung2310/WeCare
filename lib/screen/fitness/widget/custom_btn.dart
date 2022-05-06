@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wecare_flutter/constants/constants.dart';
 
 class CustomBTN extends StatelessWidget {
-  CustomBTN({
+  const CustomBTN({
     Key? key,
     required this.name,
     required this.onPressed,
@@ -18,19 +18,18 @@ class CustomBTN extends StatelessWidget {
   }) : super(key: key);
   final String name;
   final VoidCallback onPressed;
-  Color? color;
-  Color? textColor;
-  double? height;
-  double? width;
-  double? fontSize;
-  FontWeight? fontWeight;
-  double? radius;
-  double? widthBorder;
-  Color? colorBorder;
+  final Color? color;
+  final Color? textColor;
+  final double? height;
+  final double? width;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final double? radius;
+  final double? widthBorder;
+  final Color? colorBorder;
 
   @override
   Widget build(BuildContext context) {
-
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
     return SizedBox(

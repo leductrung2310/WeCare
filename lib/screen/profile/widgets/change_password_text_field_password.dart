@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wecare_flutter/constants/constants.dart';
-import 'package:wecare_flutter/view_model/change_password_view_model.dart';
 
 class ChangePasswordInputPasswordTextField extends StatelessWidget {
   const ChangePasswordInputPasswordTextField({

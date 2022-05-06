@@ -1,4 +1,4 @@
-import 'package:wecare_flutter/model/food/extendedIngredients.dart';
+import 'package:wecare_flutter/model/food/extended_ingredients.dart';
 
 class Recipes {
   late bool vegetarian;

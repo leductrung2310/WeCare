@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:wecare_flutter/model/exercise/history_workouts_day.dart';
 import 'package:wecare_flutter/model/exercise/total_weekly_history.dart';
 import 'package:wecare_flutter/model/exercise/total_workout.dart';
-import 'package:wecare_flutter/services/authentic_service.dart';
 import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 import 'package:wecare_flutter/view_model/home_vm/weekly_calendar_viewmodel.dart';
 

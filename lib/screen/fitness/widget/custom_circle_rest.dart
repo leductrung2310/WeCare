@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wecare_flutter/view_model/exercise/exercise_view_model.dart';
 
 import '../../../constants/constants.dart';
 
@@ -8,13 +6,10 @@ class RestCircle extends StatelessWidget {
   final int time;
   const RestCircle({Key? key, required this.time}) : super(key: key);
 
-  static const TWO_PI = 3.14 * 2;
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double sizeH = SizeConfig.blockSizeH!;
-    double sizeV = SizeConfig.blockSizeV!;
 
     final size = sizeH * 55;
     return Center(
@@ -38,7 +33,7 @@ class RestCircle extends StatelessWidget {
                   shaderCallback: (rect) {
                     return SweepGradient(
                       startAngle: 0.0,
-                      endAngle: TWO_PI,
+                      endAngle: 3.14 * 2,
                       center: Alignment.center,
                       stops: [value, value],
                       colors: const [

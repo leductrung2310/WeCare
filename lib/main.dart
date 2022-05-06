@@ -37,7 +37,6 @@ import 'package:wecare_flutter/view_model/notification_view_nodel.dart';
 import 'package:wecare_flutter/view_model/proflie_view_model.dart';
 import 'package:wecare_flutter/view_model/register_view_model.dart';
 import 'package:wecare_flutter/view_model/setting_view_model.dart';
-import 'package:wecare_flutter/view_model/home_vm/sleep_view_model.dart';
 import 'package:wecare_flutter/view_model/exercise/workout_tab_view_model.dart';
 
 import 'package:wecare_flutter/screen/main_screen.dart';
@@ -47,7 +46,6 @@ import 'package:wecare_flutter/screen/authentication/login/login_screen.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_screen.dart';
 import 'package:wecare_flutter/screen/authentication/register/register_update_infor_screen.dart';
 import 'package:wecare_flutter/screen/authentication/login/forget_password_screen.dart';
-import 'package:wecare_flutter/screen/authentication/login/verify_email_screen.dart';
 
 import 'package:wecare_flutter/screen/fitness/fitness_screen.dart';
 import 'package:wecare_flutter/screen/fitness/introduce_screen.dart';
@@ -209,6 +207,7 @@ class WeCare extends StatelessWidget {
       default:
         null;
     }
+    return null;
   }
 
   MaterialPageRoute buildRoute(Widget child,

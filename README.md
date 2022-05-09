@@ -24,3 +24,5 @@ Use cases:
   - Database management system: Firebase
   - Technology and framework: Flutter & Dart
   - IDE: Visual Studio Code
+
+## Demo video: https://www.youtube.com/watch?v=j3cruplr7yM
